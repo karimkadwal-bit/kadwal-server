@@ -1,37 +1,40 @@
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require('express');
+const { MongoClient } = require('mongodb');
 
 const app = express();
 app.use(express.json());
 
-// MongoDB connect
-mongoose.connect("mongodb+srv://karim:ZdgHjYsrs0COMMp7@cluster0.70ffkmb.mongodb.net/")
-.then(() => console.log("MongoDB Connected ✅"))
-.catch(err => console.log(err));
+const uri = "mongodb+srv://karim:ZdgHjYsrs0COMMp7@cluster0.70ffkmb.mongodb.net/?retryWrites=true&w=majority";
 
-// Model
-const Product = mongoose.model("Product", {
-  name: String,
-  price: Number
+const client = new MongoClient(uri);
+
+let db;
+
+async function connectDB() {
+  try {
+    await client.connect();
+    db = client.db("kadwalDB");
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+connectDB();
+
+// GET products (له database)
+app.get('/products', async (req, res) => {
+  const data = await db.collection("products").find().toArray();
+  res.json(data);
 });
 
-// routes
-app.get("/", (req, res) => {
-  res.send("Kadwal Marketplace Server 🚀");
+// POST product (database ته save)
+app.post('/products', async (req, res) => {
+  const newProduct = req.body;
+  await db.collection("products").insertOne(newProduct);
+  res.json({ message: "Product added" });
 });
 
-app.get("/products", async (req, res) => {
-  const products = await Product.find();
-  res.json(products);
-});
-
-app.post("/products", async (req, res) => {
-  const product = new Product(req.body);
-  await product.save();
-  res.json({ message: "Saved to DB ✅", product });
-});
-
-// server
 const PORT = process.env.PORT || 4242;
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
