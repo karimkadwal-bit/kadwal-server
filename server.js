@@ -1,5 +1,5 @@
 const express = require('express');
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 const app = express();
 app.use(express.json());
@@ -22,18 +22,32 @@ async function connectDB() {
 
 connectDB();
 
+// GET products
 app.get('/products', async (req, res) => {
   const data = await db.collection("products").find().toArray();
   res.json(data);
 });
 
+// POST product
 app.post('/products', async (req, res) => {
   const newProduct = req.body;
   await db.collection("products").insertOne(newProduct);
   res.json({ message: "Product added" });
 });
 
+// DELETE product
+app.delete('/products/:id', async (req, res) => {
+  const id = req.params.id;
+
+  await db.collection("products").deleteOne({
+    _id: new ObjectId(id)
+  });
+
+  res.json({ message: "Product deleted" });
+});
+
 const PORT = process.env.PORT || 4242;
+
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
