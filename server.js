@@ -22,16 +22,18 @@ async function connectDB() {
 
 connectDB();
 
-// GET products
+// GET all products
 app.get('/products', async (req, res) => {
   const data = await db.collection("products").find().toArray();
   res.json(data);
 });
 
-// POST product
+// POST new product
 app.post('/products', async (req, res) => {
   const newProduct = req.body;
+
   await db.collection("products").insertOne(newProduct);
+
   res.json({ message: "Product added" });
 });
 
@@ -44,6 +46,19 @@ app.delete('/products/:id', async (req, res) => {
   });
 
   res.json({ message: "Product deleted" });
+});
+
+// UPDATE product
+app.put('/products/:id', async (req, res) => {
+  const id = req.params.id;
+  const updatedData = req.body;
+
+  await db.collection("products").updateOne(
+    { _id: new ObjectId(id) },
+    { $set: updatedData }
+  );
+
+  res.json({ message: "Product updated" });
 });
 
 const PORT = process.env.PORT || 4242;
