@@ -9,9 +9,39 @@
 
   <h1>Kadwal Marketplace 🚀</h1>
 
-  <p>Welcome to the global marketplace</p>
+  <p>Global Marketplace</p>
 
-  <button>Shop Now</button>
+  <div id="products"></div>
+
+  <script>
+
+    const API = "https://kadwal-server.onrender.com/products";
+
+    async function fetchProducts() {
+
+      const res = await fetch(API);
+
+      const data = await res.json();
+
+      let output = "";
+
+      data.forEach(product => {
+
+        output += `
+          <div style="margin-top:20px;">
+            <h2>${product.name}</h2>
+            <p>$${product.price}</p>
+          </div>
+        `;
+
+      });
+
+      document.getElementById("products").innerHTML = output;
+    }
+
+    fetchProducts();
+
+  </script>
 
 </body>
 </html>
