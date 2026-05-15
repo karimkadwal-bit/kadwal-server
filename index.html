@@ -1,41 +1,29 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>Kadwal Marketplace</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-
 <body>
 
 <h1>Kadwal Marketplace</h1>
 
-<p>Global marketplace</p>
+<button onclick="loadData()">
+Load Products
+</button>
 
 <div id="products"></div>
 
 <script>
 
+function loadData() {
+
 fetch("https://kadwal-server.onrender.com/products")
-.then(response => response.json())
+.then(res => res.json())
 .then(data => {
 
-  let html = "";
-
-  data.forEach(product => {
-
-    html += `
-      <div>
-        <h2>${product.name}</h2>
-        <p>$${product.price}</p>
-      </div>
-    `;
-
-  });
-
-  document.getElementById("products").innerHTML = html;
+document.getElementById("products").innerHTML =
+JSON.stringify(data);
 
 });
+
+}
 
 </script>
 
