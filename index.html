@@ -7,41 +7,41 @@
 
 <body>
 
-  <h1>Kadwal Marketplace 🚀</h1>
+<h1>Kadwal Marketplace 🚀</h1>
 
-  <p>Global Marketplace</p>
+<p>Global marketplace</p>
 
-  <div id="products"></div>
+<div id="products"></div>
 
-  <script>
+<script>
 
-    const API = "https://kadwal-server.onrender.com/products";
+const API = "https://kadwal-server.onrender.com/products";
 
-    async function fetchProducts() {
+async function fetchProducts() {
 
-      const res = await fetch(API);
+  const res = await fetch(API);
 
-      const data = await res.json();
+  const data = await res.json();
 
-      let output = "";
+  let output = "";
 
-      data.forEach(product => {
+  data.forEach(product => {
 
-        output += `
-          <div style="margin-top:20px;">
-            <h2>${product.name}</h2>
-            <p>$${product.price}</p>
-          </div>
-        `;
+    output += `
+      <div style="margin-top:20px;">
+        <h2>${product.name}</h2>
+        <p>$${product.price}</p>
+      </div>
+    `;
 
-      });
+  });
 
-      document.getElementById("products").innerHTML = output;
-    }
+  document.getElementById("products").innerHTML = output;
+}
 
-    fetchProducts();
+fetchProducts();
 
-  </script>
+</script>
 
 </body>
 </html>
