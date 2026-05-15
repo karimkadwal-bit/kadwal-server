@@ -15,31 +15,31 @@
 
 <script>
 
-const API = "https://kadwal-server.onrender.com/products";
+async function loadProducts() {
 
-async function fetchProducts() {
+  const response = await fetch(
+    "https://kadwal-server.onrender.com/products"
+  );
 
-  const res = await fetch(API);
+  const products = await response.json();
 
-  const data = await res.json();
+  let html = "";
 
-  let output = "";
+  products.forEach((item) => {
 
-  data.forEach(product => {
-
-    output += `
-      <div style="margin-top:20px;">
-        <h2>${product.name}</h2>
-        <p>$${product.price}</p>
+    html += `
+      <div>
+        <h2>${item.name}</h2>
+        <p>$${item.price}</p>
       </div>
     `;
 
   });
 
-  document.getElementById("products").innerHTML = output;
+  document.getElementById("products").innerHTML = html;
 }
 
-fetchProducts();
+loadProducts();
 
 </script>
 
