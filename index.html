@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <body>
 
 <h1>Kadwal Marketplace</h1>
 
-<button onclick="loadData()">
-Load Products
+<button onclick="testAPI()">
+Show Products
 </button>
 
-<div id="products"></div>
+<pre id="output"></pre>
 
 <script>
 
-function loadData() {
+function testAPI() {
 
 fetch("https://kadwal-server.onrender.com/products")
-.then(res => res.json())
+
+.then(response => response.json())
+
 .then(data => {
 
-document.getElementById("products").innerHTML =
-JSON.stringify(data);
+document.getElementById("output").innerText =
+JSON.stringify(data, null, 2);
+
+})
+
+.catch(error => {
+
+document.getElementById("output").innerText =
+error;
 
 });
 
@@ -29,4 +39,3 @@ JSON.stringify(data);
 
 </body>
 </html>
-
