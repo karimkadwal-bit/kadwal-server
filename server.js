@@ -1,68 +1,71 @@
 const express = require('express');
+const cors = require('cors');
 const { MongoClient, ObjectId } = require('mongodb');
 
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
-const uri = "mongodb+srv://karim:ZdgHjYsrs0COMMp7@cluster0.70ffkmb.mongodb.net/?retryWrites=true&w=majority";
+const uri = "YOUR_MONGODB_URI";
 
 const client = new MongoClient(uri);
 
 let db;
 
 async function connectDB() {
-  try {
-    await client.connect();
-    db = client.db("kadwalDB");
-    console.log("MongoDB connected");
-  } catch (err) {
-    console.error(err);
-  }
+
+  await client.connect();
+
+  db = client.db("kadwalDB");
+
+  console.log("MongoDB Connected");
+
 }
 
 connectDB();
 
-// GET all products
 app.get('/products', async (req, res) => {
-  const data = await db.collection("products").find().toArray();
-  res.json(data);
+
+  const products = await db
+    .collection("products")
+    .find({})
+    .toArray();
+
+  res.json(products);
+
 });
 
-// POST new product
 app.post('/products', async (req, res) => {
-  const newProduct = req.body;
 
-  await db.collection("products").insertOne(newProduct);
+  const product = req.body;
 
-  res.json({ message: "Product added" });
+  await db
+    .collection("products")
+    .insertOne(product);
+
+  res.json({
+    message: "Product added"
+  });
+
 });
 
-// DELETE product
 app.delete('/products/:id', async (req, res) => {
+
   const id = req.params.id;
 
   await db.collection("products").deleteOne({
     _id: new ObjectId(id)
   });
 
-  res.json({ message: "Product deleted" });
+  res.json({
+    message: "Product deleted"
+  });
+
 });
 
-// UPDATE product
-app.put('/products/:id', async (req, res) => {
-  const id = req.params.id;
-  const updatedData = req.body;
+app.listen(3000, () => {
 
-  await db.collection("products").updateOne(
-    { _id: new ObjectId(id) },
-    { $set: updatedData }
-  );
+  console.log("Server running on port 3000");
 
-  res.json({ message: "Product updated" });
-});
-
-const PORT = process.env.PORT || 4242;
-
-app.listen(PORT, () => {
-  console.log("Server running on port " + PORT);
 });
