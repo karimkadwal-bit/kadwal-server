@@ -17,6 +17,7 @@ padding:20px;
 input{
 padding:10px;
 margin:5px;
+width:250px;
 }
 
 button{
@@ -31,6 +32,11 @@ cursor:pointer;
 border:1px solid white;
 padding:10px;
 margin-top:10px;
+}
+
+.product img{
+margin-top:10px;
+border-radius:10px;
 }
 
 </style>
@@ -48,6 +54,8 @@ margin-top:10px;
 <input id="name" placeholder="Product Name">
 
 <input id="price" placeholder="Price">
+
+<input id="image" placeholder="Image URL">
 
 <button onclick="addProduct()">
 Add Product
@@ -73,6 +81,8 @@ html += `
 
 <div class="product">
 
+<img src="${product.image}" width="200">
+
 <h2>${product.name}</h2>
 
 <p>Price: $${product.price}</p>
@@ -97,6 +107,9 @@ document.getElementById("name").value;
 const price =
 document.getElementById("price").value;
 
+const image =
+document.getElementById("image").value;
+
 fetch("https://kadwal-server.onrender.com/products", {
 
 method: "POST",
@@ -107,7 +120,8 @@ headers: {
 
 body: JSON.stringify({
 name,
-price
+price,
+image
 })
 
 })
