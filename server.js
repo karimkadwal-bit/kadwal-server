@@ -1,38 +1,48 @@
 const express = require('express');
 const cors = require('cors');
+const { MongoClient, ObjectId } = require('mongodb');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-let products = [
+const uri = "mongodb+srv://karim:Karimkadwal122@cluster0.70ffkmb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-  {
-    name: "iPhone",
-    price: 999,
-    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
-  },
+const client = new MongoClient(uri);
 
-  {
-    name: "Car",
-    price: 100000,
-    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7"
-  }
+let db;
 
-];
+async function connectDB() {
 
-app.get('/products', (req, res) => {
+  await client.connect();
+
+  db = client.db("kadwalDB");
+
+  console.log("MongoDB Connected");
+
+}
+
+connectDB();
+
+app.get('/products', async (req, res) => {
+
+  const products = await db
+    .collection("products")
+    .find({})
+    .toArray();
 
   res.json(products);
 
 });
 
-app.post('/products', (req, res) => {
+app.post('/products', async (req, res) => {
 
   const product = req.body;
 
-  products.push(product);
+  await db
+    .collection("products")
+    .insertOne(product);
 
   res.json({
     message: "Product added"
@@ -40,11 +50,13 @@ app.post('/products', (req, res) => {
 
 });
 
-app.delete('/products/:index', (req, res) => {
+app.delete('/products/:id', async (req, res) => {
 
-  const index = req.params.index;
+  const id = req.params.id;
 
-  products.splice(index, 1);
+  await db.collection("products").deleteOne({
+    _id: new ObjectId(id)
+  });
 
   res.json({
     message: "Product deleted"
