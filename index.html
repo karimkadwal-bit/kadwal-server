@@ -26,6 +26,7 @@ background:purple;
 color:white;
 border:none;
 cursor:pointer;
+margin-top:5px;
 }
 
 .product{
@@ -75,7 +76,7 @@ fetch("https://kadwal-server.onrender.com/products")
 
 let html = "";
 
-data.forEach(product => {
+data.forEach((product, index) => {
 
 html += `
 
@@ -86,6 +87,10 @@ html += `
 <h2>${product.name}</h2>
 
 <p>Price: $${product.price}</p>
+
+<button onclick="deleteProduct(${index})">
+Delete
+</button>
 
 </div>
 
@@ -131,6 +136,29 @@ image
 .then(data => {
 
 alert("Product Added");
+
+location.reload();
+
+});
+
+}
+
+function deleteProduct(index) {
+
+fetch(
+"https://kadwal-server.onrender.com/products/" + index,
+
+{
+method: "DELETE"
+}
+
+)
+
+.then(response => response.json())
+
+.then(data => {
+
+alert("Product Deleted");
 
 location.reload();
 
