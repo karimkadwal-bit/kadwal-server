@@ -64,6 +64,47 @@ app.delete('/products/:id', async (req, res) => {
 
 });
 
+app.post('/signup', async (req, res) => {
+
+  const user = req.body;
+
+  await db
+    .collection("users")
+    .insertOne(user);
+
+  res.json({
+    message: "Signup Successful"
+  });
+
+});
+
+app.post('/login', async (req, res) => {
+
+  const { username, password } = req.body;
+
+  const user = await db
+    .collection("users")
+    .findOne({
+      username,
+      password
+    });
+
+  if(user){
+
+    res.json({
+      message: "Login Successful"
+    });
+
+  } else {
+
+    res.json({
+      message: "Invalid Credentials"
+    });
+
+  }
+
+});
+
 app.get('/', (req, res) => {
 
   res.send("Kadwal Marketplace Server Running");
