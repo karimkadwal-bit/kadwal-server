@@ -1,4 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Kadwal Marketplace</title>
+
+<style>
+
+body{
+background:black;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+
+input{
+padding:10px;
+margin:5px;
+width:250px;
+}
+
+button{
+padding:10px;
+background:purple;
+color:white;
+border:none;
+cursor:pointer;
+margin-top:5px;
+}
+
+.product{
+border:1px solid white;
+padding:10px;
+margin-top:10px;
+}
+
+.product img{
+margin-top:10px;
+border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Kadwal Marketplace</h1>
+
+<p>Global Marketplace</p>
+
+<h2>Signup</h2>
+
+<input id="signupUsername"
+placeholder="Username">
+
+<input id="signupPassword"
+placeholder="Password"
+type="password">
+
+<button onclick="signup()">
+Signup
+</button>
+
+<h2>Login</h2>
+
+<input id="loginUsername"
+placeholder="Username">
+
+<input id="loginPassword"
+placeholder="Password"
+type="password">
+
+<button onclick="login()">
+Login
+</button>
+
+<h2>Add Product</h2>
+
+<input id="name" placeholder="Product Name">
+
+<input id="price" placeholder="Price">
+
+<input id="image" placeholder="Image URL">
+
+<button onclick="addProduct()">
+Add Product
+</button>
+
+<div id="products"></div>
+
 <script>
+
+function loadProducts() {
+
+fetch("https://kadwal-server.onrender.com/products")
+
+.then(response => response.json())
+
+.then(data => {
+
+let html = "";
+
+data.forEach((product, index) => {
+
+html += `
+
+<div class="product">
+
+<img src="${product.image}" width="200">
+
+<h2>${product.name}</h2>
+
+<p>Price: $${product.price}</p>
+
+<button onclick="deleteProduct('${product._id}')">
+Delete
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("products").innerHTML = html;
+
+});
+
+}
+
+function addProduct() {
+
+const name =
+document.getElementById("name").value;
+
+const price =
+document.getElementById("price").value;
+
+const image =
+document.getElementById("image").value;
+
+fetch("https://kadwal-server.onrender.com/products", {
+
+method: "POST",
+
+headers: {
+"Content-Type": "application/json"
+},
+
+body: JSON.stringify({
+name,
+price,
+image
+})
+
+})
+
+.then(response => response.json())
+
+.then(data => {
+
+alert("Product Added");
+
+location.reload();
+
+});
+
+}
+
+function deleteProduct(id) {
+
+fetch(
+"https://kadwal-server.onrender.com/products/" + id,
+
+{
+method: "DELETE"
+}
+
+)
+
+.then(response => response.json())
+
+.then(data => {
+
+alert("Product Deleted");
+
+location.reload();
+
+});
+
+}
 
 function signup() {
 
@@ -10,6 +202,7 @@ document.getElementById("signupPassword").value;
 
 fetch(
 "https://kadwal-server.onrender.com/signup",
+
 {
 method: "POST",
 
@@ -23,6 +216,7 @@ password
 })
 
 }
+
 )
 
 .then(response => response.json())
@@ -30,12 +224,6 @@ password
 .then(data => {
 
 alert(data.message);
-
-})
-
-.catch(error => {
-
-alert("Signup Error");
 
 });
 
@@ -51,6 +239,7 @@ document.getElementById("loginPassword").value;
 
 fetch(
 "https://kadwal-server.onrender.com/login",
+
 {
 method: "POST",
 
@@ -64,6 +253,7 @@ password
 })
 
 }
+
 )
 
 .then(response => response.json())
@@ -72,14 +262,14 @@ password
 
 alert(data.message);
 
-})
-
-.catch(error => {
-
-alert("Login Error");
-
 });
 
 }
 
+loadProducts();
+
 </script>
+
+</body>
+
+</html>
