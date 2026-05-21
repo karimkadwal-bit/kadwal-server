@@ -50,6 +50,32 @@ border-radius:10px;
 
 <p>Global Marketplace</p>
 
+<h2>Signup</h2>
+
+<input id="signupUsername"
+placeholder="Username">
+
+<input id="signupPassword"
+placeholder="Password"
+type="password">
+
+<button onclick="signup()">
+Signup
+</button>
+
+<h2>Login</h2>
+
+<input id="loginUsername"
+placeholder="Username">
+
+<input id="loginPassword"
+placeholder="Password"
+type="password">
+
+<button onclick="login()">
+Login
+</button>
+
 <h2>Add Product</h2>
 
 <input id="name" placeholder="Product Name">
@@ -88,7 +114,7 @@ html += `
 
 <p>Price: $${product.price}</p>
 
-<button onclick="deleteProduct(${index})">
+<button onclick="deleteProduct('${product._id}')">
 Delete
 </button>
 
@@ -143,10 +169,10 @@ location.reload();
 
 }
 
-function deleteProduct(index) {
+function deleteProduct(id) {
 
 fetch(
-"https://kadwal-server.onrender.com/products/" + index,
+"https://kadwal-server.onrender.com/products/" + id,
 
 {
 method: "DELETE"
@@ -161,6 +187,80 @@ method: "DELETE"
 alert("Product Deleted");
 
 location.reload();
+
+});
+
+}
+
+function signup() {
+
+const username =
+document.getElementById("signupUsername").value;
+
+const password =
+document.getElementById("signupPassword").value;
+
+fetch(
+"https://kadwal-server.onrender.com/signup",
+
+{
+method: "POST",
+
+headers: {
+"Content-Type": "application/json"
+},
+
+body: JSON.stringify({
+username,
+password
+})
+
+}
+
+)
+
+.then(response => response.json())
+
+.then(data => {
+
+alert(data.message);
+
+});
+
+}
+
+function login() {
+
+const username =
+document.getElementById("loginUsername").value;
+
+const password =
+document.getElementById("loginPassword").value;
+
+fetch(
+"https://kadwal-server.onrender.com/login",
+
+{
+method: "POST",
+
+headers: {
+"Content-Type": "application/json"
+},
+
+body: JSON.stringify({
+username,
+password
+})
+
+}
+
+)
+
+.then(response => response.json())
+
+.then(data => {
+
+alert(data.message);
 
 });
 
