@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const uri = "mongodb+srv://karim:karimkadwal122@cluster0.70ffkmb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb+srv://karim:karim122@cluster0.70ffkmb.mongodb.net/kadwalDB?retryWrites=true&w=majority&appName=Cluster0";
 
 const client = new MongoClient(uri);
 
@@ -15,15 +15,29 @@ let db;
 
 async function connectDB() {
 
-  await client.connect();
+  try {
 
-  db = client.db("kadwalDB");
+    await client.connect();
 
-  console.log("MongoDB Connected");
+    db = client.db("kadwalDB");
+
+    console.log("MongoDB Connected");
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
 
 }
 
 connectDB();
+
+app.get('/', (req, res) => {
+
+  res.send("Kadwal Marketplace Server Running");
+
+});
 
 app.get('/products', async (req, res) => {
 
@@ -45,7 +59,7 @@ app.post('/products', async (req, res) => {
     .insertOne(product);
 
   res.json({
-    message: "Product added"
+    message: "Product Added"
   });
 
 });
@@ -54,12 +68,14 @@ app.delete('/products/:id', async (req, res) => {
 
   const id = req.params.id;
 
-  await db.collection("products").deleteOne({
-    _id: new ObjectId(id)
-  });
+  await db
+    .collection("products")
+    .deleteOne({
+      _id: new ObjectId(id)
+    });
 
   res.json({
-    message: "Product deleted"
+    message: "Product Deleted"
   });
 
 });
@@ -89,7 +105,7 @@ app.post('/login', async (req, res) => {
       password
     });
 
-  if(user){
+  if (user) {
 
     res.json({
       message: "Login Successful"
@@ -102,12 +118,6 @@ app.post('/login', async (req, res) => {
     });
 
   }
-
-});
-
-app.get('/', (req, res) => {
-
-  res.send("Kadwal Marketplace Server Running");
 
 });
 
