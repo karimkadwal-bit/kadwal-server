@@ -1,62 +1,28 @@
-const express = require('express');
-const cors = require('cors');
-const { MongoClient, ObjectId } = require('mongodb');
+const express = require("express");
+const cors = require("cors");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-const uri = "mongodb+srv://karim:karim122@cluster0.70ffkmb.mongodb.net/kadwalDB?retryWrites=true&w=majority&appName=Cluster0";
+let products = [];
 
-const client = new MongoClient(uri);
+let users = [];
 
-let db;
-
-async function connectDB() {
-
-  try {
-
-    await client.connect();
-
-    db = client.db("kadwalDB");
-
-    console.log("MongoDB Connected");
-
-  } catch (error) {
-
-    console.log(error);
-
-  }
-
-}
-
-connectDB();
-
-app.get('/', (req, res) => {
-
+app.get("/", (req, res) => {
   res.send("Kadwal Marketplace Server Running");
-
 });
 
-app.get('/products', async (req, res) => {
-
-  const products = await db
-    .collection("products")
-    .find({})
-    .toArray();
-
+app.get("/products", (req, res) => {
   res.json(products);
-
 });
 
-app.post('/products', async (req, res) => {
+app.post("/products", (req, res) => {
 
   const product = req.body;
 
-  await db
-    .collection("products")
-    .insertOne(product);
+  products.push(product);
 
   res.json({
     message: "Product Added"
@@ -64,15 +30,11 @@ app.post('/products', async (req, res) => {
 
 });
 
-app.delete('/products/:id', async (req, res) => {
+app.delete("/products/:index", (req, res) => {
 
-  const id = req.params.id;
+  const index = req.params.index;
 
-  await db
-    .collection("products")
-    .deleteOne({
-      _id: new ObjectId(id)
-    });
+  products.splice(index, 1);
 
   res.json({
     message: "Product Deleted"
@@ -80,13 +42,11 @@ app.delete('/products/:id', async (req, res) => {
 
 });
 
-app.post('/signup', async (req, res) => {
+app.post("/signup", (req, res) => {
 
   const user = req.body;
 
-  await db
-    .collection("users")
-    .insertOne(user);
+  users.push(user);
 
   res.json({
     message: "Signup Successful"
@@ -94,18 +54,17 @@ app.post('/signup', async (req, res) => {
 
 });
 
-app.post('/login', async (req, res) => {
+app.post("/login", (req, res) => {
 
   const { username, password } = req.body;
 
-  const user = await db
-    .collection("users")
-    .findOne({
-      username,
-      password
-    });
+  const user = users.find(
+    u =>
+      u.username === username &&
+      u.password === password
+  );
 
-  if (user) {
+  if(user){
 
     res.json({
       message: "Login Successful"
