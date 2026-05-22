@@ -33,6 +33,7 @@ margin-top:5px;
 border:1px solid white;
 padding:10px;
 margin-top:10px;
+border-radius:10px;
 }
 
 .product img{
@@ -87,19 +88,30 @@ Search
 
 <h2>Add Product</h2>
 
-<input id="name" placeholder="Product Name">
+<input id="name"
+placeholder="Product Name">
 
-<input id="price" placeholder="Price">
+<input id="price"
+placeholder="Price">
 
-<input id="image" placeholder="Image URL">
+<input id="image"
+placeholder="Image URL">
 
 <button onclick="addProduct()">
 Add Product
 </button>
 
+<h2>Products</h2>
+
 <div id="products"></div>
 
+<h2>Cart</h2>
+
+<div id="cart"></div>
+
 <script>
+
+let cart = [];
 
 function loadProducts() {
 
@@ -117,13 +129,23 @@ html += `
 
 <div class="product">
 
-<img src="${product.image}" width="200">
+<img src="${product.image}"
+width="200">
 
 <h2>${product.name}</h2>
 
 <p>Price: $${product.price}</p>
 
-<button onclick="deleteProduct('${product._id || index}')">
+<button onclick="addToCart(
+'${product.name}',
+'${product.price}'
+)">
+Add To Cart
+</button>
+
+<button onclick="deleteProduct(
+'${product._id || index}'
+)">
 Delete
 </button>
 
@@ -150,8 +172,10 @@ document.getElementById("price").value;
 const image =
 document.getElementById("image").value;
 
-fetch("https://kadwal-server.onrender.com/products", {
+fetch(
+"https://kadwal-server.onrender.com/products",
 
+{
 method: "POST",
 
 headers: {
@@ -164,7 +188,9 @@ price,
 image
 })
 
-})
+}
+
+)
 
 .then(response => response.json())
 
@@ -280,7 +306,9 @@ function searchProducts() {
 const search =
 document.getElementById("search").value.toLowerCase();
 
-fetch("https://kadwal-server.onrender.com/products")
+fetch(
+"https://kadwal-server.onrender.com/products"
+)
 
 .then(response => response.json())
 
@@ -300,13 +328,23 @@ html += `
 
 <div class="product">
 
-<img src="${product.image}" width="200">
+<img src="${product.image}"
+width="200">
 
 <h2>${product.name}</h2>
 
 <p>Price: $${product.price}</p>
 
-<button onclick="deleteProduct('${product._id || index}')">
+<button onclick="addToCart(
+'${product.name}',
+'${product.price}'
+)">
+Add To Cart
+</button>
+
+<button onclick="deleteProduct(
+'${product._id || index}'
+)">
 Delete
 </button>
 
@@ -322,10 +360,45 @@ document.getElementById("products").innerHTML = html;
 
 }
 
+function addToCart(name, price) {
+
+cart.push({
+name,
+price
+});
+
+renderCart();
+
+}
+
+function renderCart() {
+
+let html = "";
+
+cart.forEach(item => {
+
+html += `
+
+<div class="product">
+
+<h3>${item.name}</h3>
+
+<p>$${item.price}</p>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("cart").innerHTML = html;
+
+}
+
 loadProducts();
 
 </script>
 
 </body>
 
-</html>
+  </html>
