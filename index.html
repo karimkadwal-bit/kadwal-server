@@ -76,6 +76,15 @@ type="password">
 Login
 </button>
 
+<h2>Search Product</h2>
+
+<input id="search"
+placeholder="Search product">
+
+<button onclick="searchProducts()">
+Search
+</button>
+
 <h2>Add Product</h2>
 
 <input id="name" placeholder="Product Name">
@@ -102,7 +111,7 @@ fetch("https://kadwal-server.onrender.com/products")
 
 let html = "";
 
-data.forEach((product) => {
+data.forEach((product, index) => {
 
 html += `
 
@@ -114,7 +123,7 @@ html += `
 
 <p>Price: $${product.price}</p>
 
-<button onclick="deleteProduct('${product._id}')">
+<button onclick="deleteProduct('${product._id || index}')">
 Delete
 </button>
 
@@ -225,12 +234,6 @@ password
 
 alert(data.message);
 
-})
-
-.catch(error => {
-
-alert("Signup Error");
-
 });
 
 }
@@ -268,11 +271,52 @@ password
 
 alert(data.message);
 
-})
+});
 
-.catch(error => {
+}
 
-alert("Login Error");
+function searchProducts() {
+
+const search =
+document.getElementById("search").value.toLowerCase();
+
+fetch("https://kadwal-server.onrender.com/products")
+
+.then(response => response.json())
+
+.then(data => {
+
+let html = "";
+
+const filtered = data.filter(product =>
+
+product.name.toLowerCase().includes(search)
+
+);
+
+filtered.forEach((product, index) => {
+
+html += `
+
+<div class="product">
+
+<img src="${product.image}" width="200">
+
+<h2>${product.name}</h2>
+
+<p>Price: $${product.price}</p>
+
+<button onclick="deleteProduct('${product._id || index}')">
+Delete
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("products").innerHTML = html;
 
 });
 
