@@ -100,6 +100,9 @@ placeholder="Image URL">
 <input id="category"
 placeholder="Category">
 
+<input id="rating"
+placeholder="Rating 1-5">
+
 <button onclick="addProduct()">
 Add Product
 </button>
@@ -141,6 +144,8 @@ width="200">
 
 <p>Category: ${product.category}</p>
 
+<p>Rating: ${product.rating || 5} ⭐</p>
+
 <button onclick="addToCart(
 '${product.name}',
 '${product.price}'
@@ -180,6 +185,9 @@ document.getElementById("image").value;
 const category =
 document.getElementById("category").value;
 
+const rating =
+document.getElementById("rating").value;
+
 fetch(
 "https://kadwal-server.onrender.com/products",
 
@@ -194,7 +202,8 @@ body: JSON.stringify({
 name,
 price,
 image,
-category
+category,
+rating
 })
 
 }
@@ -346,6 +355,8 @@ width="200">
 
 <p>Category: ${product.category}</p>
 
+<p>Rating: ${product.rating || 5} ⭐</p>
+
 <button onclick="addToCart(
 '${product.name}',
 '${product.price}'
@@ -412,4 +423,4 @@ loadProducts();
 
 </body>
 
-  </html>
+</html>
