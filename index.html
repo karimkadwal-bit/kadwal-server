@@ -51,6 +51,10 @@ border-radius:10px;
 
 <p>Global Marketplace</p>
 
+<h2>User Profile</h2>
+
+<div id="profile"></div>
+
 <h2>Signup</h2>
 
 <input id="signupUsername"
@@ -324,6 +328,22 @@ password
 .then(data => {
 
 alert(data.message);
+
+if(data.message === "Login Successful"){
+
+document.getElementById("profile").innerHTML = `
+
+<div class="product">
+
+<h3>Welcome ${username}</h3>
+
+<p>Status: Online</p>
+
+</div>
+
+`;
+
+}
 
 });
 
