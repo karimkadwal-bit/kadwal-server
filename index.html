@@ -18,6 +18,9 @@ input{
 padding:10px;
 margin:5px;
 width:250px;
+background:#222;
+color:white;
+border:1px solid gray;
 }
 
 button{
@@ -39,6 +42,7 @@ border-radius:10px;
 .product img{
 margin-top:10px;
 border-radius:10px;
+width:200px;
 }
 
 </style>
@@ -149,8 +153,7 @@ html += `
 
 <div class="product">
 
-<img src="${product.image}"
-width="200">
+<img src="${product.image}">
 
 <h2>${product.name}</h2>
 
@@ -335,9 +338,9 @@ document.getElementById("profile").innerHTML = `
 
 <div class="product">
 
-<h3>Welcome ${username}</h3>
+<h2>Welcome ${username}</h2>
 
-<p>Status: Online</p>
+<p>Status: Online 🟢</p>
 
 </div>
 
@@ -376,8 +379,7 @@ html += `
 
 <div class="product">
 
-<img src="${product.image}"
-width="200">
+<img src="${product.image}">
 
 <h2>${product.name}</h2>
 
@@ -501,4 +503,4 @@ loadProducts();
 
 </body>
 
-</html>
+  </html>
