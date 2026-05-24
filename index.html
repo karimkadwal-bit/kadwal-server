@@ -30,6 +30,7 @@ color:white;
 border:none;
 cursor:pointer;
 margin-top:5px;
+border-radius:5px;
 }
 
 .product{
@@ -119,7 +120,11 @@ Add Product
 
 <div id="products"></div>
 
-<h2>Cart</h2>
+<h2>❤️ Wishlist</h2>
+
+<div id="wishlist"></div>
+
+<h2>🛒 Cart</h2>
 
 <div id="cart"></div>
 
@@ -127,7 +132,7 @@ Add Product
 Checkout
 </button>
 
-<h2>Orders</h2>
+<h2>📦 Orders</h2>
 
 <div id="orders"></div>
 
@@ -136,6 +141,8 @@ Checkout
 let cart = [];
 
 let orders = [];
+
+let wishlist = [];
 
 function loadProducts() {
 
@@ -168,6 +175,13 @@ html += `
 '${product.price}'
 )">
 Add To Cart
+</button>
+
+<button onclick="addToWishlist(
+'${product.name}',
+'${product.price}'
+)">
+❤️ Favorite
 </button>
 
 <button onclick="deleteProduct(
@@ -396,6 +410,13 @@ html += `
 Add To Cart
 </button>
 
+<button onclick="addToWishlist(
+'${product.name}',
+'${product.price}'
+)">
+❤️ Favorite
+</button>
+
 <button onclick="deleteProduct(
 '${product._id || index}'
 )">
@@ -446,6 +467,43 @@ html += `
 });
 
 document.getElementById("cart").innerHTML = html;
+
+}
+
+function addToWishlist(name, price) {
+
+wishlist.push({
+name,
+price
+});
+
+renderWishlist();
+
+}
+
+function renderWishlist() {
+
+let html = "";
+
+wishlist.forEach(item => {
+
+html += `
+
+<div class="product">
+
+<h3>${item.name}</h3>
+
+<p>$${item.price}</p>
+
+<p>❤️ Favorite Product</p>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("wishlist").innerHTML = html;
 
 }
 
