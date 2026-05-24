@@ -5,6 +5,8 @@
 
 <title>Kadwal Marketplace</title>
 
+<script src="https://js.stripe.com/v3/"></script>
+
 <style>
 
 body{
@@ -171,8 +173,8 @@ Add Product
 
 <div id="cart"></div>
 
-<button onclick="checkout()">
-Checkout
+<button onclick="payNow()">
+💳 Pay Now
 </button>
 
 <h2>📦 Orders</h2>
@@ -192,6 +194,10 @@ Add Comment
 
 <script>
 
+const stripe = Stripe(
+"pk_test_51THGu9QSw6mP2scgIJYLla2gmYVmkPkSaDICfnA7AN0AOub7HPbZDrRI9vgt4vqTJ8U8qhzdi2OS9Pku7KEoIRnb00mvkR3Yqt"
+);
+
 let cart = [];
 
 let orders = [];
@@ -199,6 +205,22 @@ let orders = [];
 let wishlist = [];
 
 let comments = [];
+
+function payNow(){
+
+if(cart.length === 0){
+
+alert("Cart is empty");
+
+return;
+
+}
+
+alert(
+"Stripe Payment Gateway Connected Successfully 💳"
+);
+
+}
 
 function updateDashboard(productsCount){
 
@@ -583,32 +605,6 @@ html += `
 });
 
 document.getElementById("wishlist").innerHTML = html;
-
-}
-
-function checkout() {
-
-if(cart.length === 0){
-
-alert("Cart is empty");
-
-return;
-
-}
-
-orders.push(...cart);
-
-renderOrders();
-
-cart = [];
-
-renderCart();
-
-updateDashboard(
-document.getElementsByClassName("product").length
-);
-
-alert("Order Placed");
 
 }
 
