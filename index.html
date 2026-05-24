@@ -46,6 +46,14 @@ border-radius:10px;
 width:200px;
 }
 
+.dashboard{
+border:2px solid purple;
+padding:15px;
+margin-top:20px;
+border-radius:10px;
+background:#111;
+}
+
 </style>
 
 </head>
@@ -55,6 +63,24 @@ width:200px;
 <h1>Kadwal Marketplace</h1>
 
 <p>Global Marketplace</p>
+
+<h2>🛠️ Admin Dashboard</h2>
+
+<div class="dashboard">
+
+<p>Total Products:
+<span id="totalProducts">0</span>
+</p>
+
+<p>Total Orders:
+<span id="totalOrders">0</span>
+</p>
+
+<p>Total Wishlist:
+<span id="totalWishlist">0</span>
+</p>
+
+</div>
 
 <h2>User Profile</h2>
 
@@ -144,6 +170,19 @@ let orders = [];
 
 let wishlist = [];
 
+function updateDashboard(productsCount){
+
+document.getElementById("totalProducts").innerText =
+productsCount;
+
+document.getElementById("totalOrders").innerText =
+orders.length;
+
+document.getElementById("totalWishlist").innerText =
+wishlist.length;
+
+}
+
 function loadProducts() {
 
 fetch("https://kadwal-server.onrender.com/products")
@@ -153,6 +192,8 @@ fetch("https://kadwal-server.onrender.com/products")
 .then(data => {
 
 let html = "";
+
+updateDashboard(data.length);
 
 data.forEach((product, index) => {
 
@@ -444,6 +485,10 @@ price
 
 renderCart();
 
+updateDashboard(
+document.getElementsByClassName("product").length
+);
+
 }
 
 function renderCart() {
@@ -478,6 +523,10 @@ price
 });
 
 renderWishlist();
+
+updateDashboard(
+document.getElementsByClassName("product").length
+);
 
 }
 
@@ -524,6 +573,10 @@ renderOrders();
 cart = [];
 
 renderCart();
+
+updateDashboard(
+document.getElementsByClassName("product").length
+);
 
 alert("Order Placed");
 
