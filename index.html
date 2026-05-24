@@ -23,6 +23,16 @@ color:white;
 border:1px solid gray;
 }
 
+textarea{
+padding:10px;
+margin:5px;
+width:250px;
+height:80px;
+background:#222;
+color:white;
+border:1px solid gray;
+}
+
 button{
 padding:10px;
 background:purple;
@@ -52,6 +62,13 @@ padding:15px;
 margin-top:20px;
 border-radius:10px;
 background:#111;
+}
+
+.comment{
+background:#222;
+padding:10px;
+margin-top:10px;
+border-radius:5px;
 }
 
 </style>
@@ -162,6 +179,17 @@ Checkout
 
 <div id="orders"></div>
 
+<h2>💬 Product Comments</h2>
+
+<textarea id="commentText"
+placeholder="Write comment"></textarea>
+
+<button onclick="addComment()">
+Add Comment
+</button>
+
+<div id="comments"></div>
+
 <script>
 
 let cart = [];
@@ -169,6 +197,8 @@ let cart = [];
 let orders = [];
 
 let wishlist = [];
+
+let comments = [];
 
 function updateDashboard(productsCount){
 
@@ -605,6 +635,41 @@ html += `
 });
 
 document.getElementById("orders").innerHTML = html;
+
+}
+
+function addComment(){
+
+const text =
+document.getElementById("commentText").value;
+
+comments.push(text);
+
+renderComments();
+
+document.getElementById("commentText").value = "";
+
+}
+
+function renderComments(){
+
+let html = "";
+
+comments.forEach(comment => {
+
+html += `
+
+<div class="comment">
+
+<p>${comment}</p>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("comments").innerHTML = html;
 
 }
 
