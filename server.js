@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const { MongoClient, ObjectId } = require("mongodb");
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
@@ -16,15 +17,15 @@ const client = new MongoClient(uri);
 
 let db;
 
-async function connect(){
+async function connectDB(){
 await client.connect();
 db = client.db("kadwalDB");
-console.log("DB Connected");
+console.log("MongoDB Connected");
 }
-connect();
+connectDB();
 
 app.get("/", (req,res)=>{
-res.send("Kadwal API Running");
+res.send("Kadwal API Running 🚀");
 });
 
 // SIGNUP
@@ -65,7 +66,8 @@ return res.json({message:"Wrong password"});
 
 const token = jwt.sign(
 { id:user._id, role:user.role },
-SECRET
+SECRET,
+{ expiresIn:"7d" }
 );
 
 res.json({
@@ -75,22 +77,12 @@ role:user.role
 });
 });
 
-// PRODUCTS
+// PRODUCTS (READ ONLY SAFE)
 app.get("/products", async (req,res)=>{
 const data = await db.collection("products").find().toArray();
 res.json(data);
 });
 
-app.post("/products", async (req,res)=>{
-await db.collection("products").insertOne(req.body);
-res.json({message:"Added"});
-});
-
-app.delete("/products/:id", async (req,res)=>{
-await db.collection("products").deleteOne({_id:new ObjectId(req.params.id)});
-res.json({message:"Deleted"});
-});
-
 app.listen(3000, ()=>{
-console.log("Server running");
+console.log("Server Running");
 });
