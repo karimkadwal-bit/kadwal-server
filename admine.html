@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Admin Panel - Kadwal</title>
+
+<style>
+
+body{
+background:#000;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+
+h1{
+text-align:center;
+color:cyan;
+}
+
+input,button{
+padding:10px;
+margin:5px;
+width:250px;
+}
+
+button{
+background:purple;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+.product{
+background:#111;
+padding:10px;
+margin:10px;
+border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🛠️ Admin Panel</h1>
+
+<h2>Add Product</h2>
+
+<input id="name" placeholder="Product Name"><br>
+<input id="price" placeholder="Price"><br>
+<input id="image" placeholder="Image URL"><br>
+<input id="category" placeholder="Category"><br>
+
+<button onclick="addProduct()">
+Add Product
+</button>
+
+<h2>All Products</h2>
+
+<div id="products"></div>
+
+<script>
+
+const API = "https://kadwal-server.onrender.com";
+
+let token = localStorage.getItem("token");
+let role = localStorage.getItem("role");
+
+// CHECK ADMIN
+if(role !== "admin"){
+alert("Access Denied ❌ Admin Only");
+window.location.href = "../frontend/index.html";
+}
+
+// LOAD PRODUCTS
+function loadProducts(){
+
+fetch(API+"/products")
+.then(res=>res.json())
+.then(data=>{
+
+let html = "";
+
+data.forEach(p=>{
+html += `
+<div class="product">
+<h3>${p.name}</h3>
+<p>${p.price}</p>
+
+<button onclick="deleteProduct('${p._id}')">
+Delete
+</button>
+
+</div>
+`;
+});
+
+document.getElementById("products").innerHTML = html;
+
+});
+
+}
+
+// ADD PRODUCT
+function addProduct(){
+
+fetch(API+"/products",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json",
+"authorization":token
+},
+
+body:JSON.stringify({
+name:name.value,
+price:price.value,
+image:image.value,
+category:category.value
+})
+
+}).then(res=>res.json())
+.then(data=>{
+alert(data.message);
+loadProducts();
+});
+
+}
+
+// DELETE PRODUCT
+function deleteProduct(id){
+
+fetch(API+"/products/"+id,{
+
+method:"DELETE",
+
+headers:{
+"authorization":token
+}
+
+}).then(res=>res.json())
+.then(data=>{
+alert(data.message);
+loadProducts();
+});
+
+}
+
+loadProducts();
+
+</script>
+
+</body>
+
+</html>
