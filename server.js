@@ -17,7 +17,6 @@ const client = new MongoClient(uri);
 
 let db;
 
-// CONNECT DB
 async function connectDB(){
 await client.connect();
 db = client.db("kadwalDB");
@@ -25,17 +24,16 @@ console.log("MongoDB Connected");
 }
 connectDB();
 
-// HOME
 app.get("/", (req,res)=>{
-res.send("Kadwal Secure API Running 🚀");
+res.send("Kadwal Server Running 🚀");
 });
 
 // SIGNUP
 app.post("/signup", async (req,res)=>{
 const {username,password} = req.body;
 
-const userExists = await db.collection("users").findOne({username});
-if(userExists){
+const user = await db.collection("users").findOne({username});
+if(user){
 return res.json({message:"User already exists"});
 }
 
@@ -47,7 +45,7 @@ password:hash,
 role:"user"
 });
 
-res.json({message:"Signup successful"});
+res.json({message:"Signup success"});
 });
 
 // LOGIN
@@ -60,9 +58,9 @@ if(!user){
 return res.json({message:"User not found"});
 }
 
-const match = await bcrypt.compare(password,user.password);
+const ok = await bcrypt.compare(password,user.password);
 
-if(!match){
+if(!ok){
 return res.json({message:"Wrong password"});
 }
 
@@ -73,19 +71,16 @@ SECRET,
 );
 
 res.json({
-message:"Login successful",
+message:"Login success",
 token,
 role:user.role
 });
 });
 
-// AUTH MIDDLEWARE
+// AUTH
 function auth(req,res,next){
 const token = req.headers.authorization;
-
-if(!token){
-return res.json({message:"No token"});
-}
+if(!token) return res.json({message:"No token"});
 
 try{
 const data = jwt.verify(token,SECRET);
@@ -96,7 +91,7 @@ res.json({message:"Invalid token"});
 }
 }
 
-// ADMIN CHECK
+// ADMIN
 function admin(req,res,next){
 if(req.user.role !== "admin"){
 return res.json({message:"Admin only"});
@@ -104,26 +99,24 @@ return res.json({message:"Admin only"});
 next();
 }
 
-// GET PRODUCTS
+// PRODUCTS
 app.get("/products", async (req,res)=>{
-const products = await db.collection("products").find().toArray();
-res.json(products);
+const data = await db.collection("products").find().toArray();
+res.json(data);
 });
 
-// ADD PRODUCT
 app.post("/products", auth, admin, async (req,res)=>{
 await db.collection("products").insertOne(req.body);
 res.json({message:"Product added"});
 });
 
-// DELETE PRODUCT
 app.delete("/products/:id", auth, admin, async (req,res)=>{
 await db.collection("products").deleteOne({_id:new ObjectId(req.params.id)});
-res.json({message:"Product deleted"});
+res.json({message:"Deleted"});
 });
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, ()=>{
-console.log("Server running on port " + PORT);
+console.log("Server running on " + PORT);
 });
