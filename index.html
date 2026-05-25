@@ -1,754 +1,91 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
 <title>Kadwal Marketplace</title>
-
-<script src="https://js.stripe.com/v3/"></script>
-
 <style>
-
-body{
-background:#000;
-color:white;
-font-family:Arial;
-padding:20px;
-}
-
-h1,h2{
-text-align:center;
-}
-
-input,textarea{
-padding:10px;
-margin:5px;
-width:250px;
-background:#111;
-color:white;
-border:1px solid gray;
-border-radius:5px;
-}
-
-button{
-padding:10px;
-background:purple;
-color:white;
-border:none;
-cursor:pointer;
-margin-top:5px;
-border-radius:5px;
-}
-
-button:hover{
-opacity:0.8;
-}
-
-#products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:10px;
-}
-
-.product{
-border:1px solid #444;
-padding:10px;
-border-radius:10px;
-background:#111;
-}
-
-.product img{
-width:100%;
-border-radius:10px;
-}
-
-.dashboard{
-border:2px solid purple;
-padding:15px;
-margin:10px 0;
-border-radius:10px;
-background:#111;
-}
-
-.comment{
-background:#111;
-padding:10px;
-margin-top:10px;
-border-radius:5px;
-}
-
-#productDetails{
-margin-top:20px;
-}
-
-@media(max-width:768px){
-
-input,
-textarea,
-button{
-width:100%;
-}
-
-}
-
+body{background:#000;color:white;font-family:Arial;padding:20px}
+input,button{padding:10px;margin:5px}
+.product{background:#111;padding:10px;margin:10px;border-radius:10px}
 </style>
-
 </head>
 
 <body>
 
-<h1>Kadwal Marketplace</h1>
-
-<p style="text-align:center;">
-Global Ecommerce Platform 🚀
-</p>
-
-<!-- DASHBOARD -->
-
-<h2>🛠️ Dashboard</h2>
-
-<div class="dashboard">
-
-<p>
-Total Products:
-<span id="totalProducts">0</span>
-</p>
-
-<p>
-Total Orders:
-<span id="totalOrders">0</span>
-</p>
-
-<p>
-Total Wishlist:
-<span id="totalWishlist">0</span>
-</p>
-
-</div>
-
-<!-- PROFILE -->
-
-<h2>👤 User Profile</h2>
-
-<div id="profile"></div>
-
-<!-- SIGNUP -->
+<h1>🔥 Kadwal Marketplace</h1>
 
 <h2>Signup</h2>
-
-<input id="signupUsername"
-placeholder="Username">
-
-<input id="signupPassword"
-type="password"
-placeholder="Password">
-
-<button onclick="signup()">
-Signup
-</button>
-
-<!-- LOGIN -->
+<input id="su_user" placeholder="username">
+<input id="su_pass" type="password" placeholder="password">
+<button onclick="signup()">Signup</button>
 
 <h2>Login</h2>
+<input id="li_user" placeholder="username">
+<input id="li_pass" type="password" placeholder="password">
+<button onclick="login()">Login</button>
 
-<input id="loginUsername"
-placeholder="Username">
-
-<input id="loginPassword"
-type="password"
-placeholder="Password">
-
-<button onclick="login()">
-Login
-</button>
-
-<!-- SEARCH -->
-
-<h2>🔍 Search Product</h2>
-
-<input id="search"
-placeholder="Search Product">
-
-<button onclick="searchProducts()">
-Search
-</button>
-
-<!-- ADD PRODUCT -->
-
-<h2>➕ Add Product</h2>
-
-<input id="name"
-placeholder="Product Name">
-
-<input id="price"
-placeholder="Price">
-
-<input id="image"
-placeholder="Image URL">
-
-<input id="category"
-placeholder="Category">
-
-<input id="rating"
-placeholder="Rating">
-
-<button onclick="addProduct()">
-Add Product
-</button>
-
-<!-- PRODUCTS -->
-
-<h2>🛒 Products</h2>
-
+<h2>Products</h2>
 <div id="products"></div>
-
-<!-- PRODUCT DETAILS -->
-
-<h2>📄 Product Details</h2>
-
-<div id="productDetails"></div>
-
-<!-- WISHLIST -->
-
-<h2>❤️ Wishlist</h2>
-
-<div id="wishlist"></div>
-
-<!-- CART -->
-
-<h2>🛒 Cart</h2>
-
-<div id="cart"></div>
-
-<button onclick="payNow()">
-💳 Pay Now
-</button>
-
-<!-- COMMENTS -->
-
-<h2>💬 Comments</h2>
-
-<textarea id="commentText"
-placeholder="Write Comment"></textarea>
-
-<button onclick="addComment()">
-Add Comment
-</button>
-
-<div id="comments"></div>
 
 <script>
 
-const API =
-"https://kadwal-server.onrender.com";
+const API = "https://kadwal-server.onrender.com";
 
-const stripe = Stripe(
-"pk_test_51THGu9QSw6mP2scgIJYLla2gmYVmkPkSaDICfnA7AN0AOub7HPbZDrRI9vgt4vqTJ8U8qhzdi2OS9Pku7KEoIRnb00mvkR3Yqt"
-);
+let token = localStorage.getItem("token");
+let role = localStorage.getItem("role");
 
-let token =
-localStorage.getItem("token");
-
-let userRole =
-localStorage.getItem("role");
-
-let cart = [];
-
-let wishlist = [];
-
-let comments = [];
-
-let orders = [];
-
-function updateDashboard(productsCount){
-
-document.getElementById("totalProducts").innerText =
-productsCount;
-
-document.getElementById("totalOrders").innerText =
-orders.length;
-
-document.getElementById("totalWishlist").innerText =
-wishlist.length;
-
-}
-
+// SIGNUP
 function signup(){
-
-const username =
-document.getElementById("signupUsername").value;
-
-const password =
-document.getElementById("signupPassword").value;
-
-fetch(API + "/signup",{
-
+fetch(API+"/signup",{
 method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
+headers:{"Content-Type":"application/json"},
 body:JSON.stringify({
-username,
-password
+username:su_user.value,
+password:su_pass.value
 })
-
-})
-
-.then(res=>res.json())
-
-.then(data=>{
-
-alert(data.message);
-
-});
-
+}).then(r=>r.json()).then(d=>alert(d.message));
 }
 
+// LOGIN
 function login(){
-
-const username =
-document.getElementById("loginUsername").value;
-
-const password =
-document.getElementById("loginPassword").value;
-
-fetch(API + "/login",{
-
+fetch(API+"/login",{
 method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
+headers:{"Content-Type":"application/json"},
 body:JSON.stringify({
-username,
-password
+username:li_user.value,
+password:li_pass.value
 })
+}).then(r=>r.json()).then(d=>{
 
-})
+alert(d.message);
 
-.then(res=>res.json())
+if(d.token){
+localStorage.setItem("token",d.token);
+localStorage.setItem("role",d.role);
 
-.then(data=>{
+token = d.token;
+role = d.role;
 
-alert(data.message);
-
-if(data.token){
-
-localStorage.setItem(
-"token",
-data.token
-);
-
-localStorage.setItem(
-"role",
-data.role
-);
-
-token = data.token;
-
-userRole = data.role;
-
-document.getElementById("profile").innerHTML = `
-
-<div class="product">
-
-<h2>Welcome ${username}</h2>
-
-<p>Role: ${data.role}</p>
-
-<p>Status: Online 🟢</p>
-
-<button onclick="logout()">
-Logout
-</button>
-
-</div>
-
-`;
-
+loadProducts();
 }
-
 });
-
 }
 
-function logout(){
-
-localStorage.removeItem("token");
-
-localStorage.removeItem("role");
-
-location.reload();
-
-}
-
+// LOAD PRODUCTS
 function loadProducts(){
-
-fetch(API + "/products")
-
-.then(res=>res.json())
-
+fetch(API+"/products")
+.then(r=>r.json())
 .then(data=>{
-
-let html = "";
-
-updateDashboard(data.length);
-
-data.forEach((product,index)=>{
-
-html += `
-
+let html="";
+data.forEach(p=>{
+html+=`
 <div class="product">
-
-<img src="${product.image}">
-
-<h3
-onclick='showProductDetails(${JSON.stringify(product)})'
-style="cursor:pointer;color:cyan;">
-
-${product.name}
-
-</h3>
-
-<p>💰 Price: $${product.price}</p>
-
-<p>📂 ${product.category}</p>
-
-<p>⭐ ${product.rating || 5}</p>
-
-<button onclick="addToCart('${product.name}','${product.price}')">
-Add To Cart
-</button>
-
-<button onclick="addToWishlist('${product.name}','${product.price}')">
-❤️ Favorite
-</button>
-
-<button onclick="deleteProduct('${product._id || index}')">
-Delete
-</button>
-
+<h3>${p.name}</h3>
+<p>${p.price}</p>
 </div>
-
 `;
-
 });
-
-document.getElementById("products").innerHTML =
-html;
-
+products.innerHTML = html;
 });
-
-}
-
-function showProductDetails(product){
-
-document.getElementById("productDetails").innerHTML = `
-
-<div class="product">
-
-<img src="${product.image}">
-
-<h2>${product.name}</h2>
-
-<p>💰 Price: $${product.price}</p>
-
-<p>📂 Category: ${product.category}</p>
-
-<p>⭐ Rating: ${product.rating || 5}</p>
-
-<p>
-
-Professional ecommerce product
-inside Kadwal Marketplace 🚀
-
-</p>
-
-<button onclick="addToCart('${product.name}','${product.price}')">
-Add To Cart
-</button>
-
-</div>
-
-`;
-
-window.scrollTo({
-top:document.body.scrollHeight,
-behavior:"smooth"
-});
-
-}
-
-function addProduct(){
-
-if(userRole !== "admin"){
-
-alert("Admin Only ❌");
-
-return;
-
-}
-
-const name =
-document.getElementById("name").value;
-
-const price =
-document.getElementById("price").value;
-
-const image =
-document.getElementById("image").value;
-
-const category =
-document.getElementById("category").value;
-
-const rating =
-document.getElementById("rating").value;
-
-fetch(API + "/products",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json",
-"authorization":token
-},
-
-body:JSON.stringify({
-name,
-price,
-image,
-category,
-rating
-})
-
-})
-
-.then(res=>res.json())
-
-.then(data=>{
-
-alert(data.message);
-
-loadProducts();
-
-});
-
-}
-
-function deleteProduct(id){
-
-if(userRole !== "admin"){
-
-alert("Admin Only ❌");
-
-return;
-
-}
-
-fetch(API + "/products/" + id,{
-
-method:"DELETE",
-
-headers:{
-"authorization":token
-}
-
-})
-
-.then(res=>res.json())
-
-.then(data=>{
-
-alert(data.message);
-
-loadProducts();
-
-});
-
-}
-
-function searchProducts(){
-
-const search =
-document.getElementById("search").value.toLowerCase();
-
-fetch(API + "/products")
-
-.then(res=>res.json())
-
-.then(data=>{
-
-let html = "";
-
-const filtered = data.filter(product=>
-
-product.name.toLowerCase().includes(search)
-
-);
-
-filtered.forEach(product=>{
-
-html += `
-
-<div class="product">
-
-<img src="${product.image}">
-
-<h3
-onclick='showProductDetails(${JSON.stringify(product)})'
-style="cursor:pointer;color:cyan;">
-
-${product.name}
-
-</h3>
-
-<p>$${product.price}</p>
-
-<p>${product.category}</p>
-
-<button onclick="addToCart('${product.name}','${product.price}')">
-Cart
-</button>
-
-</div>
-
-`;
-
-});
-
-document.getElementById("products").innerHTML =
-html;
-
-});
-
-}
-
-function addToCart(name,price){
-
-cart.push({
-name,
-price
-});
-
-renderCart();
-
-}
-
-function renderCart(){
-
-let html = "";
-
-cart.forEach(item=>{
-
-html += `
-
-<div class="product">
-
-<h3>${item.name}</h3>
-
-<p>$${item.price}</p>
-
-</div>
-
-`;
-
-});
-
-document.getElementById("cart").innerHTML =
-html;
-
-}
-
-function addToWishlist(name,price){
-
-wishlist.push({
-name,
-price
-});
-
-renderWishlist();
-
-}
-
-function renderWishlist(){
-
-let html = "";
-
-wishlist.forEach(item=>{
-
-html += `
-
-<div class="product">
-
-<h3>${item.name}</h3>
-
-<p>$${item.price}</p>
-
-<p>❤️ Favorite</p>
-
-</div>
-
-`;
-
-});
-
-document.getElementById("wishlist").innerHTML =
-html;
-
-}
-
-function addComment(){
-
-const text =
-document.getElementById("commentText").value;
-
-comments.push(text);
-
-renderComments();
-
-document.getElementById("commentText").value =
-"";
-
-}
-
-function renderComments(){
-
-let html = "";
-
-comments.forEach(comment=>{
-
-html += `
-
-<div class="comment">
-
-<p>${comment}</p>
-
-</div>
-
-`;
-
-});
-
-document.getElementById("comments").innerHTML =
-html;
-
-}
-
-function payNow(){
-
-if(cart.length === 0){
-
-alert("Cart Empty ❌");
-
-return;
-
-}
-
-alert("Stripe Payment Connected 💳");
-
 }
 
 loadProducts();
@@ -756,5 +93,4 @@ loadProducts();
 </script>
 
 </body>
-
-  </html>
+</html>
