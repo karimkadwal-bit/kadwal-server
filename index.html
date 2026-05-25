@@ -1,3 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Kadwal Marketplace</title>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<style>
+
+body{
+background:#000;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+
+h1,h2{
+text-align:center;
+}
+
+input,textarea{
+padding:10px;
+margin:5px;
+width:250px;
+background:#111;
+color:white;
+border:1px solid gray;
+border-radius:5px;
+}
+
+button{
+padding:10px;
+background:purple;
+color:white;
+border:none;
+cursor:pointer;
+margin-top:5px;
+border-radius:5px;
+}
+
+button:hover{
+opacity:0.8;
+}
+
+#products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:10px;
+}
+
+.product{
+border:1px solid #444;
+padding:10px;
+border-radius:10px;
+background:#111;
+}
+
+.product img{
+width:100%;
+border-radius:10px;
+}
+
+.dashboard{
+border:2px solid purple;
+padding:15px;
+margin:10px 0;
+border-radius:10px;
+background:#111;
+}
+
+.comment{
+background:#111;
+padding:10px;
+margin-top:10px;
+border-radius:5px;
+}
+
+#productDetails{
+margin-top:20px;
+}
+
+@media(max-width:768px){
+
+input,
+textarea,
+button{
+width:100%;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Kadwal Marketplace</h1>
+
+<p style="text-align:center;">
+Global Ecommerce Platform 🚀
+</p>
+
+<!-- DASHBOARD -->
+
+<h2>🛠️ Dashboard</h2>
+
+<div class="dashboard">
+
+<p>
+Total Products:
+<span id="totalProducts">0</span>
+</p>
+
+<p>
+Total Orders:
+<span id="totalOrders">0</span>
+</p>
+
+<p>
+Total Wishlist:
+<span id="totalWishlist">0</span>
+</p>
+
+</div>
+
+<!-- PROFILE -->
+
+<h2>👤 User Profile</h2>
+
+<div id="profile"></div>
+
+<!-- SIGNUP -->
+
+<h2>Signup</h2>
+
+<input id="signupUsername"
+placeholder="Username">
+
+<input id="signupPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="signup()">
+Signup
+</button>
+
+<!-- LOGIN -->
+
+<h2>Login</h2>
+
+<input id="loginUsername"
+placeholder="Username">
+
+<input id="loginPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="login()">
+Login
+</button>
+
+<!-- SEARCH -->
+
+<h2>🔍 Search Product</h2>
+
+<input id="search"
+placeholder="Search Product">
+
+<button onclick="searchProducts()">
+Search
+</button>
+
+<!-- ADD PRODUCT -->
+
+<h2>➕ Add Product</h2>
+
+<input id="name"
+placeholder="Product Name">
+
+<input id="price"
+placeholder="Price">
+
+<input id="image"
+placeholder="Image URL">
+
+<input id="category"
+placeholder="Category">
+
+<input id="rating"
+placeholder="Rating">
+
+<button onclick="addProduct()">
+Add Product
+</button>
+
+<!-- PRODUCTS -->
+
+<h2>🛒 Products</h2>
+
+<div id="products"></div>
+
+<!-- PRODUCT DETAILS -->
+
+<h2>📄 Product Details</h2>
+
+<div id="productDetails"></div>
+
+<!-- WISHLIST -->
+
+<h2>❤️ Wishlist</h2>
+
+<div id="wishlist"></div>
+
+<!-- CART -->
+
+<h2>🛒 Cart</h2>
+
+<div id="cart"></div>
+
+<button onclick="payNow()">
+💳 Pay Now
+</button>
+
+<!-- COMMENTS -->
+
+<h2>💬 Comments</h2>
+
+<textarea id="commentText"
+placeholder="Write Comment"></textarea>
+
+<button onclick="addComment()">
+Add Comment
+</button>
+
+<div id="comments"></div>
+
 <script>
 
 const API =
@@ -166,9 +405,8 @@ html += `
 
 <img src="${product.image}">
 
-<h3 onclick='showProductDetails(
-${JSON.stringify(product)}
-)'
+<h3
+onclick='showProductDetails(${JSON.stringify(product)})'
 style="cursor:pointer;color:cyan;">
 
 ${product.name}
@@ -181,23 +419,15 @@ ${product.name}
 
 <p>⭐ ${product.rating || 5}</p>
 
-<button onclick="addToCart(
-'${product.name}',
-'${product.price}'
-)">
+<button onclick="addToCart('${product.name}','${product.price}')">
 Add To Cart
 </button>
 
-<button onclick="addToWishlist(
-'${product.name}',
-'${product.price}'
-)">
+<button onclick="addToWishlist('${product.name}','${product.price}')">
 ❤️ Favorite
 </button>
 
-<button onclick="deleteProduct(
-'${product._id || index}'
-)">
+<button onclick="deleteProduct('${product._id || index}')">
 Delete
 </button>
 
@@ -237,10 +467,7 @@ inside Kadwal Marketplace 🚀
 
 </p>
 
-<button onclick="addToCart(
-'${product.name}',
-'${product.price}'
-)">
+<button onclick="addToCart('${product.name}','${product.price}')">
 Add To Cart
 </button>
 
@@ -356,7 +583,7 @@ fetch(API + "/products")
 
 let html = "";
 
-const filtered = data.filter(product =>
+const filtered = data.filter(product=>
 
 product.name.toLowerCase().includes(search)
 
@@ -370,9 +597,8 @@ html += `
 
 <img src="${product.image}">
 
-<h3 onclick='showProductDetails(
-${JSON.stringify(product)}
-)'
+<h3
+onclick='showProductDetails(${JSON.stringify(product)})'
 style="cursor:pointer;color:cyan;">
 
 ${product.name}
@@ -383,10 +609,7 @@ ${product.name}
 
 <p>${product.category}</p>
 
-<button onclick="addToCart(
-'${product.name}',
-'${product.price}'
-)">
+<button onclick="addToCart('${product.name}','${product.price}')">
 Cart
 </button>
 
@@ -524,12 +747,14 @@ return;
 
 }
 
-alert(
-"Stripe Payment Connected 💳"
-);
+alert("Stripe Payment Connected 💳");
 
 }
 
 loadProducts();
 
-  </script>
+</script>
+
+</body>
+
+  </html>
