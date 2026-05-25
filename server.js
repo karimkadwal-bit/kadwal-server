@@ -1,40 +1,39 @@
 const express = require("express");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const { MongoClient, ObjectId } = require("mongodb");
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
 const SECRET = "kadwal_secret";
 
-const uri = "mongodb+srv://karim:karim122@cluster0.70ffkmb.mongodb.net/kadwalDB?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb+srv://karim:karim122@cluster0.70ffkmb.mongodb.net/kadwalDB?retryWrites=true&w=majority";
 
 const client = new MongoClient(uri);
 
 let db;
 
-async function connectDB(){
+async function connect(){
 await client.connect();
 db = client.db("kadwalDB");
-console.log("MongoDB Connected");
+console.log("DB Connected");
 }
-connectDB();
+connect();
 
 app.get("/", (req,res)=>{
-res.send("Kadwal Server Running 🚀");
+res.send("Kadwal API Running");
 });
 
 // SIGNUP
 app.post("/signup", async (req,res)=>{
 const {username,password} = req.body;
 
-const user = await db.collection("users").findOne({username});
-if(user){
-return res.json({message:"User already exists"});
+const exist = await db.collection("users").findOne({username});
+if(exist){
+return res.json({message:"User exists"});
 }
 
 const hash = await bcrypt.hash(password,10);
@@ -65,9 +64,8 @@ return res.json({message:"Wrong password"});
 }
 
 const token = jwt.sign(
-{ id:user._id, role:user.role, username:user.username },
-SECRET,
-{ expiresIn:"7d" }
+{ id:user._id, role:user.role },
+SECRET
 );
 
 res.json({
@@ -77,46 +75,22 @@ role:user.role
 });
 });
 
-// AUTH
-function auth(req,res,next){
-const token = req.headers.authorization;
-if(!token) return res.json({message:"No token"});
-
-try{
-const data = jwt.verify(token,SECRET);
-req.user = data;
-next();
-}catch{
-res.json({message:"Invalid token"});
-}
-}
-
-// ADMIN
-function admin(req,res,next){
-if(req.user.role !== "admin"){
-return res.json({message:"Admin only"});
-}
-next();
-}
-
 // PRODUCTS
 app.get("/products", async (req,res)=>{
 const data = await db.collection("products").find().toArray();
 res.json(data);
 });
 
-app.post("/products", auth, admin, async (req,res)=>{
+app.post("/products", async (req,res)=>{
 await db.collection("products").insertOne(req.body);
-res.json({message:"Product added"});
+res.json({message:"Added"});
 });
 
-app.delete("/products/:id", auth, admin, async (req,res)=>{
+app.delete("/products/:id", async (req,res)=>{
 await db.collection("products").deleteOne({_id:new ObjectId(req.params.id)});
 res.json({message:"Deleted"});
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, ()=>{
-console.log("Server running on " + PORT);
+app.listen(3000, ()=>{
+console.log("Server running");
 });
