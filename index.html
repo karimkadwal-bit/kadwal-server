@@ -77,6 +77,10 @@ margin-top:10px;
 border-radius:5px;
 }
 
+#productDetails{
+margin-top:20px;
+}
+
 @media(max-width:768px){
 
 input,textarea,button{
@@ -97,8 +101,6 @@ width:100%;
 Global Ecommerce Platform
 </p>
 
-<!-- ADMIN DASHBOARD -->
-
 <h2>🛠️ Admin Dashboard</h2>
 
 <div class="dashboard">
@@ -117,13 +119,9 @@ Global Ecommerce Platform
 
 </div>
 
-<!-- USER PROFILE -->
-
 <h2>User Profile</h2>
 
 <div id="profile"></div>
-
-<!-- SIGNUP -->
 
 <h2>Signup</h2>
 
@@ -138,8 +136,6 @@ placeholder="Password">
 Signup
 </button>
 
-<!-- LOGIN -->
-
 <h2>Login</h2>
 
 <input id="loginUsername"
@@ -152,8 +148,6 @@ placeholder="Password">
 <button onclick="login()">
 Login
 </button>
-
-<!-- ADMIN LOGIN -->
 
 <h2>🔐 Admin Login</h2>
 
@@ -168,8 +162,6 @@ placeholder="Admin Password">
 Admin Login
 </button>
 
-<!-- SEARCH -->
-
 <h2>Search Product</h2>
 
 <input id="search"
@@ -178,8 +170,6 @@ placeholder="Search Product">
 <button onclick="searchProducts()">
 Search
 </button>
-
-<!-- ADD PRODUCT -->
 
 <h2>Add Product</h2>
 
@@ -202,19 +192,17 @@ placeholder="Rating">
 Add Product
 </button>
 
-<!-- PRODUCTS -->
-
 <h2>Products</h2>
 
 <div id="products"></div>
 
-<!-- WISHLIST -->
+<h2>📄 Product Details</h2>
+
+<div id="productDetails"></div>
 
 <h2>❤️ Wishlist</h2>
 
 <div id="wishlist"></div>
-
-<!-- CART -->
 
 <h2>🛒 Cart</h2>
 
@@ -224,13 +212,9 @@ Add Product
 💳 Pay Now
 </button>
 
-<!-- ORDERS -->
-
 <h2>📦 Orders</h2>
 
 <div id="orders"></div>
-
-<!-- COMMENTS -->
 
 <h2>💬 Product Comments</h2>
 
@@ -250,13 +234,9 @@ const stripe = Stripe(
 );
 
 let cart = [];
-
 let orders = [];
-
 let wishlist = [];
-
 let comments = [];
-
 let isAdmin = false;
 
 function adminLogin(){
@@ -310,6 +290,47 @@ wishlist.length;
 
 }
 
+function showProductDetails(product){
+
+document.getElementById("productDetails").innerHTML = `
+
+<div class="product">
+
+<img src="${product.image}">
+
+<h2>${product.name}</h2>
+
+<p>💰 Price: $${product.price}</p>
+
+<p>📂 Category: ${product.category}</p>
+
+<p>⭐ Rating: ${product.rating || 5}</p>
+
+<p>
+
+Professional ecommerce product
+inside Kadwal Marketplace 🚀
+
+</p>
+
+<button onclick="addToCart(
+'${product.name}',
+'${product.price}'
+)">
+Add To Cart
+</button>
+
+</div>
+
+`;
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+}
+
 function loadProducts(){
 
 fetch(
@@ -332,7 +353,14 @@ html += `
 
 <img src="${product.image}">
 
-<h3>${product.name}</h3>
+<h3 onclick='showProductDetails(
+${JSON.stringify(product)}
+)'
+style="cursor:pointer;color:cyan;">
+
+${product.name}
+
+</h3>
 
 <p>Price: $${product.price}</p>
 
@@ -586,7 +614,14 @@ html += `
 
 <img src="${product.image}">
 
-<h3>${product.name}</h3>
+<h3 onclick='showProductDetails(
+${JSON.stringify(product)}
+)'
+style="cursor:pointer;color:cyan;">
+
+${product.name}
+
+</h3>
 
 <p>$${product.price}</p>
 
@@ -697,33 +732,6 @@ html += `
 });
 
 document.getElementById("wishlist").innerHTML =
-html;
-
-}
-
-function renderOrders(){
-
-let html = "";
-
-orders.forEach(item=>{
-
-html += `
-
-<div class="product">
-
-<h3>${item.name}</h3>
-
-<p>$${item.price}</p>
-
-<p>Status: Ordered</p>
-
-</div>
-
-`;
-
-});
-
-document.getElementById("orders").innerHTML =
 html;
 
 }
