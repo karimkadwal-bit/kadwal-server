@@ -1,11 +1,14 @@
 const API =
 "https://kadwal-server.onrender.com";
 
-document
-.getElementById("signupBtn")
-.addEventListener("click", signup);
+const signupBtn =
+document.getElementById("signupBtn");
+
+signupBtn.addEventListener("click", signup);
 
 async function signup(){
+
+try{
 
 const email =
 document.getElementById("email").value;
@@ -33,5 +36,15 @@ const data =
 await response.text();
 
 alert(data);
+
+}
+
+catch(error){
+
+alert("Error");
+
+console.log(error);
+
+}
 
 }
