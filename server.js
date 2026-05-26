@@ -4,33 +4,21 @@ const cors = require("cors");
 const app = express();
 
 app.use(cors());
-
 app.use(express.json());
 
+// test route
 app.get("/", (req, res) => {
-
-res.send(
-"Kadwal Marketplace Server Running"
-);
-
+  res.send("Kadwal Marketplace API Running");
 });
 
-app.post("/signup",(req,res)=>{
-
-const {email,password} = req.body;
-
-console.log(email,password);
-
-res.send("Signup Successful");
-
+// signup route
+app.post("/signup", (req, res) => {
+  console.log(req.body);
+  res.send("Signup OK");
 });
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-
-console.log(
-`Server Running On Port ${PORT}`
-);
-
+  console.log("Server running on port " + PORT);
 });
