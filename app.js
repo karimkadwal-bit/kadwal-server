@@ -1,15 +1,16 @@
-document
-.getElementById("signupBtn")
-.addEventListener("click", signup);
+const API =
+"https://kadwal-server.onrender.com";
 
-async function signup() {
+async function testServer() {
 
-const email =
-document.getElementById("email").value;
+const response =
+await fetch(API);
 
-const password =
-document.getElementById("password").value;
+const data =
+await response.text();
 
-console.log(email, password);
+console.log(data);
 
 }
+
+testServer();
