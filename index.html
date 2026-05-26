@@ -1,15 +1,18 @@
-const express = require("express");
-const cors = require("cors");
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kadwal Marketplace</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-const app = express();
+<h1>Kadwal Marketplace</h1>
 
-app.use(cors());
-app.use(express.json());
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
 
-app.get("/", (req, res) => {
-  res.send("Kadwal Marketplace Server Running");
-});
+<button id="signupBtn">Signup</button>
 
-app.listen(5000, () => {
-  console.log("Server Started on Port 5000");
-});
+<script src="app.js"></script>
+</body>
+</html>
