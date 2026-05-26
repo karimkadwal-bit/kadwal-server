@@ -1,50 +1,22 @@
-const API =
-"https://kadwal-server.onrender.com";
+const API = "https://kadwal-server.onrender.com";
 
-const signupBtn =
-document.getElementById("signupBtn");
+async function signup() {
 
-signupBtn.addEventListener("click", signup);
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
 
-async function signup(){
+alert("clicked");
 
-try{
-
-const email =
-document.getElementById("email").value;
-
-const password =
-document.getElementById("password").value;
-
-const response =
-await fetch(`${API}/signup`,{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
+const res = await fetch(API + "/signup", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
 },
-
-body:JSON.stringify({
-email,
-password
-})
-
+body: JSON.stringify({ email, password })
 });
 
-const data =
-await response.text();
+const data = await res.text();
 
 alert(data);
-
-}
-
-catch(error){
-
-alert("Error");
-
-console.log(error);
-
-}
 
 }
