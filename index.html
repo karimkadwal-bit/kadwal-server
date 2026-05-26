@@ -107,9 +107,12 @@ Add Product
 
 <script>
 
+const SERVER =
+"https://kadwal-server.onrender.com";
+
 function loadProducts() {
 
-fetch("https://kadwal-server.onrender.com/products")
+fetch(SERVER + "/products")
 
 .then(response => response.json())
 
@@ -159,7 +162,8 @@ const image =
 document.getElementById("image").value;
 
 fetch(
-"https://kadwal-server.onrender.com/products",
+
+SERVER + "/products",
 
 {
 method: "POST",
@@ -182,9 +186,9 @@ image
 
 .then(data => {
 
-alert("Product Added");
+alert(data.message);
 
-location.reload();
+loadProducts();
 
 });
 
@@ -193,7 +197,8 @@ location.reload();
 function deleteProduct(id) {
 
 fetch(
-"https://kadwal-server.onrender.com/products/" + id,
+
+SERVER + "/products/" + id,
 
 {
 method: "DELETE"
@@ -205,9 +210,9 @@ method: "DELETE"
 
 .then(data => {
 
-alert("Product Deleted");
+alert(data.message);
 
-location.reload();
+loadProducts();
 
 });
 
@@ -222,7 +227,8 @@ const password =
 document.getElementById("signupPassword").value;
 
 fetch(
-"https://kadwal-server.onrender.com/signup",
+
+SERVER + "/signup",
 
 {
 method: "POST",
@@ -259,7 +265,8 @@ const password =
 document.getElementById("loginPassword").value;
 
 fetch(
-"https://kadwal-server.onrender.com/login",
+
+SERVER + "/login",
 
 {
 method: "POST",
@@ -283,11 +290,17 @@ password
 
 alert(data.message);
 
-if(data.message === "Login Successful"){
+if(data.message.includes("Login Successful")){
 
 document.getElementById("profile").innerHTML = `
 
+<div class="product">
+
 <h2>Welcome ${username}</h2>
+
+<p>Status: Online 🟢</p>
+
+</div>
 
 `;
 
