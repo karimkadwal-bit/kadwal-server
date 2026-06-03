@@ -6,6 +6,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const products = [];
+
 // Home
 app.get("/", (req, res) => {
   res.send("Kadwal Marketplace API Running");
@@ -18,7 +20,7 @@ app.post("/signup", (req, res) => {
 
   console.log("Signup:", email);
 
-  res.send("Signup OK");
+  res.send("Signup Successful");
 
 });
 
@@ -29,7 +31,7 @@ app.post("/login", (req, res) => {
 
   console.log("Login:", email);
 
-  res.send("Login OK");
+  res.send("Login Successful");
 
 });
 
@@ -38,13 +40,19 @@ app.post("/add-product", (req, res) => {
 
   const { productName, productPrice } = req.body;
 
-  console.log(
-    "Product:",
+  products.push({
     productName,
     productPrice
-  );
+  });
 
   res.send("Product Added Successfully");
+
+});
+
+// Get Products
+app.get("/products", (req, res) => {
+
+  res.json(products);
 
 });
 
