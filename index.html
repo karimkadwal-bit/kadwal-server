@@ -1,39 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kadwal Marketplace</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kadwal Marketplace</title>
+
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container">
 
-  <h1>Kadwal Marketplace</h1>
-  <p>Buy • Sell • Connect Worldwide</p>
+<h1>Kadwal Marketplace</h1>
+<p>Buy • Sell • Connect Worldwide</p>
 
-  <div class="card">
+<div class="card">
 
-    <input
-      id="email"
-      type="email"
-      placeholder="Enter Email">
+<h2>User Account</h2>
 
-    <input
-      id="password"
-      type="password"
-      placeholder="Enter Password">
+<input
+id="email"
+type="email"
+placeholder="Enter Email">
 
-    <button onclick="signup()">
-      Signup
-    </button>
+<input
+id="password"
+type="password"
+placeholder="Enter Password">
 
-    <button onclick="login()">
-      Login
-    </button>
+<button onclick="signup()">
+Signup
+</button>
 
-  </div>
+<button onclick="login()">
+Login
+</button>
+
+<hr>
+
+<h2>Add Product</h2>
+
+<input
+id="productName"
+placeholder="Product Name">
+
+<input
+id="productPrice"
+placeholder="Product Price">
+
+<button onclick="addProduct()">
+Add Product
+</button>
+
+</div>
 
 </div>
 
