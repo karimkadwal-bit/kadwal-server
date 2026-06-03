@@ -6,19 +6,35 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// test route
+// Home Route
 app.get("/", (req, res) => {
   res.send("Kadwal Marketplace API Running");
 });
 
-// signup route
+// Signup Route
 app.post("/signup", (req, res) => {
-  console.log(req.body);
+
+  const { email, password } = req.body;
+
+  console.log("Signup:", email, password);
+
   res.send("Signup OK");
+
+});
+
+// Login Route
+app.post("/login", (req, res) => {
+
+  const { email, password } = req.body;
+
+  console.log("Login:", email, password);
+
+  res.send("Login OK");
+
 });
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log("Server running on port " + PORT);
+  console.log(`Server running on port ${PORT}`);
 });
