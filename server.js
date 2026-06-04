@@ -148,7 +148,30 @@ app.post("/add-product", async (req, res) => {
 
 // Get Products
 app.get("/products", async (req, res) => {
+// Delete Product
+app.delete("/delete-product/:id", async (req, res) => {
 
+  try {
+
+    await Product.findByIdAndDelete(
+      req.params.id
+    );
+
+    res.send(
+      "Product Deleted Successfully"
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send(
+      "Failed To Delete Product"
+    );
+
+  }
+
+});
   try {
 
     const products =
