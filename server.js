@@ -9,7 +9,7 @@ app.use(express.json());
 
 // MongoDB Connection
 mongoose.connect(
-  "mongodb+srv://karim:karimkadwal122@cluster0.70ffkmb.mongodb.net/kadwalMarketplace?retryWrites=true&w=majority&appName=Cluster0"
+  "mongodb+srv://karim:KARIMSADAT@cluster0.70ffkmb.mongodb.net/kadwalMarketplace?retryWrites=true&w=majority&appName=Cluster0"
 )
 .then(() => {
   console.log("MongoDB Connected");
