@@ -4,16 +4,18 @@ const API = "https://kadwal-server.onrender.com";
 async function signup() {
 
   const email =
-  document.getElementById("email").value;
+    document.getElementById("email").value;
 
   const password =
-  document.getElementById("password").value;
+    document.getElementById("password").value;
 
   const res = await fetch(API + "/signup", {
     method: "POST",
+
     headers: {
-      "Content-Type":"application/json"
+      "Content-Type": "application/json"
     },
+
     body: JSON.stringify({
       email,
       password
@@ -30,16 +32,18 @@ async function signup() {
 async function login() {
 
   const email =
-  document.getElementById("email").value;
+    document.getElementById("email").value;
 
   const password =
-  document.getElementById("password").value;
+    document.getElementById("password").value;
 
   const res = await fetch(API + "/login", {
     method: "POST",
+
     headers: {
-      "Content-Type":"application/json"
+      "Content-Type": "application/json"
     },
+
     body: JSON.stringify({
       email,
       password
@@ -56,23 +60,34 @@ async function login() {
 async function addProduct() {
 
   const productName =
-  document.getElementById("productName").value;
+    document.getElementById("productName").value;
 
   const productPrice =
-  document.getElementById("productPrice").value;
+    document.getElementById("productPrice").value;
 
-  const res = await fetch(API + "/add-product", {
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify({
-      productName,
-      productPrice
-    })
-  });
+  const productImage =
+    document.getElementById("productImage").value;
 
-  const data = await res.text();
+  const res = await fetch(
+    API + "/add-product",
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+          "application/json"
+      },
+
+      body: JSON.stringify({
+        productName,
+        productPrice,
+        productImage
+      })
+    }
+  );
+
+  const data =
+    await res.text();
 
   alert(data);
 
@@ -84,23 +99,46 @@ async function addProduct() {
 async function loadProducts() {
 
   const res =
-  await fetch(API + "/products");
+    await fetch(
+      API + "/products"
+    );
 
   const products =
-  await res.json();
+    await res.json();
 
   const productsList =
-  document.getElementById("productsList");
+    document.getElementById(
+      "productsList"
+    );
 
   productsList.innerHTML = "";
 
   products.forEach(product => {
 
     productsList.innerHTML += `
+
     <div class="product-card">
-      <h3>${product.productName}</h3>
-      <p>Price: $${product.productPrice}</p>
+
+      <img
+      src="${product.productImage}"
+      alt="${product.productName}"
+      style="
+      width:100%;
+      max-height:250px;
+      object-fit:cover;
+      border-radius:10px;
+      ">
+
+      <h3>
+      ${product.productName}
+      </h3>
+
+      <p>
+      Price: $${product.productPrice}
+      </p>
+
     </div>
+
     `;
 
   });
