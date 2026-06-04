@@ -18,27 +18,22 @@ mongoose.connect(
   console.log("MongoDB Error:", err);
 });
 
-// Product Schema
-const ProductSchema = new mongoose.Schema({
-  productName: String,
-  productPrice: String
-});
-
-const Product = mongoose.model(
-  "Product",
-  ProductSchema
-);
-
 // User Schema
 const UserSchema = new mongoose.Schema({
   email: String,
   password: String
 });
 
-const User = mongoose.model(
-  "User",
-  UserSchema
-);
+const User = mongoose.model("User", UserSchema);
+
+// Product Schema
+const ProductSchema = new mongoose.Schema({
+  productName: String,
+  productPrice: String,
+  productImage: String
+});
+
+const Product = mongoose.model("Product", ProductSchema);
 
 // Home
 app.get("/", (req, res) => {
@@ -71,7 +66,10 @@ app.post("/signup", async (req, res) => {
   } catch (error) {
 
     console.log(error);
-    res.status(500).send("Signup Failed");
+
+    res.status(500).send(
+      "Signup Failed"
+    );
 
   }
 
@@ -84,13 +82,18 @@ app.post("/login", async (req, res) => {
 
     const { email, password } = req.body;
 
-    const user = await User.findOne({
-      email,
-      password
-    });
+    const user =
+      await User.findOne({
+        email,
+        password
+      });
 
     if (!user) {
-      return res.send("Invalid Email Or Password");
+
+      return res.send(
+        "Invalid Email Or Password"
+      );
+
     }
 
     res.send("Login Successful");
@@ -98,7 +101,10 @@ app.post("/login", async (req, res) => {
   } catch (error) {
 
     console.log(error);
-    res.status(500).send("Login Failed");
+
+    res.status(500).send(
+      "Login Failed"
+    );
 
   }
 
@@ -109,21 +115,32 @@ app.post("/add-product", async (req, res) => {
 
   try {
 
-    const { productName, productPrice } = req.body;
-
-    const product = new Product({
+    const {
       productName,
-      productPrice
-    });
+      productPrice,
+      productImage
+    } = req.body;
+
+    const product =
+      new Product({
+        productName,
+        productPrice,
+        productImage
+      });
 
     await product.save();
 
-    res.send("Product Added Successfully");
+    res.send(
+      "Product Added Successfully"
+    );
 
   } catch (error) {
 
     console.log(error);
-    res.status(500).send("Failed To Add Product");
+
+    res.status(500).send(
+      "Failed To Add Product"
+    );
 
   }
 
@@ -142,13 +159,17 @@ app.get("/products", async (req, res) => {
   } catch (error) {
 
     console.log(error);
-    res.status(500).send("Failed To Load Products");
+
+    res.status(500).send(
+      "Failed To Load Products"
+    );
 
   }
 
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT =
+  process.env.PORT || 5000;
 
 app.listen(PORT, () => {
 
