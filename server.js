@@ -218,7 +218,62 @@ app.delete("/delete-product/:id", async (req, res) => {
 
 // Edit Product
 app.put("/edit-product/:id", async (req, res) => {
+// Add To Cart
+app.post("/add-to-cart", async (req, res) => {
 
+  try {
+
+    const {
+      productId,
+      productName,
+      productPrice,
+      productImage
+    } = req.body;
+
+    const cartItem = new Cart({
+      productId,
+      productName,
+      productPrice,
+      productImage
+    });
+
+    await cartItem.save();
+
+    res.send("Added To Cart");
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send(
+      "Failed To Add To Cart"
+    );
+
+  }
+
+});
+
+// Get Cart
+app.get("/cart", async (req, res) => {
+
+  try {
+
+    const cartItems =
+      await Cart.find();
+
+    res.json(cartItems);
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send(
+      "Failed To Load Cart"
+    );
+
+  }
+
+});
   try {
 
     const {
