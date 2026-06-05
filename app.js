@@ -107,7 +107,35 @@ async function deleteProduct(id) {
   loadProducts();
 
 }
+// Add To Cart
+async function addToCart(product) {
 
+  const res = await fetch(
+    API + "/add-to-cart",
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+        "application/json"
+      },
+
+      body: JSON.stringify({
+        productId: product._id,
+        productName: product.productName,
+        productPrice: product.productPrice,
+        productImage: product.productImage
+      })
+
+    }
+  );
+
+  const data =
+  await res.text();
+
+  alert(data);
+
+}
 // Edit Product
 async function editProduct(id) {
 
@@ -196,7 +224,10 @@ async function loadProducts() {
       Price:
       $${product.productPrice}
       </p>
-
+<button
+onclick='addToCart(${JSON.stringify(product)})'>
+Add To Cart
+</button>
       <button
       onclick="editProduct('${product._id}')">
       Edit Product
