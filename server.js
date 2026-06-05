@@ -286,7 +286,30 @@ app.get("/cart", async (req, res) => {
   }
 
 });
+// Remove From Cart
+app.delete("/remove-from-cart/:id", async (req, res) => {
 
+  try {
+
+    await Cart.findByIdAndDelete(
+      req.params.id
+    );
+
+    res.send(
+      "Removed From Cart"
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send(
+      "Failed To Remove From Cart"
+    );
+
+  }
+
+});
 const PORT =
   process.env.PORT || 5000;
 
