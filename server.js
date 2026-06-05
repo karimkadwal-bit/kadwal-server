@@ -35,7 +35,18 @@ const ProductSchema = new mongoose.Schema({
   productPrice: String,
   productImage: String
 });
+// Cart Schema
+const CartSchema = new mongoose.Schema({
+  productId: String,
+  productName: String,
+  productPrice: String,
+  productImage: String
+});
 
+const Cart = mongoose.model(
+  "Cart",
+  CartSchema
+);
 const Product = mongoose.model(
   "Product",
   ProductSchema
