@@ -184,7 +184,48 @@ async function editProduct(id) {
 
 // Load Products
 async function loadProducts() {
+// Load Cart
+async function loadCart() {
 
+  const res =
+    await fetch(API + "/cart");
+
+  const cartItems =
+    await res.json();
+
+  const cartList =
+    document.getElementById("cartList");
+
+  cartList.innerHTML = "";
+
+  cartItems.forEach(item => {
+
+    cartList.innerHTML += `
+
+    <div class="product-card">
+
+      <img
+      src="${item.productImage}"
+      style="
+      width:100%;
+      max-height:200px;
+      object-fit:cover;
+      border-radius:10px;
+      ">
+
+      <h3>${item.productName}</h3>
+
+      <p>
+      Price: $${item.productPrice}
+      </p>
+
+    </div>
+
+    `;
+
+  });
+
+                            }
   const res =
     await fetch(
       API + "/products"
@@ -247,3 +288,4 @@ Add To Cart
 }
 
 loadProducts();
+loadCart();
