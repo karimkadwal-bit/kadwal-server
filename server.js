@@ -24,10 +24,7 @@ const UserSchema = new mongoose.Schema({
   password: String
 });
 
-const User = mongoose.model(
-  "User",
-  UserSchema
-);
+const User = mongoose.model("User", UserSchema);
 
 // Product Schema
 const ProductSchema = new mongoose.Schema({
@@ -35,6 +32,9 @@ const ProductSchema = new mongoose.Schema({
   productPrice: String,
   productImage: String
 });
+
+const Product = mongoose.model("Product", ProductSchema);
+
 // Cart Schema
 const CartSchema = new mongoose.Schema({
   productId: String,
@@ -43,14 +43,7 @@ const CartSchema = new mongoose.Schema({
   productImage: String
 });
 
-const Cart = mongoose.model(
-  "Cart",
-  CartSchema
-);
-const Product = mongoose.model(
-  "Product",
-  ProductSchema
-);
+const Cart = mongoose.model("Cart", CartSchema);
 
 // Home
 app.get("/", (req, res) => {
@@ -68,9 +61,7 @@ app.post("/signup", async (req, res) => {
       await User.findOne({ email });
 
     if (existingUser) {
-      return res.send(
-        "User Already Exists"
-      );
+      return res.send("User Already Exists");
     }
 
     const user = new User({
@@ -80,17 +71,13 @@ app.post("/signup", async (req, res) => {
 
     await user.save();
 
-    res.send(
-      "Signup Successful"
-    );
+    res.send("Signup Successful");
 
   } catch (error) {
 
     console.log(error);
 
-    res.status(500).send(
-      "Signup Failed"
-    );
+    res.status(500).send("Signup Failed");
 
   }
 
@@ -110,24 +97,18 @@ app.post("/login", async (req, res) => {
       });
 
     if (!user) {
-
       return res.send(
         "Invalid Email Or Password"
       );
-
     }
 
-    res.send(
-      "Login Successful"
-    );
+    res.send("Login Successful");
 
   } catch (error) {
 
     console.log(error);
 
-    res.status(500).send(
-      "Login Failed"
-    );
+    res.status(500).send("Login Failed");
 
   }
 
@@ -144,18 +125,15 @@ app.post("/add-product", async (req, res) => {
       productImage
     } = req.body;
 
-    const product =
-      new Product({
-        productName,
-        productPrice,
-        productImage
-      });
+    const product = new Product({
+      productName,
+      productPrice,
+      productImage
+    });
 
     await product.save();
 
-    res.send(
-      "Product Added Successfully"
-    );
+    res.send("Product Added Successfully");
 
   } catch (error) {
 
@@ -218,6 +196,40 @@ app.delete("/delete-product/:id", async (req, res) => {
 
 // Edit Product
 app.put("/edit-product/:id", async (req, res) => {
+
+  try {
+
+    const {
+      productName,
+      productPrice,
+      productImage
+    } = req.body;
+
+    await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        productName,
+        productPrice,
+        productImage
+      }
+    );
+
+    res.send(
+      "Product Updated Successfully"
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send(
+      "Failed To Update Product"
+    );
+
+  }
+
+});
+
 // Add To Cart
 app.post("/add-to-cart", async (req, res) => {
 
@@ -269,38 +281,6 @@ app.get("/cart", async (req, res) => {
 
     res.status(500).send(
       "Failed To Load Cart"
-    );
-
-  }
-
-});
-  try {
-
-    const {
-      productName,
-      productPrice,
-      productImage
-    } = req.body;
-
-    await Product.findByIdAndUpdate(
-      req.params.id,
-      {
-        productName,
-        productPrice,
-        productImage
-      }
-    );
-
-    res.send(
-      "Product Updated Successfully"
-    );
-
-  } catch (error) {
-
-    console.log(error);
-
-    res.status(500).send(
-      "Failed To Update Product"
     );
 
   }
