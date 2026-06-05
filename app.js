@@ -108,6 +108,52 @@ async function deleteProduct(id) {
 
 }
 
+// Edit Product
+async function editProduct(id) {
+
+  const productName =
+    prompt("New Product Name");
+
+  if (!productName) return;
+
+  const productPrice =
+    prompt("New Product Price");
+
+  if (!productPrice) return;
+
+  const productImage =
+    prompt("New Product Image URL");
+
+  if (!productImage) return;
+
+  const res = await fetch(
+    API + "/edit-product/" + id,
+    {
+      method: "PUT",
+
+      headers: {
+        "Content-Type":
+          "application/json"
+      },
+
+      body: JSON.stringify({
+        productName,
+        productPrice,
+        productImage
+      })
+
+    }
+  );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+  loadProducts();
+
+}
+
 // Load Products
 async function loadProducts() {
 
@@ -147,8 +193,14 @@ async function loadProducts() {
       </h3>
 
       <p>
-      Price: $${product.productPrice}
+      Price:
+      $${product.productPrice}
       </p>
+
+      <button
+      onclick="editProduct('${product._id}')">
+      Edit Product
+      </button>
 
       <button
       onclick="deleteProduct('${product._id}')">
