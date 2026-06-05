@@ -24,7 +24,10 @@ const UserSchema = new mongoose.Schema({
   password: String
 });
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model(
+  "User",
+  UserSchema
+);
 
 // Product Schema
 const ProductSchema = new mongoose.Schema({
@@ -33,7 +36,10 @@ const ProductSchema = new mongoose.Schema({
   productImage: String
 });
 
-const Product = mongoose.model("Product", ProductSchema);
+const Product = mongoose.model(
+  "Product",
+  ProductSchema
+);
 
 // Home
 app.get("/", (req, res) => {
@@ -51,7 +57,9 @@ app.post("/signup", async (req, res) => {
       await User.findOne({ email });
 
     if (existingUser) {
-      return res.send("User Already Exists");
+      return res.send(
+        "User Already Exists"
+      );
     }
 
     const user = new User({
@@ -61,7 +69,9 @@ app.post("/signup", async (req, res) => {
 
     await user.save();
 
-    res.send("Signup Successful");
+    res.send(
+      "Signup Successful"
+    );
 
   } catch (error) {
 
@@ -96,7 +106,9 @@ app.post("/login", async (req, res) => {
 
     }
 
-    res.send("Login Successful");
+    res.send(
+      "Login Successful"
+    );
 
   } catch (error) {
 
@@ -148,6 +160,26 @@ app.post("/add-product", async (req, res) => {
 
 // Get Products
 app.get("/products", async (req, res) => {
+
+  try {
+
+    const products =
+      await Product.find();
+
+    res.json(products);
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send(
+      "Failed To Load Products"
+    );
+
+  }
+
+});
+
 // Delete Product
 app.delete("/delete-product/:id", async (req, res) => {
 
@@ -172,19 +204,37 @@ app.delete("/delete-product/:id", async (req, res) => {
   }
 
 });
+
+// Edit Product
+app.put("/edit-product/:id", async (req, res) => {
+
   try {
 
-    const products =
-      await Product.find();
+    const {
+      productName,
+      productPrice,
+      productImage
+    } = req.body;
 
-    res.json(products);
+    await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        productName,
+        productPrice,
+        productImage
+      }
+    );
+
+    res.send(
+      "Product Updated Successfully"
+    );
 
   } catch (error) {
 
     console.log(error);
 
     res.status(500).send(
-      "Failed To Load Products"
+      "Failed To Update Product"
     );
 
   }
