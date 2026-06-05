@@ -91,7 +91,7 @@ async function addProduct() {
 
 // Delete Product
 async function deleteProduct(id) {
-
+  
   const res = await fetch(
     API + "/delete-product/" + id,
     {
@@ -186,7 +186,24 @@ async function editProduct(id) {
 async function loadProducts() {
 // Load Cart
 async function loadCart() {
+// Remove From Cart
+async function removeFromCart(id) {
 
+  const res = await fetch(
+    API + "/remove-from-cart/" + id,
+    {
+      method: "DELETE"
+    }
+  );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+  loadCart();
+
+      }
   const res =
     await fetch(API + "/cart");
 
@@ -218,7 +235,10 @@ async function loadCart() {
       <p>
       Price: $${item.productPrice}
       </p>
-
+<button
+onclick="removeFromCart('${item._id}')">
+Remove From Cart
+</button>
     </div>
 
     `;
