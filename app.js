@@ -11,11 +11,9 @@ async function signup() {
 
   const res = await fetch(API + "/signup", {
     method: "POST",
-
     headers: {
       "Content-Type": "application/json"
     },
-
     body: JSON.stringify({
       email,
       password
@@ -39,11 +37,9 @@ async function login() {
 
   const res = await fetch(API + "/login", {
     method: "POST",
-
     headers: {
       "Content-Type": "application/json"
     },
-
     body: JSON.stringify({
       email,
       password
@@ -72,17 +68,34 @@ async function addProduct() {
     API + "/add-product",
     {
       method: "POST",
-
       headers: {
         "Content-Type":
           "application/json"
       },
-
       body: JSON.stringify({
         productName,
         productPrice,
         productImage
       })
+    }
+  );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+  loadProducts();
+
+}
+
+// Delete Product
+async function deleteProduct(id) {
+
+  const res = await fetch(
+    API + "/delete-product/" + id,
+    {
+      method: "DELETE"
     }
   );
 
@@ -136,6 +149,11 @@ async function loadProducts() {
       <p>
       Price: $${product.productPrice}
       </p>
+
+      <button
+      onclick="deleteProduct('${product._id}')">
+      Delete Product
+      </button>
 
     </div>
 
