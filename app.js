@@ -70,7 +70,7 @@ async function addProduct() {
       method: "POST",
       headers: {
         "Content-Type":
-          "application/json"
+        "application/json"
       },
       body: JSON.stringify({
         productName,
@@ -91,7 +91,7 @@ async function addProduct() {
 
 // Delete Product
 async function deleteProduct(id) {
-  
+
   const res = await fetch(
     API + "/delete-product/" + id,
     {
@@ -107,35 +107,7 @@ async function deleteProduct(id) {
   loadProducts();
 
 }
-// Add To Cart
-async function addToCart(product) {
 
-  const res = await fetch(
-    API + "/add-to-cart",
-    {
-      method: "POST",
-
-      headers: {
-        "Content-Type":
-        "application/json"
-      },
-
-      body: JSON.stringify({
-        productId: product._id,
-        productName: product.productName,
-        productPrice: product.productPrice,
-        productImage: product.productImage
-      })
-
-    }
-  );
-
-  const data =
-  await res.text();
-
-  alert(data);
-
-}
 // Edit Product
 async function editProduct(id) {
 
@@ -158,18 +130,15 @@ async function editProduct(id) {
     API + "/edit-product/" + id,
     {
       method: "PUT",
-
       headers: {
         "Content-Type":
-          "application/json"
+        "application/json"
       },
-
       body: JSON.stringify({
         productName,
         productPrice,
         productImage
       })
-
     }
   );
 
@@ -182,10 +151,35 @@ async function editProduct(id) {
 
 }
 
-// Load Products
-async function loadProducts() {
-// Load Cart
-async function loadCart() {
+// Add To Cart
+async function addToCart(product) {
+
+  const res = await fetch(
+    API + "/add-to-cart",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type":
+        "application/json"
+      },
+      body: JSON.stringify({
+        productId: product._id,
+        productName: product.productName,
+        productPrice: product.productPrice,
+        productImage: product.productImage
+      })
+    }
+  );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+  loadCart();
+
+}
+
 // Remove From Cart
 async function removeFromCart(id) {
 
@@ -203,7 +197,11 @@ async function removeFromCart(id) {
 
   loadCart();
 
-      }
+}
+
+// Load Cart
+async function loadCart() {
+
   const res =
     await fetch(API + "/cart");
 
@@ -212,6 +210,8 @@ async function removeFromCart(id) {
 
   const cartList =
     document.getElementById("cartList");
+
+  if (!cartList) return;
 
   cartList.innerHTML = "";
 
@@ -235,21 +235,25 @@ async function removeFromCart(id) {
       <p>
       Price: $${item.productPrice}
       </p>
-<button
-onclick="removeFromCart('${item._id}')">
-Remove From Cart
-</button>
+
+      <button
+      onclick="removeFromCart('${item._id}')">
+      Remove From Cart
+      </button>
+
     </div>
 
     `;
 
   });
 
-                            }
+}
+
+// Load Products
+async function loadProducts() {
+
   const res =
-    await fetch(
-      API + "/products"
-    );
+    await fetch(API + "/products");
 
   const products =
     await res.json();
@@ -285,10 +289,12 @@ Remove From Cart
       Price:
       $${product.productPrice}
       </p>
-<button
-onclick='addToCart(${JSON.stringify(product)})'>
-Add To Cart
-</button>
+
+      <button
+      onclick='addToCart(${JSON.stringify(product)})'>
+      Add To Cart
+      </button>
+
       <button
       onclick="editProduct('${product._id}')">
       Edit Product
