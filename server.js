@@ -323,6 +323,44 @@ app.delete("/remove-from-cart/:id", async (req, res) => {
   }
 
 });
+// Checkout
+app.post("/checkout", async (req, res) => {
+
+  try {
+
+    const cartItems =
+      await Cart.find();
+
+    for (const item of cartItems) {
+
+      const order =
+        new Order({
+          productName: item.productName,
+          productPrice: item.productPrice,
+          productImage: item.productImage
+        });
+
+      await order.save();
+
+    }
+
+    await Cart.deleteMany({});
+
+    res.send(
+      "Order Placed Successfully"
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send(
+      "Checkout Failed"
+    );
+
+  }
+
+});
 const PORT =
   process.env.PORT || 5000;
 
