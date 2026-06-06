@@ -312,6 +312,23 @@ async function loadProducts() {
   });
 
 }
+// Checkout
+async function checkout() {
 
+  const res = await fetch(
+    API + "/checkout",
+    {
+      method: "POST"
+    }
+  );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+  loadCart();
+
+}
 loadProducts();
 loadCart();
