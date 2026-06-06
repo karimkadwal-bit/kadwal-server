@@ -44,7 +44,20 @@ const CartSchema = new mongoose.Schema({
 });
 
 const Cart = mongoose.model("Cart", CartSchema);
+const OrderSchema = new mongoose.Schema({
+  productName: String,
+  productPrice: String,
+  productImage: String,
+  orderDate: {
+    type: Date,
+    default: Date.now
+  }
+});
 
+const Order = mongoose.model(
+  "Order",
+  OrderSchema
+);
 // Home
 app.get("/", (req, res) => {
   res.send("Kadwal Marketplace API Running");
