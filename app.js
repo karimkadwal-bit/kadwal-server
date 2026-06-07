@@ -377,6 +377,43 @@ async function loadOrders() {
   });
 
 }
+// Search Products
+async function searchProducts() {
+
+  const search =
+    document.getElementById(
+      "searchInput"
+    ).value.toLowerCase();
+
+  const cards =
+    document.querySelectorAll(
+      ".product-card"
+    );
+
+  cards.forEach(card => {
+
+    const name =
+      card.querySelector("h3")
+      .innerText
+      .toLowerCase();
+
+    if (
+      name.includes(search)
+    ) {
+
+      card.style.display =
+        "block";
+
+    } else {
+
+      card.style.display =
+        "none";
+
+    }
+
+  });
+
+}
 loadProducts();
 loadCart();
 loadOrders();
