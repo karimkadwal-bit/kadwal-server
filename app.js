@@ -214,9 +214,9 @@ async function loadCart() {
   if (!cartList) return;
 
   cartList.innerHTML = "";
-
+let total = 0;
   cartItems.forEach(item => {
-
+total += Number(item.productPrice);
     cartList.innerHTML += `
 
     <div class="product-card">
@@ -247,8 +247,11 @@ async function loadCart() {
 
   });
 
+document.getElementById(
+  "totalPrice"
+).innerText =
+  "Total: $" + total;
 }
-
 // Load Products
 async function loadProducts() {
 
