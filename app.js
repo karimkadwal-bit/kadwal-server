@@ -330,5 +330,50 @@ async function checkout() {
   loadCart();
 
 }
+// Load Orders
+async function loadOrders() {
+
+  const res =
+    await fetch(API + "/orders");
+
+  const orders =
+    await res.json();
+
+  const ordersList =
+    document.getElementById("ordersList");
+
+  if (!ordersList) return;
+
+  ordersList.innerHTML = "";
+
+  orders.forEach(order => {
+
+    ordersList.innerHTML += `
+
+    <div class="product-card">
+
+      <img
+      src="${order.productImage}"
+      style="
+      width:100%;
+      max-height:200px;
+      object-fit:cover;
+      border-radius:10px;
+      ">
+
+      <h3>${order.productName}</h3>
+
+      <p>
+      Price: $${order.productPrice}
+      </p>
+
+    </div>
+
+    `;
+
+  });
+
+}
 loadProducts();
 loadCart();
+loadOrders();
