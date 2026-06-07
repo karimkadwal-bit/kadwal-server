@@ -361,6 +361,27 @@ app.post("/checkout", async (req, res) => {
   }
 
 });
+// Get Orders
+app.get("/orders", async (req, res) => {
+
+  try {
+
+    const orders =
+      await Order.find();
+
+    res.json(orders);
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send(
+      "Failed To Load Orders"
+    );
+
+  }
+
+});
 const PORT =
   process.env.PORT || 5000;
 
