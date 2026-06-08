@@ -30,6 +30,7 @@ const User = mongoose.model("User", UserSchema);
 const ProductSchema = new mongoose.Schema({
   productName: String,
   productPrice: String,
+  productCategory: String,
   productImage: String
 });
 
@@ -135,12 +136,14 @@ app.post("/add-product", async (req, res) => {
     const {
       productName,
       productPrice,
+      productCategory,
       productImage
     } = req.body;
 
     const product = new Product({
       productName,
       productPrice,
+      productCategory,
       productImage
     });
 
