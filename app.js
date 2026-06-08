@@ -60,7 +60,10 @@ async function addProduct() {
 
   const productPrice =
     document.getElementById("productPrice").value;
-
+  
+const productCategory =
+  document.getElementById("productCategory").value;
+  
   const productImage =
     document.getElementById("productImage").value;
 
@@ -75,6 +78,7 @@ async function addProduct() {
       body: JSON.stringify({
         productName,
         productPrice,
+        productCategory,
         productImage
       })
     }
@@ -287,6 +291,11 @@ async function loadProducts() {
       <h3>
       ${product.productName}
       </h3>
+      
+<p>
+Category:
+${product.productCategory}
+</p>
 
       <p>
       Price:
