@@ -97,6 +97,37 @@ Add Product
 id="searchInput"
 placeholder="Search Product"
 onkeyup="searchProducts()">
+
+  <select
+id="filterCategory"
+onchange="filterProducts()">
+
+  <option value="All">
+    All Categories
+  </option>
+
+  <option value="Electronics">
+    Electronics
+  </option>
+
+  <option value="Phones">
+    Phones
+  </option>
+
+  <option value="Cars">
+    Cars
+  </option>
+
+  <option value="Clothes">
+    Clothes
+  </option>
+
+  <option value="Books">
+    Books
+  </option>
+
+  </select>
+  
 <div id="productsList"></div>
 
 <hr>
