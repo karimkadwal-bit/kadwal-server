@@ -276,7 +276,9 @@ async function loadProducts() {
 
     productsList.innerHTML += `
 
-    <div class="product-card">
+    <div
+class="product-card"
+data-category="${product.productCategory}">
 
       <img
       src="${product.productImage}"
@@ -408,6 +410,43 @@ async function searchProducts() {
 
     if (
       name.includes(search)
+    ) {
+
+      card.style.display =
+        "block";
+
+    } else {
+
+      card.style.display =
+        "none";
+
+    }
+
+  });
+
+}
+async function filterProducts() {
+
+  const selected =
+    document.getElementById(
+      "filterCategory"
+    ).value;
+
+  const cards =
+    document.querySelectorAll(
+      ".product-card"
+    );
+
+  cards.forEach(card => {
+
+    const category =
+      card.getAttribute(
+        "data-category"
+      );
+
+    if (
+      selected === "All" ||
+      category === selected
     ) {
 
       card.style.display =
