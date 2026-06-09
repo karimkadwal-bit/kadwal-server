@@ -76,7 +76,8 @@ formData.append(
   "image",
   imageFile
 );
-
+alert("Image Upload Started");
+  
   const uploadRes =
   await fetch(
     API + "/upload-image",
@@ -88,6 +89,7 @@ formData.append(
 
 const uploadData =
   await uploadRes.json();
+  alert("Image Uploaded");
   const productImage =
   API + uploadData.imageUrl;
   
