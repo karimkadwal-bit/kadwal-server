@@ -64,9 +64,33 @@ async function addProduct() {
 const productCategory =
   document.getElementById("productCategory").value;
   
-  const productImage =
-    document.getElementById("productImage").value;
+  const imageFile =
+  document.getElementById(
+    "productImage"
+  ).files[0];
+  
+const formData =
+  new FormData();
 
+formData.append(
+  "image",
+  imageFile
+);
+
+  const uploadRes =
+  await fetch(
+    API + "/upload-image",
+    {
+      method: "POST",
+      body: formData
+    }
+  );
+
+const uploadData =
+  await uploadRes.json();
+  const productImage =
+  API + uploadData.imageUrl;
+  
   const res = await fetch(
     API + "/add-product",
     {
