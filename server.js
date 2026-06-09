@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-
+const multer = require("multer");
+const path = require("path");
 const app = express();
 
 app.use(cors());
@@ -16,6 +17,30 @@ mongoose.connect(
 })
 .catch((err) => {
   console.log("MongoDB Error:", err);
+});
+
+const storage = multer.diskStorage({
+
+  destination: (req, file, cb) => {
+
+    cb(null, "uploads/");
+
+  },
+
+  filename: (req, file, cb) => {
+
+    cb(
+      null,
+      Date.now() +
+      path.extname(file.originalname)
+    );
+
+  }
+
+});
+
+const upload = multer({
+  storage
 });
 
 // User Schema
