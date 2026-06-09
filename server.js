@@ -385,6 +385,26 @@ app.get("/orders", async (req, res) => {
   }
 
 });
+app.use(
+  "/uploads",
+  express.static("uploads")
+);
+
+// Upload Image
+app.post(
+  "/upload-image",
+  upload.single("image"),
+  (req, res) => {
+
+    res.json({
+      imageUrl:
+        "/uploads/" +
+        req.file.filename
+    });
+
+  }
+);
+
 const PORT =
   process.env.PORT || 5000;
 
