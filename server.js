@@ -84,9 +84,50 @@ const Order = mongoose.model(
   "Order",
   OrderSchema
 );
+
+// Wishlist Schema
+const WishlistSchema = new mongoose.Schema({
+  productId: String,
+  productName: String,
+  productPrice: String,
+  productCategory: String,
+  productImage: String
+});
+
+const Wishlist = mongoose.model(
+  "Wishlist",
+  WishlistSchema
+);
+
 // Home
 app.get("/", (req, res) => {
   res.send("Kadwal Marketplace API Running");
+});
+
+// Add To Wishlist
+app.post("/add-to-wishlist", async (req, res) => {
+
+  try {
+
+    const wishlistItem =
+      new Wishlist(req.body);
+
+    await wishlistItem.save();
+
+    res.send(
+      "Added To Wishlist"
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send(
+      "Failed To Add Wishlist"
+    );
+
+  }
+
 });
 
 // Signup
