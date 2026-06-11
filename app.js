@@ -210,6 +210,37 @@ async function addToCart(product) {
 
 }
 
+// Add To Wishlist
+async function addToWishlist(product) {
+
+  const res = await fetch(
+    API + "/add-to-wishlist",
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+          "application/json"
+      },
+
+      body: JSON.stringify({
+        productId: product._id,
+        productName: product.productName,
+        productPrice: product.productPrice,
+        productCategory: product.productCategory,
+        productImage: product.productImage
+      })
+
+    }
+  );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+      }
+
 // Remove From Cart
 async function removeFromCart(id) {
 
@@ -334,6 +365,11 @@ ${product.productCategory}
       onclick='addToCart(${JSON.stringify(product)})'>
       Add To Cart
       </button>
+
+      <button
+onclick='addToWishlist(${JSON.stringify(product)})'>
+❤️ Wishlist
+</button>
 
       <button
       onclick="editProduct('${product._id}')">
