@@ -238,7 +238,7 @@ async function addToWishlist(product) {
     await res.text();
 
   alert(data);
-
+loadWishlist();
       }
 
 // Remove From Cart
@@ -450,6 +450,55 @@ async function loadOrders() {
   });
 
 }
+// Load Wishlist
+async function loadWishlist() {
+
+  const res =
+    await fetch(API + "/wishlist");
+
+  const wishlist =
+    await res.json();
+
+  const wishlistList =
+    document.getElementById(
+      "wishlistList"
+    );
+
+  if (!wishlistList) return;
+
+  wishlistList.innerHTML = "";
+
+  wishlist.forEach(item => {
+
+    wishlistList.innerHTML += `
+
+    <div class="product-card">
+
+      <img
+      src="${item.productImage}"
+      style="
+      width:100%;
+      max-height:200px;
+      object-fit:cover;
+      border-radius:10px;
+      ">
+
+      <h3>
+      ${item.productName}
+      </h3>
+
+      <p>
+      Price:
+      $${item.productPrice}
+      </p>
+
+    </div>
+
+    `;
+
+  });
+
+}
 // Search Products
 async function searchProducts() {
 
@@ -527,3 +576,4 @@ async function filterProducts() {
 loadProducts();
 loadCart();
 loadOrders();
+loadWishlist();
