@@ -451,6 +451,29 @@ app.get("/orders", async (req, res) => {
   }
 
 });
+
+// Get Wishlist
+app.get("/wishlist", async (req, res) => {
+
+  try {
+
+    const wishlist =
+      await Wishlist.find();
+
+    res.json(wishlist);
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send(
+      "Failed To Load Wishlist"
+    );
+
+  }
+
+});
+
 app.use(
   "/uploads",
   express.static("uploads")
