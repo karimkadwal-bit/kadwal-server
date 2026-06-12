@@ -241,6 +241,40 @@ async function addToWishlist(product) {
 loadWishlist();
       }
 
+// Rate Product
+async function rateProduct(id) {
+
+  const rating =
+    document.getElementById(
+      `rating-${id}`
+    ).value;
+
+  const res = await fetch(
+    API + "/rate-product/" + id,
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+        "application/json"
+      },
+
+      body: JSON.stringify({
+        rating
+      })
+
+    }
+  );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+  loadProducts();
+
+}
+
 // Remove From Cart
 async function removeFromCart(id) {
 
@@ -339,6 +373,7 @@ data-category="${product.productCategory}">
 
       <img
       src="${product.productImage}"
+      
       alt="${product.productName}"
       style="
       width:100%;
@@ -351,6 +386,7 @@ data-category="${product.productCategory}">
       ${product.productName}
       </h3>
       
+      
 <p>
 Category:
 ${product.productCategory}
@@ -360,6 +396,24 @@ ${product.productCategory}
       Price:
       $${product.productPrice}
       </p>
+      <p>
+Rating:
+${product.rating || 0} ⭐
+</p>
+
+<select
+id="rating-${product._id}">
+  <option value="1">⭐</option>
+  <option value="2">⭐⭐</option>
+  <option value="3">⭐⭐⭐</option>
+  <option value="4">⭐⭐⭐⭐</option>
+  <option value="5">⭐⭐⭐⭐⭐</option>
+</select>
+
+<button
+onclick="rateProduct('${product._id}')">
+Rate
+</button>
 
       <button
       onclick='addToCart(${JSON.stringify(product)})'>
