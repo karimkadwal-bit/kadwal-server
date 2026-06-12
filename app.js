@@ -266,6 +266,40 @@ async function rateProduct(id) {
     }
   );
 
+  // Add Review
+async function addReview(id) {
+
+  const review =
+    document.getElementById(
+      `review-${id}`
+    ).value;
+
+  const res = await fetch(
+    API + "/add-review/" + id,
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+        "application/json"
+      },
+
+      body: JSON.stringify({
+        review
+      })
+
+    }
+  );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+  loadProducts();
+
+}
+
   const data =
     await res.text();
 
@@ -396,6 +430,13 @@ ${product.productCategory}
       Price:
       $${product.productPrice}
       </p>
+
+      <p>
+Reviews:
+${product.reviews ?
+product.reviews.join("<br>")
+: ""}
+</p>
       <p>
 Rating:
 ${product.rating || 0} ⭐
@@ -413,6 +454,15 @@ id="rating-${product._id}">
 <button
 onclick="rateProduct('${product._id}')">
 Rate
+</button>
+
+<input
+id="review-${product._id}"
+placeholder="Write Review">
+
+<button
+onclick="addReview('${product._id}')">
+Add Review
 </button>
 
       <button
