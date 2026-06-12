@@ -56,7 +56,11 @@ const ProductSchema = new mongoose.Schema({
   productName: String,
   productPrice: String,
   productCategory: String,
-  productImage: String
+  productImage: String,
+  rating:  {
+    type:Number,
+    default: 0
+  }
 });
 
 const Product = mongoose.model("Product", ProductSchema);
