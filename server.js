@@ -477,6 +477,33 @@ app.get("/wishlist", async (req, res) => {
   }
 
 });
+// Rate Product
+app.post("/rate-product/:id", async (req, res) => {
+
+  try {
+
+    const { rating } = req.body;
+
+    await Product.findByIdAndUpdate(
+      req.params.id,
+      { rating }
+    );
+
+    res.send(
+      "Product Rated"
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send(
+      "Failed To Rate Product"
+    );
+
+  }
+
+});
 
 app.use(
   "/uploads",
