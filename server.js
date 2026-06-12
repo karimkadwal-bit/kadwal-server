@@ -510,6 +510,38 @@ app.post("/rate-product/:id", async (req, res) => {
 
 });
 
+// Add Review
+app.post("/add-review/:id", async (req, res) => {
+
+  try {
+
+    const { review } = req.body;
+
+    await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        $push: {
+          reviews: review
+        }
+      }
+    );
+
+    res.send(
+      "Review Added"
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send(
+      "Failed To Add Review"
+    );
+
+  }
+
+});
+
 app.use(
   "/uploads",
   express.static("uploads")
