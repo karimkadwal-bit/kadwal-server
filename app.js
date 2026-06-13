@@ -302,15 +302,6 @@ alert("Review Button Clicked");
 
 }
 
-  const data =
-    await res.text();
-
-  alert(data);
-
-  loadProducts();
-
-}
-
 // Remove From Cart
 async function removeFromCart(id) {
 
