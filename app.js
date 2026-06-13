@@ -301,7 +301,9 @@ alert("Review Button Clicked");
   loadProducts();
 
 }
-
+  
+);
+  
 // Remove From Cart
 async function removeFromCart(id) {
 
