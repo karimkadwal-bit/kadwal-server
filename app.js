@@ -427,7 +427,7 @@ ${product.productCategory}
       <p>
       Reviews:
       ${product.reviews ?
-      product.reviews.join("<br>")
+      product.reviews.join(",")
      : ""}
      </p>
      
