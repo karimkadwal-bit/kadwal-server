@@ -196,7 +196,7 @@ async function addToCart(product) {
         productId: product._id,
         productName: product.productName,
         productPrice: product.productPrice,
-        productImage: product.productImage,
+        productImage: product.productImage
       })
     }
   );
@@ -228,7 +228,7 @@ async function addToWishlist(product) {
         productName: product.productName,
         productPrice: product.productPrice,
         productCategory: product.productCategory,
-        productImage: product.productImage,
+        productImage: product.productImage
       })
 
     }
@@ -424,12 +424,12 @@ ${product.productCategory}
       $${product.productPrice}
       </p>
 
-      <p>
-      Reviews:
-      ${product.reviews ?
-      product.reviews.join(",")
-     : ""}
-     </p>
+ <p>
+ Reviews:
+ ${product.reviews ?
+ product.reviews.join(",")
+ : ""}
+ </p>
      
       <p>
 Rating:
