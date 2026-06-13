@@ -449,6 +449,7 @@ id="rating-${product._id}">
 onclick="rateProduct('${product._id}')">
 Rate
 </button>
+
 <input
 id="review-${product._id}"
 placeholder="Write Review">
