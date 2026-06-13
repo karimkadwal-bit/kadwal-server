@@ -425,11 +425,12 @@ ${product.productCategory}
       </p>
 
       <p>
-Reviews:
-${product.reviews ?
-product.reviews.join("<br>")
-: ""}
-</p>
+      Reviews:
+      ${product.reviews ?
+      product.reviews.join("<br>")
+     : ""}
+     </p>
+     
       <p>
 Rating:
 ${product.rating || 0} ⭐
