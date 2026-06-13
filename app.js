@@ -268,7 +268,9 @@ async function rateProduct(id) {
 
   // Add Review
 async function addReview(id) {
-
+  
+alert("Review Button Clicked");
+  
   const review =
     document.getElementById(
       `review-${id}`
