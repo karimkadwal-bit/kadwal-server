@@ -253,43 +253,13 @@ async function rateProduct(id) {
     API + "/rate-product/" + id,
     {
       method: "POST",
-
       headers: {
         "Content-Type":
         "application/json"
       },
-
       body: JSON.stringify({
         rating
       })
-
-    }
-  );
-
-  // Add Review
-async function addReview(id) {
-  
-alert("Review Button Clicked");
-  
-  const review =
-    document.getElementById(
-      `review-${id}`
-    ).value;
-
-  const res = await fetch(
-    API + "/add-review/" + id,
-    {
-      method: "POST",
-
-      headers: {
-        "Content-Type":
-        "application/json"
-      },
-
-      body: JSON.stringify({
-        review
-      })
-
     }
   );
 
@@ -301,9 +271,39 @@ alert("Review Button Clicked");
   loadProducts();
 
 }
-  
-);
-  
+
+// Add Review
+async function addReview(id) {
+
+  alert("Review Button Clicked");
+
+  const review =
+    document.getElementById(
+      `review-${id}`
+    ).value;
+
+  const res = await fetch(
+    API + "/add-review/" + id,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type":
+        "application/json"
+      },
+      body: JSON.stringify({
+        review
+      })
+    }
+  );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+  loadProducts();
+
+        }
 // Remove From Cart
 async function removeFromCart(id) {
 
