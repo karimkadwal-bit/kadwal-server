@@ -304,6 +304,40 @@ async function addReview(id) {
   loadProducts();
 
         }
+
+// Update Order Status
+async function updateOrderStatus(id) {
+
+  const status =
+    document.getElementById(
+      `status-${id}`
+    ).value;
+
+  const res = await fetch(
+    API + "/update-order-status/" + id,
+    {
+      method: "PUT",
+
+      headers: {
+        "Content-Type":
+        "application/json"
+      },
+
+      body: JSON.stringify({
+        status
+      })
+
+    }
+  );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+  loadOrders();
+
+}
 // Remove From Cart
 async function removeFromCart(id) {
 
@@ -543,13 +577,38 @@ async function loadOrders() {
       Price: $${order.productPrice}
       </p>
 
-    </div>
+  <p>
+Status:
+${order.status}
+</p>
 
-    `;
+<select
+id="status-${order._id}">
+  <option value="Pending">
+    Pending
+  </option>
+
+  <option value="Shipped">
+    Shipped
+  </option>
+
+  <option value="Delivered">
+    Delivered
+  </option>
+</select>
+
+<button
+onclick="updateOrderStatus('${order._id}')">
+Update Status
+</button>
+</div>
+
+`;
 
   });
 
 }
+
 // Load Wishlist
 async function loadWishlist() {
 
