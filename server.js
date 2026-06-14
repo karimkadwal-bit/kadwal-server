@@ -84,6 +84,12 @@ const OrderSchema = new mongoose.Schema({
   productPrice: String,
   productImage: String,
   orderDate: {
+
+    status: {
+    type: String,
+    default: "Pending"
+  },
+    
     type: Date,
     default: Date.now
   }
