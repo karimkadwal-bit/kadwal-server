@@ -467,6 +467,40 @@ app.get("/orders", async (req, res) => {
 
 });
 
+// Update Order Status
+app.put(
+  "/update-order-status/:id",
+  async (req, res) => {
+
+    try {
+
+      const { status } =
+        req.body;
+
+      await Order.findByIdAndUpdate(
+        req.params.id,
+        {
+          status
+        }
+      );
+
+      res.send(
+        "Order Status Updated"
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send(
+        "Failed To Update Status"
+      );
+
+    }
+
+  }
+);
+
 // Get Wishlist
 app.get("/wishlist", async (req, res) => {
 
