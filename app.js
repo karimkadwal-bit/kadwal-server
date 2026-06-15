@@ -356,7 +356,23 @@ async function removeFromCart(id) {
   loadCart();
 
 }
+async function removeFromWishlist(id) {
 
+  const res = await fetch(
+    API + "/remove-from-wishlist/" + id,
+    {
+      method: "DELETE"
+    }
+  );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+  loadWishlist();
+
+      }
 // Load Cart
 async function loadCart() {
 
@@ -650,6 +666,11 @@ async function loadWishlist() {
       Price:
       $${item.productPrice}
       </p>
+      
+      <button
+onclick="removeFromWishlist('${item._id}')">
+Remove Wishlist
+</button>
 
     </div>
 
