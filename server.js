@@ -549,6 +549,32 @@ app.post("/rate-product/:id", async (req, res) => {
   }
 
 });
+app.delete(
+  "/remove-from-wishlist/:id",
+  async (req, res) => {
+
+    try {
+
+      await Wishlist.findByIdAndDelete(
+        req.params.id
+      );
+
+      res.send(
+        "Removed From Wishlist"
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send(
+        "Failed To Remove Wishlist"
+      );
+
+    }
+
+  }
+);
 
 // Add Review
 app.post("/add-review/:id", async (req, res) => {
