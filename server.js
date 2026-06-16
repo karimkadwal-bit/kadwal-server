@@ -197,18 +197,39 @@ app.post("/login", async (req, res) => {
       });
 
     if (!user) {
-      return res.send(
-        "Invalid Email Or Password"
-      );
+
+      return res.json({
+        message:
+        "Invalid Email Or Password",
+        isAdmin: false
+      });
+
     }
 
-    res.send("Login Successful");
+    if (user.isAdmin) {
+
+      return res.json({
+        message:
+        "Admin Login Success",
+        isAdmin: true
+      });
+
+    }
+
+    return res.json({
+      message:
+      "Login Successful",
+      isAdmin: false
+    });
 
   } catch (error) {
 
     console.log(error);
 
-    res.status(500).send("Login Failed");
+    res.status(500).json({
+      message:
+      "Login Failed"
+    });
 
   }
 
