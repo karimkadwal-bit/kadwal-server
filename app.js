@@ -692,6 +692,8 @@ Remove Wishlist
 // Load Users
 async function loadUsers() {
 
+  alert("Loading Users");
+  
   const res =
     await fetch(API + "/users");
 
