@@ -46,7 +46,8 @@ const upload = multer({
 // User Schema
 const UserSchema = new mongoose.Schema({
   email: String,
-  password: String
+  password: String,
+    
   isAdmin: {
     type: Boolean,
     default: false
