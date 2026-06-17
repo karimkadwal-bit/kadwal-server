@@ -59,7 +59,7 @@ if (data.isAdmin) {
 
 }
 
-
+}
 // Add Product
 async function addProduct() {
 
