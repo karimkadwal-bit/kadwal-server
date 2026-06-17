@@ -46,11 +46,19 @@ async function login() {
     })
   });
 
-  const data = await res.text();
+  const data =
+  await res.json();
 
-  alert(data);
+alert(data.message);
+
+if (data.isAdmin) {
+
+  document.getElementById(
+    "adminPanel"
+  ).style.display = "block";
 
 }
+
 
 // Add Product
 async function addProduct() {
