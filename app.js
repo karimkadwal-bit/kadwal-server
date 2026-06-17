@@ -64,7 +64,7 @@ if (data.isAdmin) {
 // Add Product
 async function addProduct() {
 
-  const productName User=
+  const productName =
     document.getElementById("productName").value;
 
   const productPrice =
