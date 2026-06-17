@@ -548,6 +548,50 @@ app.get("/wishlist", async (req, res) => {
   }
 
 });
+
+// Get Users
+app.get("/users", async (req, res) => {
+
+  try {
+
+    const users =
+      await User.find();
+
+    res.json(users);
+
+  } catch (error) {
+
+    res.status(500).send(
+      "Failed To Load Users"
+    );
+
+  }
+
+});
+
+// Delete User
+app.delete("/delete-user/:id", async (req, res) => {
+
+  try {
+
+    await User.findByIdAndDelete(
+      req.params.id
+    );
+
+    res.send(
+      "User Deleted"
+    );
+
+  } catch (error) {
+
+    res.status(500).send(
+      "Delete Failed"
+    );
+
+  }
+
+});
+
 // Rate Product
 app.post("/rate-product/:id", async (req, res) => {
 
