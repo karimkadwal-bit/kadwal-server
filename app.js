@@ -74,7 +74,7 @@ const productCategory =
   document.getElementById("productCategory").value;
   
   const imageFile =
-  document.ge(tElementById(
+  document.getElementById(
     "productImage"
   ).files[0];
   
