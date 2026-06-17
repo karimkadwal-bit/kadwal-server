@@ -57,13 +57,14 @@ if (data.isAdmin) {
     "adminPanel"
   ).style.display = "block";
 
+  loadUsers();
 }
 
 }
 // Add Product
 async function addProduct() {
 
-  const productName =
+  const productName User=
     document.getElementById("productName").value;
 
   const productPrice =
@@ -73,7 +74,7 @@ const productCategory =
   document.getElementById("productCategory").value;
   
   const imageFile =
-  document.getElementById(
+  document.ge(tElementById(
     "productImage"
   ).files[0];
   
@@ -687,6 +688,67 @@ Remove Wishlist
   });
 
 }
+
+// Load Users
+async function loadUsers() {
+
+  const res =
+    await fetch(API + "/users");
+
+  const users =
+    await res.json();
+
+  const usersList =
+    document.getElementById(
+      "usersList"
+    );
+
+  if (!usersList) return;
+
+  usersList.innerHTML = "";
+
+  users.forEach(user => {
+
+    usersList.innerHTML += `
+
+    <div class="product-card">
+
+      <h3>
+      ${user.email}
+      </h3>
+
+      <button
+      onclick="deleteUser('${user._id}')">
+      Delete User
+      </button>
+
+    </div>
+
+    `;
+
+  });
+
+}
+
+// Delete User
+async function deleteUser(id) {
+
+  const res = await fetch(
+    API + "/delete-user/" + id,
+    {
+      method: "DELETE"
+    }
+  );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+  loadUsers();
+
+}
+
 // Search Products
 async function searchProducts() {
 
