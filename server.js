@@ -62,6 +62,11 @@ const ProductSchema = new mongoose.Schema({
   productPrice: String,
   productCategory: String,
   productImage: String,
+
+  stock: {
+  type: Number,
+  default: 0
+},
   
   rating:  {
     type:Number,
