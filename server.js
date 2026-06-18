@@ -592,6 +592,50 @@ app.delete("/delete-user/:id", async (req, res) => {
 
 });
 
+// Dashboard Stats
+app.get("/dashboard-stats", async (req, res) => {
+
+  try {
+
+    const totalUsers =
+      await User.countDocuments();
+
+    const totalProducts =
+      await Product.countDocuments();
+
+    const totalOrders =
+      await Order.countDocuments();
+
+    const orders =
+      await Order.find();
+
+    let revenue = 0;
+
+    orders.forEach(order => {
+
+      revenue += Number(
+        order.productPrice
+      );
+
+    });
+
+    res.json({
+      totalUsers,
+      totalProducts,
+      totalOrders,
+      revenue
+    });
+
+  } catch (error) {
+
+    res.status(500).send(
+      "Failed To Load Stats"
+    );
+
+  }
+
+});
+
 // Rate Product
 app.post("/rate-product/:id", async (req, res) => {
 
