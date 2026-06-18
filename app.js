@@ -490,6 +490,11 @@ ${product.productCategory}
       Price:
       $${product.productPrice}
       </p>
+      <p>
+      
+Stock:
+${product.stock}
+</p>
 
  <p>
  Reviews:
