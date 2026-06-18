@@ -119,7 +119,7 @@ const uploadData =
         productName,
         productPrice,
         productCategory,
-        productImage
+        productImage,
         stock: productStock
       })
     }
