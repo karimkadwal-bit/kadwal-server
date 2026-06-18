@@ -450,12 +450,40 @@ app.post("/checkout", async (req, res) => {
 
     for (const item of cartItems) {
 
-      const order =
-        new Order({
-          productName: item.productName,
-          productPrice: item.productPrice,
-          productImage: item.productImage
-        });
+      const cartItems =
+  await Cart.find();
+
+for (const item of cartItems) {
+
+  const product =
+    await Product.findById(
+      item.productId
+    );
+
+  if (product) {
+
+    product.stock =
+      Math.max(
+        0,
+        product.stock - 1
+      );
+
+    await product.save();
+
+  }
+
+  const order =
+    new Order({
+      productName: item.productName,
+      productPrice: item.productPrice,
+      productImage: item.productImage
+    });
+
+  await order.save();
+
+}
+
+await Cart.deleteMany({});
 
       await order.save();
 
