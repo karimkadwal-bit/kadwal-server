@@ -58,6 +58,8 @@ if (data.isAdmin) {
   ).style.display = "block";
 
   loadUsers();
+
+  loadDashboard();
 }
 
 }
@@ -825,6 +827,43 @@ async function filterProducts() {
   });
 
 }
+
+async function loadDashboard() {
+
+  const res =
+    await fetch(
+      API + "/dashboard-stats"
+    );
+
+  const data =
+    await res.json();
+
+  document.getElementById(
+    "totalUsers"
+  ).innerText =
+    "Users: " +
+    data.totalUsers;
+
+  document.getElementById(
+    "totalProducts"
+  ).innerText =
+    "Products: " +
+    data.totalProducts;
+
+  document.getElementById(
+    "totalOrders"
+  ).innerText =
+    "Orders: " +
+    data.totalOrders;
+
+  document.getElementById(
+    "revenue"
+  ).innerText =
+    "Revenue: $" +
+    data.revenue;
+
+}
+
 loadProducts();
 loadCart();
 loadOrders();
