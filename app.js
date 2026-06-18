@@ -71,6 +71,9 @@ async function addProduct() {
 
   const productPrice =
     document.getElementById("productPrice").value;
+
+  const productStock =
+  document.getElementById("productStock").value;
   
 const productCategory =
   document.getElementById("productCategory").value;
@@ -117,6 +120,7 @@ const uploadData =
         productPrice,
         productCategory,
         productImage
+        stock: productStock
       })
     }
   );
