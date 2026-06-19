@@ -443,14 +443,11 @@ app.delete("/remove-from-cart/:id", async (req, res) => {
 // Checkout
 app.post("/checkout", async (req, res) => {
 
-  try {
 
-    const cartItems =
-      await Cart.find();
+try {
 
-    for (const item of cartItems) {
 
-      const cartItems =
+const cartItems =
   await Cart.find();
 
 for (const item of cartItems) {
@@ -485,27 +482,29 @@ for (const item of cartItems) {
 
 await Cart.deleteMany({});
 
-      await order.save();
+res.send(
+  "Order Placed Successfully"
+);
 
-    }
 
-    await Cart.deleteMany({});
 
-    res.send(
-      "Order Placed Successfully"
-    );
+} catch (error) {
 
-  } catch (error) {
 
-    console.log(error);
+console.log(error);
 
-    res.status(500).send(
-      "Checkout Failed"
-    );
+res.status(500).send(
+  "Checkout Failed"
+);
 
-  }
+
+
+}
+
 
 });
+
+
 // Get Orders
 app.get("/orders", async (req, res) => {
 
