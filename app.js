@@ -531,10 +531,20 @@ onclick="addReview('${product._id}')">
 Add Review
 </button>
 
-      <button
-      onclick='addToCart(${JSON.stringify(product)})'>
-      Add To Cart
-      </button>
+      ${product.stock > 0 ? `
+
+<button
+onclick='addToCart(${JSON.stringify(product)})'>
+Add To Cart
+</button>
+
+` : `
+
+<button disabled>
+Out Of Stock
+</button>
+
+`}
 
       <button
 onclick='addToWishlist(${JSON.stringify(product)})'>
