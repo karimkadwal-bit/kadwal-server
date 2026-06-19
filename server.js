@@ -451,6 +451,9 @@ const cartItems =
   await Cart.find();
 
 for (const item of cartItems) {
+  
+  console.log("Item:", item);
+console.log("ProductId:", item.productId);
 
   const product =
     await Product.findById(
