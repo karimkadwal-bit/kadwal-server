@@ -492,9 +492,32 @@ ${product.productCategory}
       </p>
       <p>
       
+<p>
 Stock:
 ${product.stock}
 </p>
+
+${product.stock === 0 ?
+
+`<p style="color:red;">
+❌ Out Of Stock
+</p>`
+
+:
+
+product.stock <= 5 ?
+
+`<p style="color:orange;">
+⚠️ Only ${product.stock} Left
+</p>`
+
+:
+
+`<p style="color:green;">
+✅ In Stock
+</p>`
+
+}
 
  <p>
  Reviews:
