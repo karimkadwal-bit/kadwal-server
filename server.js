@@ -90,25 +90,30 @@ const CartSchema = new mongoose.Schema({
 
 const Cart = mongoose.model("Cart", CartSchema);
 const OrderSchema = new mongoose.Schema({
-  productName: String,
-  productPrice: String,
-  productImage: String,
-  orderDate: {
+productName: String,
+productPrice: String,
+productImage: String,
 
-    status: {
-    type: String,
-    default: "Pending"
-  },
-    
-    type: Date,
-    default: Date.now
-  }
+
+status: {
+type: String,
+default: "Pending"
+},
+
+
+orderDate: {
+type: Date,
+default: Date.now
+}
 });
 
+
 const Order = mongoose.model(
-  "Order",
-  OrderSchema
+"Order",
+OrderSchema
 );
+
+
 
 // Wishlist Schema
 const WishlistSchema = new mongoose.Schema({
