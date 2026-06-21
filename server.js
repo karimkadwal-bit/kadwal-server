@@ -175,10 +175,16 @@ app.post("/signup", async (req, res) => {
       return res.send("User Already Exists");
     }
 
-    const user = new User({
-      email,
-      password
-    });
+    const hashedPassword =
+  await bcrypt.hash(
+    password,
+    10
+  );
+
+const user = new User({
+  email,
+  password: hashedPassword
+});
 
     await user.save();
 
