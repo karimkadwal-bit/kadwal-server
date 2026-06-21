@@ -647,23 +647,66 @@ async function loadOrders() {
       </p>
 
   <p>
-Status:
-${order.status}
+
+${order.status === "Pending" ?
+
+`🟡 Pending`
+
+:
+
+order.status === "Processing" ?
+
+`🔵 Processing`
+
+:
+
+order.status === "Shipped" ?
+
+`🚚 Shipped`
+
+:
+
+order.status === "Delivered" ?
+
+`✅ Delivered`
+
+:
+
+order.status === "Cancelled" ?
+
+`❌ Cancelled`
+
+:
+
+order.status
+
+}
+
 </p>
 
 <select
 id="status-${order._id}">
+
   <option value="Pending">
-    Pending
+    🟡 Pending
+  </option>
+
+  <option value="Processing">
+    🔵 Processing
   </option>
 
   <option value="Shipped">
-    Shipped
+    🚚 Shipped
   </option>
 
   <option value="Delivered">
-    Delivered
+    ✅ Delivered
   </option>
+
+  <option value="Cancelled">
+    ❌ Cancelled
+  </option>
+
 </select>
 
 <button
