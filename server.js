@@ -208,20 +208,36 @@ app.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     const user =
-      await User.findOne({
-        email,
-        password
-      });
+  await User.findOne({
+    email
+  });
 
-    if (!user) {
+if (!user) {
 
-      return res.json({
-        message:
-        "Invalid Email Or Password",
-        isAdmin: false
-      });
+  return res.json({
+    message:
+    "Invalid Email Or Password",
+    isAdmin: false
+  });
 
-    }
+}
+
+const match =
+  await bcrypt.compare(
+    password,
+    user.password
+  );
+
+if (!match) {
+
+  return res.json({
+    message:
+    "Invalid Email Or Password",
+    isAdmin: false
+  });
+
+}
+    
 
     if (user.isAdmin) {
 
