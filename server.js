@@ -199,15 +199,16 @@ const user = new User({
   }
 
 });
-
-// Login
+// login
 app.post("/login", async (req, res) => {
 
-  try {
 
-    const { email, password } = req.body;
+try {
 
-    const user =
+
+const { email, password } = req.body;
+
+const user =
   await User.findOne({
     email
   });
@@ -237,36 +238,43 @@ if (!match) {
   });
 
 }
-    
 
-    if (user.isAdmin) {
+if (user.isAdmin) {
 
-      return res.json({
-        message:
-        "Admin Login Success",
-        isAdmin: true
-      });
+  return res.json({
+    message:
+    "Admin Login Success",
+    isAdmin: true
+  });
 
-    }
+}
 
-    return res.json({
-      message:
-      "Login Successful",
-      isAdmin: false
-    });
+return res.json({
+  message:
+  "Login Successful",
+  isAdmin: false
+});
 
-  } catch (error) {
 
-    console.log(error);
 
-    res.status(500).json({
-      message:
-      "Login Failed"
-    });
+} catch (error) {
 
-  }
+
+console.log(error);
+
+res.status(500).json({
+  message:
+  "Login Failed"
+});
+
+
+
+}
+
 
 });
+
+
 
 // Add Product
 app.post("/add-product", async (req, res) => {
