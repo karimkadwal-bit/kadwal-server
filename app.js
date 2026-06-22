@@ -875,41 +875,48 @@ async function searchProducts() {
   });
 
 }
-async function filterProducts() {
+function filterProducts() {
 
-  const selected =
-    document.getElementById(
-      "filterCategory"
-    ).value;
 
-  const cards =
-    document.querySelectorAll(
-      ".product-card"
-    );
+const selected =
+document.getElementById(
+"filterCategory"
+).value;
 
-  cards.forEach(card => {
 
-    const category =
-      card.getAttribute(
-        "data-category"
-      );
+const cards =
+document.querySelectorAll(
+".product-card"
+);
 
-    if (
-      selected === "All" ||
-      category === selected
-    ) {
 
-      card.style.display =
-        "block";
+cards.forEach(card => {
 
-    } else {
 
-      card.style.display =
-        "none";
+const category =
+  card.getAttribute(
+    "data-category"
+  );
 
-    }
+if (
+  selected === "All" ||
+  category === selected
+) {
 
-  });
+  card.style.display =
+    "block";
+
+} else {
+
+  card.style.display =
+    "none";
+
+}
+
+
+
+});
+
 
 }
 
@@ -917,39 +924,35 @@ async function loadDashboard() {
 
   const res =
     await fetch(
-      API + "/dashboard-stats"
+      API + "/dashboard"
     );
 
   const data =
     await res.json();
 
   document.getElementById(
-    "totalUsers"
+    "usersCard"
   ).innerText =
-    "Users: " +
-    data.totalUsers;
+    data.users;
 
   document.getElementById(
-    "totalProducts"
+    "productsCard"
   ).innerText =
-    "Products: " +
-    data.totalProducts;
+    data.products;
 
   document.getElementById(
-    "totalOrders"
+    "ordersCard"
   ).innerText =
-    "Orders: " +
-    data.totalOrders;
+    data.orders;
 
   document.getElementById(
-    "revenue"
+    "revenueCard"
   ).innerText =
-    "Revenue: $" +
-    data.revenue;
+    "$" + data.revenue;
 
 }
-
 loadProducts();
 loadCart();
 loadOrders();
 loadWishlist();
+loadDashboard();
