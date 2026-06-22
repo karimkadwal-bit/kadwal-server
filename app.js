@@ -924,7 +924,7 @@ async function loadDashboard() {
 
   const res =
     await fetch(
-      API + "/dashboard"
+      API + "/dashboard-stats"
     );
 
   const data =
