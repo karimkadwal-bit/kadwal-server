@@ -430,6 +430,16 @@ Quantity:
 ${item.quantity || 1}
 </p>
 
+<button
+onclick="increaseQuantity('${item._id}')">
+➕
+</button>
+
+<button
+onclick="decreaseQuantity('${item._id}')">
+➖
+</button>
+
       <button
       onclick="removeFromCart('${item._id}')">
       Remove From Cart
@@ -954,6 +964,31 @@ async function loadDashboard() {
     "revenueCard"
   ).innerText =
     "$" + data.revenue;
+
+}
+async function increaseQuantity(id) {
+
+  await fetch(
+    API + "/increase-quantity/" + id,
+    {
+      method: "PUT"
+    }
+  );
+
+  loadCart();
+
+}
+
+async function decreaseQuantity(id) {
+
+  await fetch(
+    API + "/decrease-quantity/" + id,
+    {
+      method: "PUT"
+    }
+  );
+
+  loadCart();
 
 }
 loadProducts();
