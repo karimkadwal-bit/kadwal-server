@@ -933,17 +933,17 @@ async function loadDashboard() {
   document.getElementById(
     "usersCard"
   ).innerText =
-    data.users;
+    data.totalUsers;
 
   document.getElementById(
     "productsCard"
   ).innerText =
-    data.products;
+    data.totalProducts;
 
   document.getElementById(
     "ordersCard"
   ).innerText =
-    data.orders;
+    data.totalOrders;
 
   document.getElementById(
     "revenueCard"
