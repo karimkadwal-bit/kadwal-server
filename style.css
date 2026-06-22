@@ -125,3 +125,27 @@ opacity:.85;
   border-radius:8px;
   font-size:16px;
   }
+.dashboard-cards{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  margin:20px 0;
+}
+
+.dashboard-card{
+  flex:1;
+  min-width:140px;
+  background:#1e1e1e;
+  border-radius:15px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 0 10px rgba(255,255,255,0.1);
+}
+
+.dashboard-card h3{
+  color:#ccc;
+}
+
+.dashboard-card h1{
+  color:#fff;
+}
