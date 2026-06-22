@@ -845,3 +845,71 @@ app.listen(PORT, () => {
   );
 
 });
+app.put(
+  "/increase-quantity/:id",
+  async (req, res) => {
+
+    try {
+
+      const item =
+        await Cart.findById(
+          req.params.id
+        );
+
+      item.quantity += 1;
+
+      await item.save();
+
+      res.send(
+        "Quantity Increased"
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send(
+        "Failed"
+      );
+
+    }
+
+  }
+);
+app.put(
+  "/decrease-quantity/:id",
+  async (req, res) => {
+
+    try {
+
+      const item =
+        await Cart.findById(
+          req.params.id
+        );
+
+      if (
+        item.quantity > 1
+      ) {
+
+        item.quantity -= 1;
+
+        await item.save();
+
+      }
+
+      res.send(
+        "Quantity Decreased"
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send(
+        "Failed"
+      );
+
+    }
+
+  }
+);
