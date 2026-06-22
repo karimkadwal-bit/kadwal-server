@@ -424,6 +424,11 @@ total += Number(item.productPrice);
       <p>
       Price: $${item.productPrice}
       </p>
+      
+      <p>
+Quantity:
+${item.quantity || 1}
+</p>
 
       <button
       onclick="removeFromCart('${item._id}')">
