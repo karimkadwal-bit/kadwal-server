@@ -86,9 +86,13 @@ const CartSchema = new mongoose.Schema({
   productId: String,
   productName: String,
   productPrice: String,
-  productImage: String
+  productImage: String,
+  
+quantity: {
+    type: Number,
+    default: 1
+  }
 });
-
 const Cart = mongoose.model("Cart", CartSchema);
 const OrderSchema = new mongoose.Schema({
 productName: String,
@@ -408,6 +412,22 @@ app.post("/add-to-cart", async (req, res) => {
       productImage
     } = req.body;
 
+    const existingCartItem =
+  await Cart.findOne({
+    productId
+  });
+
+if (existingCartItem) {
+
+  existingCartItem.quantity += 1;
+
+  await existingCartItem.save();
+
+  return res.send(
+    "Quantity Updated"
+  );
+
+}
     const cartItem = new Cart({
       productId,
       productName,
