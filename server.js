@@ -507,6 +507,12 @@ app.post("/checkout", async (req, res) => {
 
 try {
 
+  const {
+  customerName,
+  customerPhone,
+  customerAddress,
+  customerCity
+} = req.body;
 
 const cartItems =
   await Cart.find();
@@ -538,7 +544,12 @@ console.log("ProductId:", item.productId);
     new Order({
       productName: item.productName,
       productPrice: item.productPrice,
-      productImage: item.productImage
+      productImage: item.productImage,
+
+      customerName,
+    customerPhone,
+    customerAddress,
+    customerCity
     });
 
   await order.save();
