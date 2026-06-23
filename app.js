@@ -609,10 +609,45 @@ onclick='addToWishlist(${JSON.stringify(product)})'>
 // Checkout
 async function checkout() {
 
+  const customerName =
+    document.getElementById(
+      "customerName"
+    ).value;
+
+  const customerPhone =
+    document.getElementById(
+      "customerPhone"
+    ).value;
+
+  const customerAddress =
+    document.getElementById(
+      "customerAddress"
+    ).value;
+
+  const customerCity =
+    document.getElementById(
+      "customerCity"
+    ).value;
+
   const res = await fetch(
     API + "/checkout",
     {
-      method: "POST"
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+        "application/json"
+      },
+
+      body: JSON.stringify({
+
+        customerName,
+        customerPhone,
+        customerAddress,
+        customerCity
+
+      })
+
     }
   );
 
