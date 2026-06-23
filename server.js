@@ -99,6 +99,11 @@ productName: String,
 productPrice: String,
 productImage: String,
 
+  customerName: String,
+customerPhone: String,
+customerAddress: String,
+customerCity: String,
+
 
 status: {
 type: String,
