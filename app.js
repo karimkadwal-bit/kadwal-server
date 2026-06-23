@@ -695,6 +695,26 @@ async function loadOrders() {
       <p>
       Price: $${order.productPrice}
       </p>
+<p>
+Customer:
+${order.customerName || "N/A"}
+</p>
+
+<p>
+Phone:
+${order.customerPhone || "N/A"}
+</p>
+
+<p>
+Address:
+${order.customerAddress || "N/A"}
+</p>
+
+<p>
+City:
+${order.customerCity || "N/A"}
+</p>
+
 
   <p>
 
