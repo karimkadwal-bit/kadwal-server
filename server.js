@@ -550,6 +550,7 @@ console.log("ProductId:", item.productId);
     customerPhone,
     customerAddress,
     customerCity
+      
     });
 
   await order.save();
