@@ -521,7 +521,8 @@ console.log("ProductId:", item.productId);
     product.stock =
       Math.max(
         0,
-        product.stock - 1
+        product.stock - 
+        (item.quantity || 1)
       );
 
     await product.save();
