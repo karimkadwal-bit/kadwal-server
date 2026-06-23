@@ -881,6 +881,10 @@ app.put(
   async (req, res) => {
 
     try {
+      console.log(
+  "Increase ID:",
+  req.params.id
+);
 
       const item =
         await Cart.findById(
