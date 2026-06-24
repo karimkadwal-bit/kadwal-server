@@ -1046,8 +1046,41 @@ async function decreaseQuantity(id) {
   loadCart();
 
 }
+
+async function loadTopProducts() {
+
+  const res =
+    await fetch(
+      API + "/top-products"
+    );
+
+  const products =
+    await res.json();
+
+  const topProducts =
+    document.getElementById(
+      "topProducts"
+    );
+
+  topProducts.innerHTML = "";
+
+  products.forEach(
+    product => {
+
+      topProducts.innerHTML += `
+        <p>
+        🏆 ${product[0]}
+        — ${product[1]} Sales
+        </p>
+      `;
+
+    }
+  );
+
+}
 loadProducts();
 loadCart();
 loadOrders();
 loadWishlist();
 loadDashboard();
+loadTopProducts();
