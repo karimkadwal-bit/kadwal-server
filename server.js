@@ -992,3 +992,32 @@ app.get(
 
   }
 );
+app.get(
+  "/notifications",
+  async (req, res) => {
+
+    try {
+
+      const lowStock =
+        await Product.find({
+          stock: {
+            $lte: 5
+          }
+        });
+
+      res.json({
+        lowStock
+      });
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send(
+        "Failed"
+      );
+
+    }
+
+  }
+);
