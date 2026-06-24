@@ -1021,6 +1021,39 @@ async function loadDashboard() {
     "$" + data.revenue;
 
 }
+
+async function loadNotifications() {
+
+  const res =
+    await fetch(
+      API + "/notifications"
+    );
+
+  const data =
+    await res.json();
+
+  const notifications =
+    document.getElementById(
+      "notifications"
+    );
+
+  notifications.innerHTML = "";
+
+  data.lowStock.forEach(
+    product => {
+
+      notifications.innerHTML += `
+        <p>
+        ⚠️ ${product.productName}
+        Only ${product.stock}
+        Left
+        </p>
+      `;
+
+    }
+  );
+
+}
 async function increaseQuantity(id) {
 
   await fetch(
@@ -1084,3 +1117,4 @@ loadOrders();
 loadWishlist();
 loadDashboard();
 loadTopProducts();
+loadNotifications();
