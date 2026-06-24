@@ -935,3 +935,60 @@ app.put(
 
   }
 );
+app.get(
+  "/top-products",
+  async (req, res) => {
+
+    try {
+
+      const orders =
+        await Order.find();
+
+      const sales = {};
+
+      orders.forEach(order => {
+
+        if (
+          sales[
+            order.productName
+          ]
+        ) {
+
+          sales[
+            order.productName
+          ]++;
+
+        } else {
+
+          sales[
+            order.productName
+          ] = 1;
+
+        }
+
+      });
+
+      const topProducts =
+        Object.entries(sales)
+          .sort(
+            (a, b) =>
+              b[1] - a[1]
+          )
+          .slice(0, 5);
+
+      res.json(
+        topProducts
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send(
+        "Failed"
+      );
+
+    }
+
+  }
+);
