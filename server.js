@@ -1005,8 +1005,12 @@ app.get(
           }
         });
 
+      const totalOrders =
+        await Order.countDocuments();
+
       res.json({
-        lowStock
+        lowStock,
+        totalOrders
       });
 
     } catch (error) {
