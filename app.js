@@ -1117,6 +1117,55 @@ async function loadTopProducts() {
   );
 
 }
+async function loadSalesChart() {
+
+  const res =
+    await fetch(
+      API + "/sales-chart"
+    );
+
+  const data =
+    await res.json();
+
+  const labels =
+    Object.keys(data);
+
+  const values =
+    Object.values(data);
+
+  const ctx =
+    document
+      .getElementById(
+        "salesChart"
+      )
+      .getContext("2d");
+
+  new Chart(ctx, {
+
+    type: "bar",
+
+    data: {
+
+      labels,
+
+      datasets: [
+
+        {
+
+          label:
+          "Sales Revenue",
+
+          data: values
+
+        }
+
+      ]
+
+    }
+
+  });
+
+}
 loadProducts();
 loadCart();
 loadOrders();
@@ -1124,3 +1173,4 @@ loadWishlist();
 loadDashboard();
 loadTopProducts();
 loadNotifications();
+loadSalesChart();
