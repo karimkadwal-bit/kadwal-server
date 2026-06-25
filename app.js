@@ -1036,8 +1036,14 @@ async function loadNotifications() {
     document.getElementById(
       "notifications"
     );
-
-  notifications.innerHTML = "";
+notifications.innerHTML = "";
+  
+  notifications.innerHTML += `
+  <p>
+  🛒 Total Orders:
+  ${data.totalOrders}
+  </p>
+`;
 
   data.lowStock.forEach(
     product => {
