@@ -1025,3 +1025,52 @@ app.get(
 
   }
 );
+app.get(
+  "/sales-chart",
+  async (req, res) => {
+
+    try {
+
+      const orders =
+        await Order.find();
+
+      const chartData = {};
+
+      orders.forEach(order => {
+
+        const date =
+          new Date(order.orderDate);
+
+        const month =
+          date.toLocaleString(
+            "en-US",
+            {
+              month: "short"
+            }
+          );
+
+        if (!chartData[month]) {
+
+          chartData[month] = 0;
+
+        }
+
+        chartData[month] +=
+          Number(order.productPrice);
+
+      });
+
+      res.json(chartData);
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send(
+        "Failed"
+      );
+
+    }
+
+  }
+);
