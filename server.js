@@ -1074,3 +1074,84 @@ app.get(
 
   }
 );
+app.post(
+  "/create-checkout-session",
+  async (req, res) => {
+
+    try {
+
+      const {
+        productName,
+        productPrice
+      } = req.body;
+
+      const session =
+        await stripe.checkout.sessions.create({
+
+          payment_method_types: [
+            "card"
+          ],
+
+          line_items: [
+
+            {
+
+              price_data: {
+
+                currency: "usd",
+
+                product_data: {
+
+                  name: productName
+
+                },
+
+                unit_amount:
+                  Number(productPrice) * 100
+
+              },
+
+              quantity: 1
+
+            }
+
+          ],
+
+          mode: "payment",
+
+          success_url:
+            "https://karimkadwal-bit.github.io/Kadwal-Marketplace/success.html",
+
+          cancel_url:
+            "https://karimkadwal-bit.github.io/Kadwal-Marketplace/cancel.html"
+
+        });
+
+      res.json({
+
+        url: session.url
+
+      });
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send(
+        "Stripe Error"
+      );
+
+    }
+
+  }
+);
+const PORT =
+  process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+
+  console.log(
+    "Server Running"
+  );
+
+});
