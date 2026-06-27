@@ -4,6 +4,12 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const multer = require("multer");
 const path = require("path");
+
+const Stripe = require("stripe");
+
+const stripe = Stripe(
+  process.env.STRIPE_SECRET_KEY
+);
 const app = express();
 
 app.use(cors());
