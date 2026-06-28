@@ -661,6 +661,8 @@ async function checkout() {
 }
 async function payWithStripe() {
 
+  alert("Pay Button Clicked");
+
   const res = await fetch(
     API + "/create-checkout-session",
     {
