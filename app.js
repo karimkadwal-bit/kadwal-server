@@ -683,7 +683,9 @@ async function payWithStripe() {
       })
     }
   );
-
+  
+alert(res.status);
+  
   const data =
     await res.json();
 
