@@ -659,6 +659,36 @@ async function checkout() {
   loadCart();
 
 }
+async function payWithStripe() {
+
+  const res = await fetch(
+    API + "/create-checkout-session",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+
+        productName: "Kadwal Marketplace Order",
+
+        productPrice:
+        document
+          .getElementById("totalPrice")
+          .innerText
+          .replace("Total: $","")
+
+      })
+    }
+  );
+
+  const data =
+    await res.json();
+
+  window.location.href =
+    data.url;
+
+      }
 // Load Orders
 async function loadOrders() {
 
