@@ -1133,8 +1133,9 @@ app.post(
       console.log(error);
 
       res.status(500).send(
-        "Stripe Error"
-      );
+        error: error.message
+  });
+
 
     }
 
