@@ -1132,7 +1132,7 @@ app.post(
 
       console.log(error);
 
-      res.status(500).send(
+      res.status(500).json({
         error: error.message
   });
 
