@@ -1200,6 +1200,54 @@ async function loadSalesChart() {
   });
 
 }
+
+// Send Chat Message
+async function sendMessage() {
+
+  const message =
+    document.getElementById(
+      "chatInput"
+    ).value;
+
+  if (!message) {
+
+    alert("Enter Message");
+
+    return;
+
+  }
+
+  const res =
+    await fetch(
+      API + "/send-message",
+      {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+          "application/json"
+        },
+
+        body: JSON.stringify({
+
+          message
+
+        })
+
+      }
+    );
+
+  const data =
+    await res.text();
+
+  alert(data);
+
+  document.getElementById(
+    "chatInput"
+  ).value = "";
+
+}
 loadProducts();
 loadCart();
 loadOrders();
