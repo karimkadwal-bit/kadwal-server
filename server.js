@@ -1115,10 +1115,10 @@ app.post(
           mode: "payment",
 
           success_url:
-            "https://karimkadwal-bit.github.io/Kadwal-Marketplace/success.html",
+"https://karimkadwal-bit.github.io",
 
-          cancel_url:
-            "https://karimkadwal-bit.github.io/Kadwal-Marketplace/cancel.html"
+cancel_url:
+"https://karimkadwal-bit.github.io",
 
         });
 
