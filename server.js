@@ -145,6 +145,26 @@ const Wishlist = mongoose.model(
   WishlistSchema
 );
 
+// Chat Schema
+const ChatSchema = new mongoose.Schema({
+
+  message: String,
+
+  createdAt: {
+
+    type: Date,
+
+    default: Date.now
+
+  }
+
+});
+
+const Chat = mongoose.model(
+  "Chat",
+  ChatSchema
+);
+
 // Home
 app.get("/", (req, res) => {
   res.send("Kadwal Marketplace API Running");
@@ -1136,6 +1156,40 @@ cancel_url:
         error: error.message
   });
 
+
+    }
+
+  }
+);
+app.post(
+  "/send-message",
+  async (req, res) => {
+
+    try {
+
+      const { message } =
+        req.body;
+
+      const chat =
+        new Chat({
+
+          message
+
+        });
+
+      await chat.save();
+
+      res.send(
+        "Message Sent"
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send(
+        "Failed"
+      );
 
     }
 
