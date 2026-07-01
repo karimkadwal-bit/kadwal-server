@@ -1242,10 +1242,43 @@ async function sendMessage() {
     await res.text();
 
   alert(data);
+  
+document.getElementById(
+  "chatInput"
+).value = "";
 
-  document.getElementById(
-    "chatInput"
-  ).value = "";
+loadChat();
+
+}
+  // Load Chat
+async function loadChat() {
+
+  const res =
+    await fetch(
+      API + "/chat"
+    );
+
+  const chats =
+    await res.json();
+
+  const chatBox =
+    document.getElementById(
+      "chatMessages"
+    );
+
+  chatBox.innerHTML = "";
+
+  chats.forEach(chat => {
+
+    chatBox.innerHTML += `
+
+      <p>
+      💬 ${chat.message}
+      </p>
+
+    `;
+
+  });
 
 }
 loadProducts();
@@ -1256,3 +1289,15 @@ loadDashboard();
 loadTopProducts();
 loadNotifications();
 loadSalesChart();
+loadChat();
+loadProducts();
+loadCart();
+loadOrders();
+loadWishlist();
+loadDashboard();
+loadTopProducts();
+loadNotifications();
+loadSalesChart();
+loadChat();
+
+setInterval(loadChat, 2000);
