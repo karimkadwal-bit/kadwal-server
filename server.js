@@ -148,6 +148,12 @@ const Wishlist = mongoose.model(
 // Chat Schema
 const ChatSchema = new mongoose.Schema({
 
+  sender: String,
+
+  receiver: String,
+
+  productId: String,
+
   message: String,
 
   createdAt: {
@@ -159,7 +165,6 @@ const ChatSchema = new mongoose.Schema({
   }
 
 });
-
 const Chat = mongoose.model(
   "Chat",
   ChatSchema
@@ -1167,15 +1172,30 @@ app.post(
 
     try {
 
-      const { message } =
-        req.body;
+      const {
+
+  sender,
+
+  receiver,
+
+  productId,
+
+  message
+
+} = req.body;
 
       const chat =
         new Chat({
 
-          message
+         sender,
 
-        });
+         receiver,
+
+         productId,
+
+         message
+
+});
 
       await chat.save();
 
