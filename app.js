@@ -1231,9 +1231,15 @@ async function sendMessage() {
 
         body: JSON.stringify({
 
+          sender: "Buyer",
+
+          receiver: "Seller",
+
+          productId: "123",
+
           message
 
-        })
+     })
 
       }
     );
