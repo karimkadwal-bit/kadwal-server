@@ -1195,6 +1195,33 @@ app.post(
 
   }
 );
+// Load Chat Messages
+app.get(
+  "/chat",
+  async (req, res) => {
+
+    try {
+
+      const chats =
+        await Chat.find()
+        .sort({
+          createdAt: 1
+        });
+
+      res.json(chats);
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send(
+        "Failed"
+      );
+
+    }
+
+  }
+);
 const PORT =
   process.env.PORT || 3000;
 
