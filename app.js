@@ -1261,7 +1261,7 @@ async function loadChat() {
 
   const res =
     await fetch(
-      API + "/chat"
+      API + "/chat/123"
     );
 
   const chats =
