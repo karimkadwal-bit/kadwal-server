@@ -1287,6 +1287,52 @@ async function loadChat() {
   });
 
 }
+async function sellerLogin() {
+
+  const email =
+    document.getElementById(
+      "sellerEmail"
+    ).value;
+
+  const password =
+    document.getElementById(
+      "sellerPassword"
+    ).value;
+
+  const res =
+    await fetch(
+
+      API + "/seller-login",
+
+      {
+
+        method: "POST",
+
+        headers: {
+
+          "Content-Type":
+            "application/json"
+
+        },
+
+        body: JSON.stringify({
+
+          email,
+
+          password
+
+        })
+
+      }
+
+    );
+
+  const data =
+    await res.json();
+
+  alert(data.message);
+
+ }
 loadProducts();
 loadCart();
 loadOrders();
