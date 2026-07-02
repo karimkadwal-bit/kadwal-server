@@ -1332,7 +1332,25 @@ async function sellerLogin() {
 
   alert(data.message);
 
- }
+if (data.message === "Login Success") {
+
+  document.getElementById(
+    "sellerDashboard"
+  ).style.display = "block";
+
+  document.getElementById(
+    "sellerName"
+  ).innerText =
+    "Seller: " + data.seller.name;
+
+  document.getElementById(
+    "sellerEmailView"
+  ).innerText =
+    "Email: " + data.seller.email;
+
+}
+  
+}
 loadProducts();
 loadCart();
 loadOrders();
@@ -1341,7 +1359,6 @@ loadDashboard();
 loadTopProducts();
 loadNotifications();
 loadSalesChart();
-loadChat();
 loadProducts();
 loadCart();
 loadOrders();
