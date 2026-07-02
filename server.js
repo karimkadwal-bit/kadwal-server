@@ -1217,15 +1217,21 @@ app.post(
 );
 // Load Chat Messages
 app.get(
-  "/chat",
+  "/chat/:productId",
   async (req, res) => {
 
     try {
 
       const chats =
-        await Chat.find()
-        .sort({
+        await Chat.find({
+
+          productId:
+            req.params.productId
+
+        }).sort({
+
           createdAt: 1
+
         });
 
       res.json(chats);
