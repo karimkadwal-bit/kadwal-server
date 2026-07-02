@@ -144,7 +144,32 @@ const Wishlist = mongoose.model(
   "Wishlist",
   WishlistSchema
 );
+const SellerSchema = new mongoose.Schema({
 
+  name: String,
+
+  email: String,
+
+  password: String,
+
+  phone: String,
+
+  address: String,
+
+  createdAt: {
+
+    type: Date,
+
+    default: Date.now
+
+  }
+
+});
+
+const Seller = mongoose.model(
+  "Seller",
+  SellerSchema
+);
 // Chat Schema
 const ChatSchema = new mongoose.Schema({
 
@@ -1243,6 +1268,58 @@ app.get(
       res.status(500).send(
         "Failed"
       );
+
+    }
+
+  }
+);
+app.post(
+  "/seller-signup",
+  async (req, res) => {
+
+    try {
+
+      const {
+
+        name,
+
+        email,
+
+        password,
+
+        phone,
+
+        address
+
+      } = req.body;
+
+      const hash =
+        await bcrypt.hash(password, 10);
+
+      const seller =
+        new Seller({
+
+          name,
+
+          email,
+
+          password: hash,
+
+          phone,
+
+          address
+
+        });
+
+      await seller.save();
+
+      res.send("Seller Registered");
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send("Failed");
 
     }
 
