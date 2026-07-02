@@ -1325,6 +1325,72 @@ app.post(
 
   }
 );
+app.post(
+  "/seller-login",
+  async (req, res) => {
+
+    try {
+
+      const {
+
+        email,
+
+        password
+
+      } = req.body;
+
+      const seller =
+        await Seller.findOne({
+
+          email
+
+        });
+
+      if (!seller) {
+
+        return res.send(
+          "Seller Not Found"
+        );
+
+      }
+
+      const match =
+        await bcrypt.compare(
+
+          password,
+
+          seller.password
+
+        );
+
+      if (!match) {
+
+        return res.send(
+          "Wrong Password"
+        );
+
+      }
+
+      res.json({
+
+        message: "Login Success",
+
+        seller
+
+      });
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send(
+        "Failed"
+      );
+
+    }
+
+  }
+);
 const PORT =
   process.env.PORT || 3000;
 
