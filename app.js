@@ -120,7 +120,9 @@ const uploadData =
         productPrice,
         productCategory,
         productImage,
-        stock: productStock
+        stock: productStock,
+        sellerEmail:
+localStorage.getItem("sellerEmail")
       })
     }
   );
@@ -1331,6 +1333,14 @@ async function sellerLogin() {
     await res.json();
 
   alert(data.message);
+
+  localStorage.setItem(
+
+  "sellerEmail",
+
+  data.seller.email
+
+);
 
 if (data.message === "Login Success") {
 
