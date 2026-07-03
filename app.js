@@ -1359,14 +1359,6 @@ loadDashboard();
 loadTopProducts();
 loadNotifications();
 loadSalesChart();
-loadProducts();
-loadCart();
-loadOrders();
-loadWishlist();
-loadDashboard();
-loadTopProducts();
-loadNotifications();
-loadSalesChart();
 loadChat();
 
 setInterval(loadChat, 2000);
