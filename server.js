@@ -69,7 +69,8 @@ const ProductSchema = new mongoose.Schema({
   productPrice: String,
   productCategory: String,
   productImage: String,
-
+  sellerEmail: String,
+  
   stock: {
   type: Number,
   default: 0
@@ -359,7 +360,8 @@ app.post("/add-product", async (req, res) => {
       productPrice,
       productCategory,
       productImage,
-      stock
+      stock,
+      sellerEmail
     });
 
     await product.save();
