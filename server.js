@@ -352,7 +352,8 @@ app.post("/add-product", async (req, res) => {
       productPrice,
       productCategory,
       productImage,
-      stock
+      stock,
+      sellerEmail
     } = req.body;
 
     const product = new Product({
