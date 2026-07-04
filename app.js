@@ -1357,9 +1357,10 @@ if (data.message === "Login Success") {
     "sellerEmailView"
   ).innerText =
     "Email: " + data.seller.email;
-
-}
   
+loadSellerProducts();
+}
+
 }
 loadProducts();
 loadCart();
@@ -1372,3 +1373,30 @@ loadSalesChart();
 loadChat();
 
 setInterval(loadChat, 2000);
+
+async function loadSellerProducts() {
+
+  const email =
+    localStorage.getItem(
+      "sellerEmail"
+    );
+
+  const res =
+    await fetch(
+
+      API +
+      "/seller-products/" +
+      email
+
+    );
+
+  const products =
+    await res.json();
+
+  document.getElementById(
+    "sellerProducts"
+  ).innerText =
+    "Products: " +
+    products.length;
+
+}
