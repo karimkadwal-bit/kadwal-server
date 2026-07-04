@@ -427,7 +427,34 @@ app.delete("/delete-product/:id", async (req, res) => {
   }
 
 });
+app.get(
+  "/seller-products/:email",
+  async (req, res) => {
 
+    try {
+
+      const products =
+        await Product.find({
+
+          sellerEmail:
+            req.params.email
+
+        });
+
+      res.json(products);
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).send(
+        "Failed"
+      );
+
+    }
+
+  }
+);
 // Edit Product
 app.put("/edit-product/:id", async (req, res) => {
 
