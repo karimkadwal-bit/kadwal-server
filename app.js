@@ -1290,6 +1290,8 @@ async function loadChat() {
 
 }
 async function sellerLogin() {
+  
+alert("Seller Login Clicked");
 
   const email =
     document.getElementById(
