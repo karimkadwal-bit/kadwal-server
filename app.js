@@ -1290,6 +1290,8 @@ async function loadChat() {
 
 }
 async function sellerLogin() {
+
+  try {
   
 alert("Seller Login Clicked");
 
@@ -1359,6 +1361,15 @@ if (data.message === "Login Success") {
     "sellerEmailView"
   ).innerText =
     "Email: " + data.seller.email;
+
+  } catch (error) {
+
+    console.log(error);
+    alert(error);
+
+  }
+
+}
   
 loadSellerProducts();
 }
