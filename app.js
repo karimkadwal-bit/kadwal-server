@@ -1293,6 +1293,8 @@ async function sellerLogin() {
   
 alert("Seller Login Clicked");
 
+  alert(API);
+
   const email =
     document.getElementById(
       "sellerEmail"
