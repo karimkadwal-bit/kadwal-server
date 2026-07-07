@@ -1291,7 +1291,7 @@ async function loadChat() {
 }
 async function sellerLogin() {
   
-alert("Seller Login Clicked");
+alert("123456");
 
   alert(API);
 
