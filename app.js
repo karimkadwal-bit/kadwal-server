@@ -1290,8 +1290,6 @@ async function loadChat() {
 
 }
 async function sellerLogin() {
-
-  try {
   
 alert("Seller Login Clicked");
 
