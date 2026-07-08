@@ -1308,7 +1308,7 @@ alert("123456");
   const res =
     await fetch(
 
-      API + "/seller-login",
+      alert(API + "/seller-login");
 
       {
 
@@ -1332,6 +1332,7 @@ alert("123456");
       }
 
     );
+  alert(res.status);
 
   const data =
     await res.json();
