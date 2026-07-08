@@ -1305,14 +1305,23 @@ alert("123456");
       "sellerPassword"
     ).value;
 
-  const res =
-    await fetch(
+  alert(API + "/seller-login");
 
-      alert(API + "/seller-login");
+const res = await fetch(
+  API + "/seller-login",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email,
+      password
+    })
+  }
+);
 
-      {
-
-        method: "POST",
+alert(res.status);
 
         headers: {
 
