@@ -1345,7 +1345,8 @@ async function sellerLogin() {
   } catch (error) {
 
     console.log(error);
-    alert("Seller Login Failed");
+    
+    alert(error.message);
 
   }
 
