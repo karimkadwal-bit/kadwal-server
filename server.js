@@ -1361,6 +1361,12 @@ app.post(
 
     try {
 
+      console.log(req.body);
+
+const seller = await Seller.findOne({ email });
+
+console.log(seller);
+
       const {
 
         email,
