@@ -1375,9 +1375,9 @@ app.post(
 
       if (!seller) {
 
-        return res.send(
-          "Seller Not Found"
-        );
+        return res.json({
+          message: "Seller Not Found"
+        });
 
       }
 
@@ -1392,9 +1392,9 @@ app.post(
 
       if (!match) {
 
-        return res.send(
-          "Wrong Password"
-        );
+        return res.json({
+          message: "Wrong Password"
+        });
 
       }
 
