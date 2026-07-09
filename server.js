@@ -1343,6 +1343,8 @@ app.post(
 
       await seller.save();
 
+      console.log("Seller Saved:", seller);
+
       res.send("Seller Registered");
 
     } catch (error) {
