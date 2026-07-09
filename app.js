@@ -1290,90 +1290,64 @@ async function loadChat() {
 
 }
 async function sellerLogin() {
-  
-alert("123456");
-
-  alert(API);
 
   const email =
-    document.getElementById(
-      "sellerEmail"
-    ).value;
+    document.getElementById("sellerEmail").value;
 
   const password =
-    document.getElementById(
-      "sellerPassword"
-    ).value;
+    document.getElementById("sellerPassword").value;
 
-  alert(API + "/seller-login");
+  try {
 
-const res = await fetch(
-  API + "/seller-login",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      email,
-      password
-    })
-  }
-);
-
-alert(res.status);
-
+    const res = await fetch(
+      API + "/seller-login",
+      {
+        method: "POST",
         headers: {
-
-          "Content-Type":
-            "application/json"
-
+          "Content-Type": "application/json"
         },
-
         body: JSON.stringify({
-
           email,
-
           password
-
         })
-
       }
-
     );
-  alert(res.status);
 
-  const data =
-    await res.json();
+    const data = await res.json();
 
-  alert(data.message);
+    alert(data.message);
 
-  localStorage.setItem(
+    if (data.message === "Login Success") {
 
-  "sellerEmail",
+      localStorage.setItem(
+        "sellerEmail",
+        data.seller.email
+      );
 
-  data.seller.email
+      document.getElementById(
+        "sellerDashboard"
+      ).style.display = "block";
 
-);
+      document.getElementById(
+        "sellerName"
+      ).innerText =
+        "Seller: " + data.seller.name;
 
-if (data.message === "Login Success") {
+      document.getElementById(
+        "sellerEmailView"
+      ).innerText =
+        "Email: " + data.seller.email;
 
-  document.getElementById(
-    "sellerDashboard"
-  ).style.display = "block";
+      loadSellerProducts();
 
-  document.getElementById(
-    "sellerName"
-  ).innerText =
-    "Seller: " + data.seller.name;
+    }
 
-  document.getElementById(
-    "sellerEmailView"
-  ).innerText =
-    "Email: " + data.seller.email;
-  
-loadSellerProducts();
-}
+  } catch (error) {
+
+    console.log(error);
+    alert("Seller Login Failed");
+
+  }
 
 }
 loadProducts();
