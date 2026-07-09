@@ -1363,10 +1363,6 @@ app.post(
 
       console.log(req.body);
 
-const seller = await Seller.findOne({ email });
-
-console.log(seller);
-
       const {
 
         email,
@@ -1375,12 +1371,7 @@ console.log(seller);
 
       } = req.body;
 
-      const seller =
-        await Seller.findOne({
-
-          email
-
-        });
+      const seller = await Seller.findOne({ email });
 
       if (!seller) {
 
