@@ -1372,8 +1372,12 @@ app.post(
         password
 
       } = req.body;
+      
+console.log("LOGIN EMAIL:", email);
 
-      const seller = await Seller.findOne({ email });
+const seller = await Seller.findOne({ email });
+
+console.log("SELLER:", seller);
 
       if (!seller) {
 
