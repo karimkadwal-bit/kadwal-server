@@ -1441,6 +1441,23 @@ app.get("/seller-products/:email", async (req, res) => {
   }
 
 });
+app.delete("/delete-product/:id", async (req, res) => {
+
+  try {
+
+    await Product.findByIdAndDelete(req.params.id);
+
+    res.send("Product Deleted");
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Delete Failed");
+
+  }
+
+});
 const PORT =
   process.env.PORT || 3000;
 
