@@ -1394,6 +1394,21 @@ loadChat();
 
 setInterval(loadChat, 2000);
 
+async function deleteProduct(id) {
+
+  if (!confirm("Delete this product?")) return;
+
+  const res = await fetch(API + "/delete-product/" + id, {
+    method: "DELETE"
+  });
+
+  const data = await res.text();
+
+  alert(data);
+
+  loadSellerProducts();
+}
+
 async function loadSellerProducts() {
 
   const email = localStorage.getItem("sellerEmail");
@@ -1402,7 +1417,17 @@ async function loadSellerProducts() {
 
   const products = await res.json();
 
-  document.getElementById("sellerProducts").innerHTML = "";
+  document.getElementById("sellerProducts").innerHTML += `
+<div>
+
+<p>${product.productName} - $${product.productPrice}</p>
+
+<button onclick="deleteProduct('${product._id}')">
+Delete
+</button>
+
+</div>
+`;
 
   products.forEach(product => {
 
