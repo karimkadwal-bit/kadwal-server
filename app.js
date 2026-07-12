@@ -1396,27 +1396,20 @@ setInterval(loadChat, 2000);
 
 async function loadSellerProducts() {
 
-  const email =
-    localStorage.getItem(
-      "sellerEmail"
-    );
+  const email = localStorage.getItem("sellerEmail");
 
-  const res =
-    await fetch(
+  const res = await fetch(API + "/seller-products/" + email);
 
-      API +
-      "/seller-products/" +
-      email
+  const products = await res.json();
 
-    );
+  document.getElementById("sellerProducts").innerHTML = "";
 
-  const products =
-    await res.json();
+  products.forEach(product => {
 
-  document.getElementById(
-    "sellerProducts"
-  ).innerText =
-    "Products: " +
-    products.length;
+    document.getElementById("sellerProducts").innerHTML += `
+      <p>${product.productName} - $${product.productPrice}</p>
+    `;
 
-    }
+  });
+
+}
