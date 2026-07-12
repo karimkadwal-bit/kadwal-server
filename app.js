@@ -1291,43 +1291,35 @@ async function loadChat() {
 }
 async function sellerSignup() {
 
-  const name =
-    document.getElementById("sellerName").value;
+  const name = document.getElementById("sellerName").value;
 
-  const email =
-    document.getElementById("sellerEmail").value;
+  const email = document.getElementById("sellerEmailSignup").value;
 
-  const password =
-    document.getElementById("sellerPassword").value;
+  const password = document.getElementById("sellerPasswordSignup").value;
 
-  const phone =
-    document.getElementById("sellerPhone").value;
+  const phone = document.getElementById("sellerPhone").value;
 
-  const address =
-    document.getElementById("sellerAddress").value;
+  const address = document.getElementById("sellerAddress").value;
 
-  const res = await fetch(
-    API + "/seller-signup",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-        phone,
-        address
-      })
-    }
-  );
+  const res = await fetch(API + "/seller-signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      password,
+      phone,
+      address
+    })
+  });
 
   const data = await res.text();
 
   alert(data);
 
-}
+    }
 async function sellerLogin() {
 
   const email =
