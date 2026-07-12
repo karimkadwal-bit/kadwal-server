@@ -1424,6 +1424,23 @@ console.log("SELLER:", seller);
 
   }
 );
+app.get("/seller-products/:email", async (req, res) => {
+
+  try {
+
+    const products = await Product.find({
+      sellerEmail: req.params.email
+    });
+
+    res.json(products);
+
+  } catch (err) {
+
+    res.status(500).send("Failed");
+
+  }
+
+});
 const PORT =
   process.env.PORT || 3000;
 
