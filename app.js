@@ -1417,22 +1417,18 @@ async function loadSellerProducts() {
 
   const products = await res.json();
 
-  document.getElementById("sellerProducts").innerHTML += `
-<div>
-
-<p>${product.productName} - $${product.productPrice}</p>
-
-<button onclick="deleteProduct('${product._id}')">
-Delete
-</button>
-
-</div>
-`;
+  document.getElementById("sellerProducts").innerHTML = "";
 
   products.forEach(product => {
 
     document.getElementById("sellerProducts").innerHTML += `
-      <p>${product.productName} - $${product.productPrice}</p>
+      <div>
+        <p>${product.productName} - $${product.productPrice}</p>
+
+        <button onclick="deleteProduct('${product._id}')">
+          Delete
+        </button>
+      </div>
     `;
 
   });
