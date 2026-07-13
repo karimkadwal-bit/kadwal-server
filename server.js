@@ -1510,6 +1510,28 @@ app.get("/seller-orders/:email", async (req, res) => {
   }
 
 });
+app.put("/update-order-status/:id", async (req, res) => {
+
+  try {
+
+    await Order.findByIdAndUpdate(
+      req.params.id,
+      {
+        status: req.body.status
+      }
+    );
+
+    res.send("Status Updated");
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
 
 const PORT =
   process.env.PORT || 3000;
