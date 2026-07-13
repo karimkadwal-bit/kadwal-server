@@ -1484,6 +1484,38 @@ async function loadSellerOrders() {
   document.getElementById("sellerOrders").innerHTML = "";
 
   orders.forEach(order => {
+    
+    document.getElementById("sellerOrders").innerHTML += `
+
+<div>
+
+<p>${order.productName}</p>
+
+<p>Customer: ${order.customerName}</p>
+
+<p>Status: ${order.status}</p>
+
+<select id="status-${order._id}">
+
+<option>Pending</option>
+
+<option>Processing</option>
+
+<option>Shipped</option>
+
+<option>Delivered</option>
+
+<option>Cancelled</option>
+
+</select>
+
+<button onclick="updateSellerOrder('${order._id}')">
+Update
+</button>
+
+</div>
+
+`;
 
     document.getElementById("sellerOrders").innerHTML += `
       <div>
@@ -1500,3 +1532,34 @@ async function loadSellerOrders() {
   });
 
     }
+async function updateSellerOrder(id) {
+
+  const status =
+    document.getElementById(
+      "status-" + id
+    ).value;
+
+  const res = await fetch(
+    API + "/update-order-status/" + id,
+    {
+
+      method: "PUT",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        status
+      })
+
+    }
+  );
+
+  const data = await res.text();
+
+  alert(data);
+
+  loadSellerOrders();
+
+}
