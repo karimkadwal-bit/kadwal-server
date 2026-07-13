@@ -1370,7 +1370,7 @@ async function sellerLogin() {
         "Email: " + data.seller.email;
 
       loadSellerProducts();
-
+loadSellerOrders();
     }
 
   } catch (error) {
@@ -1473,3 +1473,30 @@ async function editProduct(id) {
   loadSellerProducts();
 
       }
+async function loadSellerOrders() {
+
+  const email = localStorage.getItem("sellerEmail");
+
+  const res = await fetch(API + "/seller-orders/" + email);
+
+  const orders = await res.json();
+
+  document.getElementById("sellerOrders").innerHTML = "";
+
+  orders.forEach(order => {
+
+    document.getElementById("sellerOrders").innerHTML += `
+      <div>
+
+        <p>${order.productName}</p>
+
+        <p>Customer: ${order.customerName}</p>
+
+        <p>Status: ${order.status}</p>
+
+      </div>
+    `;
+
+  });
+
+    }
