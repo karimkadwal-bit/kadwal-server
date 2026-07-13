@@ -1425,12 +1425,51 @@ async function loadSellerProducts() {
       <div>
         <p>${product.productName} - $${product.productPrice}</p>
 
+        <button onclick="editProduct('${product._id}')">
+Edit
+</button>
+
         <button onclick="deleteProduct('${product._id}')">
           Delete
         </button>
       </div>
     `;
-
   });
 
 }
+async function editProduct(id) {
+
+  const productName = prompt("New Product Name");
+
+  const productPrice = prompt("New Product Price");
+
+  const productCategory = prompt("New Category");
+
+  const stock = prompt("New Stock");
+
+  const res = await fetch(API + "/edit-product/" + id, {
+
+    method: "PUT",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+
+      productName,
+      productPrice,
+      productCategory,
+      stock
+
+    })
+
+  });
+
+  const data = await res.text();
+
+  alert(data);
+
+  loadSellerProducts();
+
+      }
