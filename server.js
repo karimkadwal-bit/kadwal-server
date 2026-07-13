@@ -1458,6 +1458,40 @@ app.delete("/delete-product/:id", async (req, res) => {
   }
 
 });
+
+app.put("/edit-product/:id", async (req, res) => {
+
+  try {
+
+    const {
+      productName,
+      productPrice,
+      productCategory,
+      stock
+    } = req.body;
+
+    await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        productName,
+        productPrice,
+        productCategory,
+        stock
+      }
+    );
+
+    res.send("Product Updated");
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Update Failed");
+
+  }
+
+});
+
 const PORT =
   process.env.PORT || 3000;
 
