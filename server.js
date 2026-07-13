@@ -1491,6 +1491,25 @@ app.put("/edit-product/:id", async (req, res) => {
   }
 
 });
+app.get("/seller-orders/:email", async (req, res) => {
+
+  try {
+
+    const orders = await Order.find({
+      sellerEmail: req.params.email
+    });
+
+    res.json(orders);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
 
 const PORT =
   process.env.PORT || 3000;
