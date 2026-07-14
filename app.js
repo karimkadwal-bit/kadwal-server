@@ -1371,6 +1371,7 @@ async function sellerLogin() {
 
       loadSellerProducts();
 loadSellerOrders();
+      loadSellerSalesChart();
     }
 
   } catch (error) {
@@ -1587,3 +1588,42 @@ async function updateSellerOrder(id) {
   loadSellerOrders();
 
 }
+async function loadSellerSalesChart() {
+
+  const email = localStorage.getItem("sellerEmail");
+
+  const res = await fetch(
+    API + "/seller-sales-chart/" + email
+  );
+
+  const data = await res.json();
+
+  const ctx = document
+    .getElementById("sellerSalesChart")
+    .getContext("2d");
+
+  new Chart(ctx, {
+
+    type: "bar",
+
+    data: {
+
+      labels: data.labels,
+
+      datasets: [
+
+        {
+
+          label: "Product Prices",
+
+          data: data.values
+
+        }
+
+      ]
+
+    }
+
+  });
+
+    }
