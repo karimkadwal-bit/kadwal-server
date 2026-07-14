@@ -1435,7 +1435,30 @@ Edit
       </div>
     `;
   });
+document.getElementById("sellerTotalProducts").innerText =
+"Products: " + products.length;
 
+const totalSales =
+products.reduce(
+  (sum, p) => sum + Number(p.productPrice),
+  0
+);
+
+document.getElementById("sellerTotalSales").innerText =
+"Sales: $" + totalSales;
+
+const avgRating =
+products.length
+? (
+products.reduce(
+(sum, p) => sum + (p.rating || 0),
+0
+) / products.length
+).toFixed(1)
+: 0;
+
+document.getElementById("sellerAverageRating").innerText =
+"Rating: ⭐" + avgRating;
 }
 async function editProduct(id) {
 
@@ -1530,7 +1553,8 @@ Update
     `;
 
   });
-
+document.getElementById("sellerTotalOrders").innerText =
+"Orders: " + orders.length;
     }
 async function updateSellerOrder(id) {
 
