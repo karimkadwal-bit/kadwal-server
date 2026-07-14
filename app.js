@@ -1373,6 +1373,7 @@ async function sellerLogin() {
 loadSellerOrders();
       loadSellerSalesChart();
       loadSellerNotifications();
+      loadSellerWallet();
     }
 
   } catch (error) {
@@ -1662,5 +1663,27 @@ async function loadSellerNotifications() {
     `;
 
   });
+
+}
+async function loadSellerWallet() {
+
+  const email = localStorage.getItem("sellerEmail");
+
+  const res = await fetch(
+    API + "/seller-wallet/" + email
+  );
+
+  const data = await res.json();
+
+  document.getElementById("sellerWallet").innerText =
+    "$" + data.available;
+
+  document.getElementById("sellerPending").innerText =
+    "$" + data.pending;
+
+}
+function withdrawMoney() {
+
+  alert("Withdraw System Coming Soon");
 
 }
