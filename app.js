@@ -1372,6 +1372,7 @@ async function sellerLogin() {
       loadSellerProducts();
 loadSellerOrders();
       loadSellerSalesChart();
+      loadSellerNotifications();
     }
 
   } catch (error) {
@@ -1627,3 +1628,39 @@ async function loadSellerSalesChart() {
   });
 
     }
+async function loadSellerNotifications() {
+
+  const email =
+    localStorage.getItem("sellerEmail");
+
+  const res = await fetch(
+    API + "/seller-notifications/" + email
+  );
+
+  const notifications = await res.json();
+
+  const box =
+    document.getElementById(
+      "sellerNotifications"
+    );
+
+  box.innerHTML = "";
+
+  if (notifications.length === 0) {
+
+    box.innerHTML =
+      "<p>No Notifications</p>";
+
+    return;
+
+  }
+
+  notifications.forEach(n => {
+
+    box.innerHTML += `
+      <p>${n}</p>
+    `;
+
+  });
+
+}
