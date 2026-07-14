@@ -1565,7 +1565,35 @@ app.get("/seller-sales-chart/:email", async (req, res) => {
   }
 
 });
+app.get("/seller-notifications/:email", async (req, res) => {
 
+  try {
+
+    const orders = await Order.find({
+      sellerEmail: req.params.email
+    });
+
+    const notifications = [];
+
+    orders.forEach(order => {
+
+      notifications.push(
+        "🛒 New Order: " + order.productName
+      );
+
+    });
+
+    res.json(notifications);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
 const PORT =
   process.env.PORT || 3000;
 
