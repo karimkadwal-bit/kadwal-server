@@ -67,6 +67,32 @@ Seller: -
 <p id="sellerEmailView">
 Email: -
 </p>
+  
+<div class="dashboard-cards">
+
+  <div class="dashboard-card">
+    <h3>📦 Products</h3>
+    <h1 id="sellerTotalProducts">0</h1>
+  </div>
+
+  <div class="dashboard-card">
+    <h3>🛒 Orders</h3>
+    <h1 id="sellerTotalOrders">0</h1>
+  </div>
+
+  <div class="dashboard-card">
+    <h3>💰 Revenue</h3>
+    <h1 id="sellerTotalSales">$0</h1>
+  </div>
+
+  <div class="dashboard-card">
+    <h3>⭐ Rating</h3>
+    <h1 id="sellerAverageRating">0</h1>
+  </div>
+
+</div>
+
+<hr>
 
   <h3>My Products</h3>
 
@@ -91,7 +117,11 @@ Rating: ⭐0
 </p>
 
 <hr>
+<h3>📈 Sales Chart</h3>
 
+<canvas id="sellerSalesChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <h3>My Orders</h3>
 
 <div id="sellerOrders"></div>
