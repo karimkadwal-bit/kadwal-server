@@ -1594,6 +1594,45 @@ app.get("/seller-notifications/:email", async (req, res) => {
   }
 
 });
+app.get("/seller-wallet/:email", async (req, res) => {
+
+  try {
+
+    const orders = await Order.find({
+      sellerEmail: req.params.email
+    });
+
+    let available = 0;
+    let pending = 0;
+
+    orders.forEach(order => {
+
+      if (order.status === "Delivered") {
+
+        available += Number(order.productPrice);
+
+      } else {
+
+        pending += Number(order.productPrice);
+
+      }
+
+    });
+
+    res.json({
+      available,
+      pending
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
 const PORT =
   process.env.PORT || 3000;
 
