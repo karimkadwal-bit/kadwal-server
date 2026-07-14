@@ -1533,6 +1533,38 @@ app.put("/update-order-status/:id", async (req, res) => {
   }
 
 });
+app.get("/seller-sales-chart/:email", async (req, res) => {
+
+  try {
+
+    const products = await Product.find({
+      sellerEmail: req.params.email
+    });
+
+    const labels = [];
+    const values = [];
+
+    products.forEach(product => {
+
+      labels.push(product.productName);
+      values.push(Number(product.productPrice));
+
+    });
+
+    res.json({
+      labels,
+      values
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
 
 const PORT =
   process.env.PORT || 3000;
