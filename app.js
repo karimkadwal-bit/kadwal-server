@@ -1374,6 +1374,7 @@ loadSellerOrders();
       loadSellerSalesChart();
       loadSellerNotifications();
       loadSellerWallet();
+      loadSellerTransactions();
     }
 
   } catch (error) {
@@ -1687,3 +1688,39 @@ function withdrawMoney() {
   alert("Withdraw System Coming Soon");
 
 }
+async function loadSellerTransactions() {
+
+  const email = localStorage.getItem("sellerEmail");
+
+  const res = await fetch(
+    API + "/seller-transactions/" + email
+  );
+
+  const orders = await res.json();
+
+  const box = document.getElementById("sellerTransactions");
+
+  box.innerHTML = "";
+
+  if (orders.length === 0) {
+
+    box.innerHTML = "<p>No Transactions</p>";
+
+    return;
+
+  }
+
+  orders.forEach(order => {
+
+    box.innerHTML += `
+      <div style="border-bottom:1px solid #ddd;padding:10px;">
+        <b>${order.productName}</b><br>
+        Customer: ${order.customerName}<br>
+        Amount: $${order.productPrice}<br>
+        Status: ${order.status}
+      </div>
+    `;
+
+  });
+
+            }
