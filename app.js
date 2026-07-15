@@ -1375,6 +1375,7 @@ loadSellerOrders();
       loadSellerNotifications();
       loadSellerWallet();
       loadSellerTransactions();
+      loadSellerAnalytics();
     }
 
   } catch (error) {
@@ -1724,3 +1725,27 @@ async function loadSellerTransactions() {
   });
 
             }
+async function loadSellerAnalytics() {
+
+  const email =
+    localStorage.getItem("sellerEmail");
+
+  const res = await fetch(
+    API + "/seller-analytics/" + email
+  );
+
+  const data = await res.json();
+
+  document.getElementById("todaySales").innerText =
+    "$" + data.today;
+
+  document.getElementById("weekSales").innerText =
+    "$" + data.week;
+
+  document.getElementById("monthSales").innerText =
+    "$" + data.month;
+
+  document.getElementById("yearSales").innerText =
+    "$" + data.year;
+
+}
