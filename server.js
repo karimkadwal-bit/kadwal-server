@@ -1652,6 +1652,44 @@ app.get("/seller-transactions/:email", async (req, res) => {
   }
 
 });
+app.get("/seller-analytics/:email", async (req, res) => {
+
+  try {
+
+    const orders = await Order.find({
+      sellerEmail: req.params.email,
+      status: "Delivered"
+    });
+
+    let total = 0;
+
+    orders.forEach(order => {
+
+      total += Number(order.productPrice);
+
+    });
+
+    res.json({
+
+      today: total,
+
+      week: total,
+
+      month: total,
+
+      year: total
+
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
 const PORT =
   process.env.PORT || 3000;
 
