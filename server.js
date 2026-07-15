@@ -1690,6 +1690,27 @@ app.get("/seller-analytics/:email", async (req, res) => {
   }
 
 });
+app.get("/seller-low-stock/:email", async (req, res) => {
+
+  try {
+
+    const products = await Product.find({
+      sellerEmail: req.params.email
+    });
+
+    const lowStock = products.filter(product => product.stock <= 5);
+
+    res.json(lowStock);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
 const PORT =
   process.env.PORT || 3000;
 
