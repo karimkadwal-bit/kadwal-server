@@ -1749,3 +1749,40 @@ async function loadSellerAnalytics() {
     "$" + data.year;
 
 }
+async function loadLowStockProducts() {
+
+  const email =
+    localStorage.getItem("sellerEmail");
+
+  const res = await fetch(
+    API + "/seller-low-stock/" + email
+  );
+
+  const products = await res.json();
+
+  const box =
+    document.getElementById("lowStockProducts");
+
+  box.innerHTML = "";
+
+  if (products.length === 0) {
+
+    box.innerHTML =
+      "<p>✅ All Products In Stock</p>";
+
+    return;
+
+  }
+
+  products.forEach(product => {
+
+    box.innerHTML += `
+      <p>
+      ⚠️ ${product.productName}
+      (${product.stock} Left)
+      </p>
+    `;
+
+  });
+
+    }
