@@ -1376,6 +1376,7 @@ loadSellerOrders();
       loadSellerWallet();
       loadSellerTransactions();
       loadSellerAnalytics();
+      loadLowStockProducts();
     }
 
   } catch (error) {
