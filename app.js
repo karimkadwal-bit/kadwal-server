@@ -591,6 +591,11 @@ onclick='addToWishlist(${JSON.stringify(product)})'>
 ❤️ Wishlist
 </button>
 
+<button
+onclick="openChat('${product.sellerEmail}')">
+💬 Chat With Seller
+</button>
+
       <button
       onclick="editProduct('${product._id}')">
       Edit Product
@@ -606,6 +611,15 @@ onclick='addToWishlist(${JSON.stringify(product)})'>
     `;
 
   });
+
+}
+let currentSeller = "";
+
+function openChat(email){
+
+currentSeller = email;
+
+loadCustomerChat();
 
 }
 // Checkout
@@ -1851,3 +1865,38 @@ async function sendSellerReply() {
   loadSellerChat();
 
       }
+async function sendCustomerMessage(){
+
+const customerName =
+document.getElementById("customerName").value;
+
+const message =
+document.getElementById("customerMessage").value;
+
+await fetch(API + "/send-chat",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+sellerEmail:currentSeller,
+
+customerName,
+
+sender:"Customer",
+
+message
+
+})
+
+});
+
+document.getElementById("customerMessage").value="";
+
+loadCustomerChat();
+
+  }
