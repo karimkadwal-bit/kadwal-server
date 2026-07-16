@@ -1377,6 +1377,9 @@ loadSellerOrders();
       loadSellerTransactions();
       loadSellerAnalytics();
       loadLowStockProducts();
+      loadSellerChat();
+
+setInterval(loadSellerChat, 2000);
     }
 
   } catch (error) {
@@ -1787,3 +1790,64 @@ async function loadLowStockProducts() {
   });
 
     }
+async function loadSellerChat() {
+
+  const email = localStorage.getItem("sellerEmail");
+
+  const res = await fetch(
+    API + "/seller-chat/" + email
+  );
+
+  const chats = await res.json();
+
+  const box =
+    document.getElementById("sellerChatBox");
+
+  box.innerHTML = "";
+
+  chats.forEach(chat => {
+
+    box.innerHTML += `
+      <p>
+      <b>${chat.customerName}</b>:
+      ${chat.message}
+      </p>
+    `;
+
+  });
+
+    }
+async function sendSellerReply() {
+
+  const email = localStorage.getItem("sellerEmail");
+
+  const message =
+    document.getElementById("sellerReply").value;
+
+  await fetch(API + "/send-chat", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+
+      sellerEmail: email,
+
+      customerName: "Seller",
+
+      sender: "Seller",
+
+      message: message
+
+    })
+
+  });
+
+  document.getElementById("sellerReply").value = "";
+
+  loadSellerChat();
+
+      }
