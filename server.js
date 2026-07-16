@@ -175,29 +175,6 @@ const Seller = mongoose.model(
 // Chat Schema
 const ChatSchema = new mongoose.Schema({
 
-  sender: String,
-
-  receiver: String,
-
-  productId: String,
-
-  message: String,
-
-  createdAt: {
-
-    type: Date,
-
-    default: Date.now
-
-  }
-
-});
-const Chat = mongoose.model(
-  "Chat",
-  ChatSchema
-);
-const ChatSchema = new mongoose.Schema({
-
   sellerEmail: String,
 
   customerName: String,
@@ -1728,6 +1705,7 @@ app.get("/seller-low-stock/:email", async (req, res) => {
   }
 
 });
+
 app.post("/send-chat", async (req, res) => {
 
   try {
@@ -1747,6 +1725,7 @@ app.post("/send-chat", async (req, res) => {
   }
 
 });
+
 app.get("/seller-chat/:email", async (req, res) => {
 
   try {
