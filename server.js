@@ -196,7 +196,24 @@ const Chat = mongoose.model(
   "Chat",
   ChatSchema
 );
+const ChatSchema = new mongoose.Schema({
 
+  sellerEmail: String,
+
+  customerName: String,
+
+  message: String,
+
+  sender: String,
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+
+});
+
+const Chat = mongoose.model("Chat", ChatSchema);
 // Home
 app.get("/", (req, res) => {
   res.send("Kadwal Marketplace API Running");
@@ -1701,6 +1718,44 @@ app.get("/seller-low-stock/:email", async (req, res) => {
     const lowStock = products.filter(product => product.stock <= 5);
 
     res.json(lowStock);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
+app.post("/send-chat", async (req, res) => {
+
+  try {
+
+    const chat = new Chat(req.body);
+
+    await chat.save();
+
+    res.send("Message Sent");
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
+app.get("/seller-chat/:email", async (req, res) => {
+
+  try {
+
+    const chats = await Chat.find({
+      sellerEmail: req.params.email
+    });
+
+    res.json(chats);
 
   } catch (err) {
 
