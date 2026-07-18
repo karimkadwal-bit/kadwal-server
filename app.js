@@ -619,6 +619,10 @@ function openChat(email){
 
 currentSeller = email;
 
+  document.getElementById("customerChatBox").scrollIntoView({
+    behavior: "smooth"
+  });
+
 loadCustomerChat();
 
 }
@@ -1866,6 +1870,14 @@ async function sendSellerReply() {
 
       }
 async function sendCustomerMessage(){
+
+  if(!currentSeller){
+
+  alert("Please click 'Chat With Seller' first.");
+
+  return;
+
+        }
 
 const customerName =
 document.getElementById("customerName").value;
