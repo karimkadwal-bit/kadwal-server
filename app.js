@@ -1912,3 +1912,20 @@ document.getElementById("customerMessage").value="";
 loadCustomerChat();
 
   }
+async function loadCustomerChat(){
+
+  const res = await fetch(API + "/customer-chat/" + currentSeller);
+
+  const chats = await res.json();
+
+  document.getElementById("customerChatBox").innerHTML = "";
+
+  chats.forEach(chat=>{
+
+    document.getElementById("customerChatBox").innerHTML += `
+      <p><b>${chat.sender}:</b> ${chat.message}</p>
+    `;
+
+  });
+
+      }
