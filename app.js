@@ -1929,3 +1929,32 @@ async function loadCustomerChat(){
   });
 
       }
+async function loadSellerMessages(){
+
+  const email = localStorage.getItem("sellerEmail");
+
+  const res = await fetch(API + "/seller-chat/" + email);
+
+  const chats = await res.json();
+
+  document.getElementById("sellerMessages").innerHTML = "";
+
+  chats.forEach(chat=>{
+
+    document.getElementById("sellerMessages").innerHTML += `
+
+    <div class="chat-card">
+
+      <b>${chat.customerName}</b><br>
+
+      ${chat.message}<br>
+
+      <small>${chat.createdAt}</small>
+
+    </div>
+
+    `;
+
+  });
+
+            }
