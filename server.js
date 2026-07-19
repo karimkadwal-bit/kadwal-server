@@ -1746,14 +1746,15 @@ app.get("/customer-chat/:sellerEmail", async (req, res) => {
   }
 
 });
-
 app.get("/seller-chat/:email", async (req, res) => {
 
   try {
 
     const chats = await Chat.find({
+
       sellerEmail: req.params.email
-    });
+
+    }).sort({ createdAt: 1 });
 
     res.json(chats);
 
