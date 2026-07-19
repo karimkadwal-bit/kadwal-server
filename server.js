@@ -1725,6 +1725,27 @@ app.post("/send-chat", async (req, res) => {
   }
 
 });
+app.get("/customer-chat/:sellerEmail", async (req, res) => {
+
+  try {
+
+    const chats = await Chat.find({
+
+      sellerEmail: req.params.sellerEmail
+
+    }).sort({ createdAt: 1 });
+
+    res.json(chats);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
 
 app.get("/seller-chat/:email", async (req, res) => {
 
