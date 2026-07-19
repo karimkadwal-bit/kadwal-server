@@ -1398,6 +1398,10 @@ loadSellerOrders();
       loadSellerChat();
 
 setInterval(loadSellerChat, 2000);
+
+      loadSellerMessages();
+
+setInterval(loadSellerMessages, 2000);
     }
 
   } catch (error) {
