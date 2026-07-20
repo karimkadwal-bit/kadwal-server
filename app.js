@@ -1931,7 +1931,15 @@ async function loadCustomerChat(){
 document.getElementById("customerChatBox").innerHTML+=`
 
 <div class="customer-message">
+
 ${chat.message}
+
+<br>
+
+<small>
+${new Date(chat.createdAt).toLocaleString()}
+</small>
+
 </div>
 
 `;
@@ -1941,7 +1949,15 @@ ${chat.message}
 document.getElementById("customerChatBox").innerHTML+=`
 
 <div class="seller-message">
+
 ${chat.message}
+
+<br>
+
+<small>
+${new Date(chat.createdAt).toLocaleString()}
+</small>
+
 </div>
 
 `;
