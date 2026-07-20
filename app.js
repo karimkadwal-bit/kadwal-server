@@ -626,6 +626,14 @@ currentSeller = email;
 loadCustomerChat();
 
 }
+let selectedCustomer = "";
+function openCustomerChat(customer){
+
+selectedCustomer = customer;
+
+loadSellerMessages();
+
+}
 // Checkout
 async function checkout() {
 
@@ -2020,5 +2028,32 @@ async function checkNewMessages(){
     "No New Messages";
 
   }
+
+}
+async function loadCustomerList(){
+
+  const email = localStorage.getItem("sellerEmail");
+
+  const res = await fetch(API + "/seller-chat/" + email);
+
+  const chats = await res.json();
+
+  const uniqueCustomers = [...new Set(chats.map(chat=>chat.customerName))];
+
+  document.getElementById("customerList").innerHTML = "";
+
+  uniqueCustomers.forEach(customer=>{
+
+    document.getElementById("customerList").innerHTML += `
+
+    <button onclick="openCustomerChat('${customer}')">
+
+    ${customer}
+
+    </button>
+
+    `;
+
+  });
 
 }
