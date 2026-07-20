@@ -1926,10 +1926,28 @@ async function loadCustomerChat(){
 
   chats.forEach(chat=>{
 
-    document.getElementById("customerChatBox").innerHTML += `
-      <p><b>${chat.sender}:</b> ${chat.message}</p>
-    `;
+    if(chat.sender==="Customer"){
 
+document.getElementById("customerChatBox").innerHTML+=`
+
+<div class="customer-message">
+${chat.message}
+</div>
+
+`;
+
+}else{
+
+document.getElementById("customerChatBox").innerHTML+=`
+
+<div class="seller-message">
+${chat.message}
+</div>
+
+`;
+
+    }
+    
   });
 
       }
