@@ -1413,6 +1413,10 @@ setInterval(loadSellerMessages, 2000);
       checkNewMessages();
 
 setInterval(checkNewMessages,2000);
+
+      loadCustomerList();
+
+setInterval(loadCustomerList,2000);
     }
 
   } catch (error) {
