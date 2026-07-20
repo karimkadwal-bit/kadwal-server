@@ -1402,6 +1402,9 @@ setInterval(loadSellerChat, 2000);
       loadSellerMessages();
 
 setInterval(loadSellerMessages, 2000);
+      checkNewMessages();
+
+setInterval(checkNewMessages,2000);
     }
 
   } catch (error) {
@@ -1996,3 +1999,26 @@ async function loadSellerMessages(){
   });
 
             }
+async function checkNewMessages(){
+
+  const email = localStorage.getItem("sellerEmail");
+
+  const res = await fetch(API + "/seller-chat/" + email);
+
+  const chats = await res.json();
+
+  const newMessages = chats.filter(chat => chat.sender==="Customer");
+
+  if(newMessages.length>0){
+
+    document.getElementById("newMessageNotification").innerText =
+    "🔔 You have " + newMessages.length + " New Messages";
+
+  }else{
+
+    document.getElementById("newMessageNotification").innerText =
+    "No New Messages";
+
+  }
+
+}
