@@ -1938,8 +1938,12 @@ async function loadCustomerChat(){
   const chats = await res.json();
 
   document.getElementById("customerChatBox").innerHTML = "";
+  
+  const filteredChats = chats.filter(chat =>
+chat.customerName === selectedCustomer
+);
 
-  chats.forEach(chat=>{
+  filteredChats.forEach(chat=>{
 
     if(chat.sender==="Customer"){
 
