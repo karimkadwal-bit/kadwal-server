@@ -1725,13 +1725,15 @@ app.post("/send-chat", async (req, res) => {
   }
 
 });
-app.get("/customer-chat/:sellerEmail", async (req, res) => {
+app.get("/customer-chat/:sellerEmail/:customerName", async (req, res) => {
 
   try {
 
     const chats = await Chat.find({
 
-      sellerEmail: req.params.sellerEmail
+      sellerEmail: req.params.sellerEmail,
+
+      customerName: req.params.customerName
 
     }).sort({ createdAt: 1 });
 
