@@ -1939,7 +1939,13 @@ loadCustomerChat();
   }
 async function loadCustomerChat(){
 
-  const res = await fetch(API + "/customer-chat/" + currentSeller);
+  const customerName = localStorage.getItem("customerName");
+
+const res = await fetch(
+  API + "/customer-chat/" +
+  currentSeller + "/" +
+  customerName
+);
 
   const chats = await res.json();
 
