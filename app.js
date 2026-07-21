@@ -1992,7 +1992,11 @@ async function loadSellerMessages(){
 
   document.getElementById("sellerMessages").innerHTML = "";
 
-  chats.forEach(chat=>{
+  const filteredChats = chats.filter(chat =>
+chat.customerName === selectedCustomer
+);
+
+  filteredChats.forEach(chat=>{
 
     document.getElementById("sellerMessages").innerHTML += `
 
