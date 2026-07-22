@@ -1956,7 +1956,7 @@ const res = await fetch(
   document.getElementById("customerChatBox").innerHTML = "";
   
   const filteredChats = chats.filter(chat =>
-chat.customerName === selectedCustomer
+  chat.customerName === customerName
 );
 
   filteredChats.forEach(chat=>{
