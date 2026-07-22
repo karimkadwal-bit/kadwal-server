@@ -482,6 +482,8 @@ async function loadProducts() {
 
   products.forEach(product => {
 
+    console.log(product.sellerEmail);
+
     productsList.innerHTML += `
 
     <div
