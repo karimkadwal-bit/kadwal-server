@@ -1949,6 +1949,10 @@ const res = await fetch(
 
   const chats = await res.json();
 
+  console.log(chats);
+
+  console.log(localStorage.getItem("customerName"));
+
   document.getElementById("customerChatBox").innerHTML = "";
   
   const filteredChats = chats.filter(chat =>
