@@ -293,10 +293,10 @@ const match =
 if (!match) {
 
   return res.json({
-    message:
-    "Invalid Email Or Password",
-    isAdmin: false
-  });
+  message: "Login Successful",
+  isAdmin: false,
+  email: user.email
+});
 
 }
 
