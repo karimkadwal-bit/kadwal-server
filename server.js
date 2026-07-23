@@ -158,6 +158,16 @@ const SellerSchema = new mongoose.Schema({
 
   address: String,
 
+  online: {
+  type: Boolean,
+  default: false
+},
+
+lastSeen: {
+  type: Date,
+  default: Date.now
+},
+
   createdAt: {
 
     type: Date,
@@ -1398,6 +1408,11 @@ console.log("SELLER:", seller);
         });
 
       }
+
+      seller.online = true;
+seller.lastSeen = new Date();
+
+await seller.save();
 
       res.json({
 
