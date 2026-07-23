@@ -2086,3 +2086,26 @@ async function loadCustomerList(){
   });
 
       }
+async function sellerLogout() {
+
+  const email = localStorage.getItem("sellerEmail");
+
+  await fetch(API + "/seller-logout", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+      email
+    })
+
+  });
+
+  localStorage.removeItem("sellerEmail");
+
+  location.reload();
+
+}
