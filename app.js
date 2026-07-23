@@ -326,7 +326,7 @@ async function addReview(id) {
 
   loadProducts();
 
-        }
+}
 
 // Update Order Status
 async function updateOrderStatus(id) {
