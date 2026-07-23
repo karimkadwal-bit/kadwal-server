@@ -479,9 +479,15 @@ async function loadProducts() {
 
   productsList.innerHTML = "";
 
-  products.forEach(product => {
+  for (const product of products) {
 
-    console.log(product.sellerEmail);
+    console.log(product.sellerEmail}
+
+    const statusRes = await fetch(
+  API + "/seller-status/" + product.sellerEmail
+);
+
+const sellerStatus = await statusRes.json();
 
     productsList.innerHTML += `
 
