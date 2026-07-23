@@ -1434,6 +1434,34 @@ await seller.save();
 
   }
 );
+app.post("/seller-logout", async (req, res) => {
+
+  try {
+
+    const { email } = req.body;
+
+    const seller = await Seller.findOne({ email });
+
+    if (!seller) {
+      return res.send("Seller Not Found");
+    }
+
+    seller.online = false;
+    seller.lastSeen = new Date();
+
+    await seller.save();
+
+    res.send("Logout Success");
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
 app.get("/seller-products/:email", async (req, res) => {
 
   try {
