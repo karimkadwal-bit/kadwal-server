@@ -481,7 +481,7 @@ async function loadProducts() {
 
   for (const product of products) {
 
-    console.log(product.sellerEmail}
+    console.log(product.sellerEmail);
 
     const statusRes = await fetch(
   API + "/seller-status/" + product.sellerEmail
