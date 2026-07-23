@@ -1881,7 +1881,7 @@ async function sendSellerReply() {
 
       sellerEmail: email,
 
-      customerName: "Seller",
+      customerName: selectedCustomer,
 
       sender: "Seller",
 
@@ -1907,7 +1907,7 @@ async function sendCustomerMessage(){
         }
 
 const customerName =
-document.getElementById("customerName").value;
+localStorage.getItem("customerName");
 
 const message =
 document.getElementById("customerMessage").value;
