@@ -53,8 +53,7 @@ alert(data.message);
 
   if(data.message === "Login Successful"){
 
-localStorage.setItem("customerName", data.email);
-
+localStorage.setItem("customerName", email);
   }
 
 if (data.isAdmin) {
