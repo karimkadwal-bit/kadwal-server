@@ -1812,6 +1812,35 @@ app.get("/seller-chat/:email", async (req, res) => {
   }
 
 });
+app.get("/seller-status/:email", async (req, res) => {
+
+  try {
+
+    const seller = await Seller.findOne({
+      email: req.params.email
+    });
+
+    if (!seller) {
+      return res.json({
+        online: false,
+        lastSeen: null
+      });
+    }
+
+    res.json({
+      online: seller.online,
+      lastSeen: seller.lastSeen
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
 const PORT =
   process.env.PORT || 3000;
 
