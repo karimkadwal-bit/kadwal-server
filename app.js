@@ -1871,7 +1871,7 @@ async function loadSellerChat() {
 
   });
 
-    }
+}
 async function sendSellerReply() {
 
   const email = localStorage.getItem("sellerEmail");
