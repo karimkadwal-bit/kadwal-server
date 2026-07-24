@@ -1874,6 +1874,14 @@ async function loadSellerChat() {
 }
 async function sendSellerReply() {
 
+  if(!selectedCustomer){
+
+  alert("Please select a customer first.");
+
+  return;
+
+  }
+
   const email = localStorage.getItem("sellerEmail");
 
   const message =
@@ -1904,6 +1912,8 @@ async function sendSellerReply() {
   document.getElementById("sellerReply").value = "";
 
   loadSellerMessages();
+
+loadCustomerChat();
 
       }
 async function sendCustomerMessage(){
