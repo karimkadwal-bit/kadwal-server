@@ -2066,7 +2066,17 @@ filteredChats.forEach(chat=>{
 
       ${chat.message}<br>
 
-      <small>${chat.createdAt}</small>
+      <small>
+
+${new Date(chat.createdAt).toLocaleString()}
+
+${chat.sender === "Seller"
+
+? (chat.seen ? " ✔✔ Seen" : " ✔ Sent")
+
+: ""}
+
+</small>
 
     </div>
 
