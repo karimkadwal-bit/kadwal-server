@@ -510,6 +510,11 @@ data-category="${product.productCategory}">
       ${product.productName}
       </h3>
       
+      <p>
+${sellerStatus.online
+? "🟢 Seller Online"
+: "⚪ Last Seen: " + new Date(sellerStatus.lastSeen).toLocaleString()}
+</p>
       
 <p>
 Category:
@@ -623,7 +628,7 @@ onclick="openChat('${product.sellerEmail}')">
 
     `;
 
-  });
+  }
 
 }
 let currentSeller = "";
