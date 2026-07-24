@@ -1971,6 +1971,24 @@ const res = await fetch(
 
   const chats = await res.json();
 
+  await fetch(API + "/mark-seen", {
+
+  method: "PUT",
+
+  headers: {
+    "Content-Type": "application/json"
+  },
+
+  body: JSON.stringify({
+
+    sellerEmail: currentSeller,
+
+    customerName: customerName
+
+  })
+
+});
+
   console.log(chats);
 
   console.log(localStorage.getItem("customerName"));
