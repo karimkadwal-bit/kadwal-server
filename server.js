@@ -193,6 +193,11 @@ const ChatSchema = new mongoose.Schema({
 
   sender: String,
 
+  seen: {
+  type: Boolean,
+  default: false
+},
+
   createdAt: {
     type: Date,
     default: Date.now
@@ -1802,6 +1807,49 @@ app.get("/seller-chat/:email", async (req, res) => {
     }).sort({ createdAt: 1 });
 
     res.json(chats);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
+app.put("/mark-seen", async (req, res) => {
+
+  try {
+
+    const { sellerEmail, customerName } = req.body;
+
+    await Chat.updateMany(
+
+      {
+
+        sellerEmail,
+
+        customerName,
+
+        sender: "Seller",
+
+        seen: false
+
+      },
+
+      {
+
+        $set: {
+
+          seen: true
+
+        }
+
+      }
+
+    );
+
+    res.send("Seen Updated");
 
   } catch (err) {
 
