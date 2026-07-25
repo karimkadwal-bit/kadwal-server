@@ -1932,6 +1932,9 @@ localStorage.getItem("customerName");
 const message =
 document.getElementById("customerMessage").value;
 
+  const imageFile =
+document.getElementById("chatImage").files[0];
+
 await fetch(API + "/send-chat",{
 
 method:"POST",
