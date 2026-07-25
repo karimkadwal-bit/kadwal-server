@@ -191,6 +191,11 @@ const ChatSchema = new mongoose.Schema({
 
   message: String,
 
+  image: {
+  type: String,
+  default: ""
+},
+
   sender: String,
 
   seen: {
