@@ -1887,27 +1887,29 @@ async function sendSellerReply() {
   const message =
     document.getElementById("sellerReply").value;
 
-  await fetch(API + "/send-chat", {
+  const formData = new FormData();
+
+formData.append("sellerEmail", email);
+formData.append("customerName", selectedCustomer);
+formData.append("sender", "Seller");
+formData.append("message", message);
+
+const image =
+document.getElementById("sellerChatImage").files[0];
+
+if(image){
+
+    formData.append("image", image);
+
+}
+
+await fetch(API + "/send-chat", {
 
     method: "POST",
 
-    headers: {
-      "Content-Type": "application/json"
-    },
+    body: formData
 
-    body: JSON.stringify({
-
-      sellerEmail: email,
-
-      customerName: selectedCustomer,
-
-      sender: "Seller",
-
-      message: message
-
-    })
-
-  });
+});
 
   document.getElementById("sellerReply").value = "";
 
@@ -1935,25 +1937,27 @@ document.getElementById("customerMessage").value;
   const imageFile =
 document.getElementById("chatImage").files[0];
 
+const formData = new FormData();
+
+formData.append("sellerEmail", currentSeller);
+formData.append("customerName", customerName);
+formData.append("sender", "Customer");
+formData.append("message", message);
+
+const image =
+document.getElementById("chatImage").files[0];
+
+if(image){
+
+    formData.append("image", image);
+
+}
+
 await fetch(API + "/send-chat",{
 
-method:"POST",
+    method:"POST",
 
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-sellerEmail:currentSeller,
-
-customerName,
-
-sender:"Customer",
-
-message
-
-})
+    body:formData
 
 });
 
@@ -2012,6 +2016,8 @@ document.getElementById("customerChatBox").innerHTML+=`
 
 ${chat.message}
 
+${chat.image ? `<br><img src="${API + chat.image}" style="max-width:200px;border-radius:10px;">` : ""}
+
 <br>
 
 <small>
@@ -2029,6 +2035,8 @@ document.getElementById("customerChatBox").innerHTML+=`
 <div class="seller-message">
 
 ${chat.message}
+
+${chat.image ? `<br><img src="${API + chat.image}" style="max-width:200px;border-radius:10px;">` : ""}
 
 <br>
 
