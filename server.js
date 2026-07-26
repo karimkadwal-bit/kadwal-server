@@ -1759,13 +1759,21 @@ app.get("/seller-low-stock/:email", async (req, res) => {
 
 });
 
-app.post("/send-chat", async (req, res) => {
+app.post("/send-chat", upload.single("image"), async (req, res) => {
 
   try {
 
-    const chat = new Chat(req.body);
+    const chatData = req.body;
 
-    await chat.save();
+if (req.file) {
+
+  chatData.image = "/uploads/" + req.file.filename;
+
+}
+
+const chat = new Chat(chatData);
+
+await chat.save();
 
     res.send("Message Sent");
 
