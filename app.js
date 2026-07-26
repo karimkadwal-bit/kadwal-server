@@ -2070,12 +2070,25 @@ async function loadSellerMessages(){
 filteredChats.forEach(chat=>{
 
     document.getElementById("sellerMessages").innerHTML += `
+<div class="chat-card">
 
-    <div class="chat-card">
+<b>${chat.customerName}</b><br>
 
-      <b>${chat.customerName}</b><br>
+${chat.message || ""}
 
-      ${chat.message}<br>
+${chat.image ? `
+<br>
+<img src="${API + chat.image}"
+style="
+width:150px;
+height:150px;
+object-fit:cover;
+border-radius:10px;
+margin-top:5px;
+">
+` : ""}
+
+<br>
 
       <small>
 
@@ -2095,7 +2108,7 @@ ${chat.sender === "Seller"
 
   });
 
-            }
+            
 async function checkNewMessages(){
 
   const email = localStorage.getItem("sellerEmail");
@@ -2127,7 +2140,13 @@ async function loadCustomerList(){
 
   const chats = await res.json();
 
-  const uniqueCustomers = [...new Set(chats.map(chat=>chat.customerName))];
+  const uniqueCustomers = [
+  ...new Set(
+    chats
+      .filter(chat => chat.customerName)
+      .map(chat => chat.customerName)
+  )
+];
 
   document.getElementById("customerList").innerHTML = "";
 
