@@ -2137,13 +2137,7 @@ async function loadCustomerList(){
 
   const chats = await res.json();
 
-  const uniqueCustomers = [
-  ...new Set(
-    chats
-      .filter(chat => chat.customerName)
-      .map(chat => chat.customerName)
-  )
-];
+  const uniqueCustomers = [...new Set(chats.map(chat => chat.customerName))];
 
   document.getElementById("customerList").innerHTML = "";
 
