@@ -2069,7 +2069,8 @@ async function loadSellerMessages(){
 
 filteredChats.forEach(chat=>{
 
-    document.getElementById("sellerMessages").innerHTML += `
+document.getElementById("sellerMessages").innerHTML += `
+
 <div class="chat-card">
 
 <b>${chat.customerName}</b><br>
@@ -2090,25 +2091,21 @@ margin-top:5px;
 
 <br>
 
-      <small>
+<small>
 
 ${new Date(chat.createdAt).toLocaleString()}
 
 ${chat.sender === "Seller"
-
 ? (chat.seen ? " ✔✔ Seen" : " ✔ Sent")
-
 : ""}
 
 </small>
 
-    </div>
+</div>
 
-    `;
+`;
 
-  });
-
-            
+});
 async function checkNewMessages(){
 
   const email = localStorage.getItem("sellerEmail");
