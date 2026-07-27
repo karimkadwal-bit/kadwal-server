@@ -2181,3 +2181,89 @@ async function sellerLogout() {
   location.reload();
 
 }
+let mediaRecorder;
+let audioChunks = [];
+
+async function startRecording() {
+
+  const stream = await navigator.mediaDevices.getUserMedia({
+    audio: true
+  });
+
+  mediaRecorder = new MediaRecorder(stream);
+
+  audioChunks = [];
+
+  mediaRecorder.ondataavailable = e => {
+    audioChunks.push(e.data);
+  };
+
+  mediaRecorder.onstop = () => {
+
+    const audioBlob = new Blob(audioChunks, {
+      type: "audio/webm"
+    });
+
+    const audioURL = URL.createObjectURL(audioBlob);
+
+    const player =
+      document.getElementById("voicePreview");
+
+    player.src = audioURL;
+
+    player.style.display = "block";
+
+  };
+
+  mediaRecorder.start();
+
+  setTimeout(() => {
+
+    mediaRecorder.stop();
+
+  }, 10000);
+
+      }
+let sellerRecorder;
+let sellerChunks = [];
+
+async function startSellerRecording() {
+
+  const stream = await navigator.mediaDevices.getUserMedia({
+    audio: true
+  });
+
+  sellerRecorder = new MediaRecorder(stream);
+
+  sellerChunks = [];
+
+  sellerRecorder.ondataavailable = e => {
+    sellerChunks.push(e.data);
+  };
+
+  sellerRecorder.onstop = () => {
+
+    const audioBlob = new Blob(sellerChunks, {
+      type: "audio/webm"
+    });
+
+    const audioURL = URL.createObjectURL(audioBlob);
+
+    const player =
+      document.getElementById("sellerVoicePreview");
+
+    player.src = audioURL;
+
+    player.style.display = "block";
+
+  };
+
+  sellerRecorder.start();
+
+  setTimeout(() => {
+
+    sellerRecorder.stop();
+
+  }, 10000);
+
+}
