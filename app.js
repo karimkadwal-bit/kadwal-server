@@ -2106,6 +2106,8 @@ ${chat.sender === "Seller"
 `;
 
 });
+  
+}
 async function checkNewMessages(){
 
   const email = localStorage.getItem("sellerEmail");
