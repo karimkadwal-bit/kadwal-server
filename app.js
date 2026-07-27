@@ -1948,9 +1948,15 @@ const image =
 document.getElementById("chatImage").files[0];
 
 if(image){
-
     formData.append("image", image);
+}
 
+if(window.recordedVoice){
+    formData.append(
+        "voice",
+        window.recordedVoice,
+        "voice.webm"
+    );
 }
 
 await fetch(API + "/send-chat",{
@@ -2018,6 +2024,13 @@ ${chat.message}
 
 ${chat.image ? `<br><img src="${API + chat.image}" style="max-width:200px;border-radius:10px;">` : ""}
 
+${chat.voice ? `
+<br>
+<audio controls>
+<source src="${API + chat.voice}" type="audio/webm">
+</audio>
+` : ""}
+
 <br>
 
 <small>
@@ -2037,6 +2050,13 @@ document.getElementById("customerChatBox").innerHTML+=`
 ${chat.message}
 
 ${chat.image ? `<br><img src="${API + chat.image}" style="max-width:200px;border-radius:10px;">` : ""}
+
+${chat.voice ? `
+<br>
+<audio controls>
+<source src="${API + chat.voice}" type="audio/webm">
+</audio>
+` : ""}
 
 <br>
 
@@ -2087,6 +2107,13 @@ object-fit:cover;
 border-radius:10px;
 margin-top:5px;
 ">
+` : ""}
+
+${chat.voice ? `
+<br>
+<audio controls>
+<source src="${API + chat.voice}" type="audio/webm">
+</audio>
 ` : ""}
 
 <br>
@@ -2203,7 +2230,9 @@ async function startRecording() {
     const audioBlob = new Blob(audioChunks, {
       type: "audio/webm"
     });
-
+    
+window.recordedVoice = audioBlob;
+    
     const audioURL = URL.createObjectURL(audioBlob);
 
     const player =
