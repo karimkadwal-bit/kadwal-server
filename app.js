@@ -2285,6 +2285,8 @@ async function startSellerRecording() {
       type: "audio/webm"
     });
 
+    window.sellerRecordedVoice = audioBlob;
+
     const audioURL = URL.createObjectURL(audioBlob);
 
     const player =
