@@ -1902,6 +1902,15 @@ if(image){
     formData.append("image", image);
 
 }
+  if(window.sellerRecordedVoice){
+
+    formData.append(
+        "voice",
+        window.sellerRecordedVoice,
+        "sellerVoice.webm"
+    );
+
+  }
 
 await fetch(API + "/send-chat", {
 
