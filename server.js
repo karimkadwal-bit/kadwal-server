@@ -191,6 +191,8 @@ const ChatSchema = new mongoose.Schema({
 
   message: String,
 
+  voice: String,
+
   image: {
   type: String,
   default: ""
@@ -1759,16 +1761,21 @@ app.get("/seller-low-stock/:email", async (req, res) => {
 
 });
 
-app.post("/send-chat", upload.single("image"), async (req, res) => {
+app.post("/send-chat", upload.fields([
+  { name: "image", maxCount: 1 },
+  { name: "voice", maxCount: 1 }
+]), async (req, res) => {
 
   try {
 
     const chatData = req.body;
 
-if (req.file) {
+if (req.files?.image) {
+  chatData.image = "/uploads/" + req.files.image[0].filename;
+}
 
-  chatData.image = "/uploads/" + req.file.filename;
-
+if (req.files?.voice) {
+  chatData.voice = "/uploads/" + req.files.voice[0].filename;
 }
 
 const chat = new Chat(chatData);
