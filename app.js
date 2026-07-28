@@ -1433,8 +1433,17 @@ setInterval(checkNewMessages,2000);
 
       loadCustomerList();
 
-setInterval(loadCustomerList,2000);
+setInterval(() => {
+
+    loadCustomerList();
+
+    if(selectedCustomer){
+
+        loadSellerMessages();
+
     }
+
+}, 2000);
 
   } catch (error) {
 
