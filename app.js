@@ -1427,8 +1427,7 @@ setInterval(loadSellerChat, 2000);
 
       loadSellerMessages();
 
-setInterval(loadSellerMessages, 2000);
-      checkNewMessages();
+// setInterval(loadSellerMessages, 2000);
 
 setInterval(checkNewMessages,2000);
 
@@ -2192,7 +2191,7 @@ async function loadCustomerList(){
     `;
 
   });
-
+loadSellerMessages();
       }
 async function sellerLogout() {
 
