@@ -2090,8 +2090,8 @@ ${new Date(chat.createdAt).toLocaleString()}
   });
 
       }
-let lastChatCount = 0;
 
+let lastChatCount = 0;
 async function loadSellerMessages(){
 
   const email = localStorage.getItem("sellerEmail");
@@ -2180,7 +2180,7 @@ async function checkNewMessages(){
     "No New Messages";
 
   }
-
+});
 }
 async function loadCustomerList(){
 
@@ -2207,7 +2207,7 @@ async function loadCustomerList(){
     `;
 
   });
-      
+}
 async function sellerLogout() {
 
   const email = localStorage.getItem("sellerEmail");
