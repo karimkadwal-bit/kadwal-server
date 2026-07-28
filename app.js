@@ -2090,6 +2090,8 @@ ${new Date(chat.createdAt).toLocaleString()}
   });
 
       }
+let lastChatCount = 0;
+
 async function loadSellerMessages(){
 
   const email = localStorage.getItem("sellerEmail");
@@ -2098,11 +2100,16 @@ async function loadSellerMessages(){
 
   const chats = await res.json();
 
-  document.getElementById("sellerMessages").innerHTML = "";
-
     const filteredChats = chats.filter(chat =>
     chat.customerName === selectedCustomer
 );
+  if(filteredChats.length === lastChatCount){
+    return;
+}
+
+lastChatCount = filteredChats.length;
+
+  document.getElementById("sellerMessages").innerHTML = "";
 
 filteredChats.forEach(chat=>{
 
@@ -2200,7 +2207,7 @@ async function loadCustomerList(){
     `;
 
   });
-loadSellerMessages();
+
       }
 async function sellerLogout() {
 
