@@ -2207,8 +2207,7 @@ async function loadCustomerList(){
     `;
 
   });
-
-      }
+      
 async function sellerLogout() {
 
   const email = localStorage.getItem("sellerEmail");
