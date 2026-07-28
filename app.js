@@ -2111,6 +2111,8 @@ async function loadSellerMessages(){
 
 lastChatCount = filteredChats.length;
 
+  document.getElementById("sellerMessages").innerHTML = "";
+
 filteredChats.forEach(chat=>{
 
 document.getElementById("sellerMessages").innerHTML += `
