@@ -1443,7 +1443,7 @@ setInterval(checkNewMessages,2000);
 
 }, 2000);
 
-    
+        }
 
   } catch (error) {
 
@@ -2157,8 +2157,8 @@ ${chat.sender === "Seller"
 `;
 
 });
-  
-}
+
+  }
 async function checkNewMessages(){
 
   const email = localStorage.getItem("sellerEmail");
@@ -2209,7 +2209,9 @@ document.getElementById("customerList").innerHTML;
 if (currentHTML === newHTML) return;
 
 document.getElementById("customerList").innerHTML = newHTML;
+
 }
+
 async function sellerLogout() {
 
   const email = localStorage.getItem("sellerEmail");
