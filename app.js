@@ -2198,6 +2198,8 @@ async function loadCustomerList(){
 
   document.getElementById("customerList").innerHTML = "";
 
+  let newHTML = "";
+
   uniqueCustomers.forEach(customer=>{
 
     document.getElementById("customerList").innerHTML += `
@@ -2211,6 +2213,12 @@ async function loadCustomerList(){
     `;
 
   });
+  const currentHTML =
+document.getElementById("customerList").innerHTML;
+
+if (currentHTML === newHTML) return;
+
+document.getElementById("customerList").innerHTML = newHTML;
 }
 async function sellerLogout() {
 
