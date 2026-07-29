@@ -1443,7 +1443,7 @@ setInterval(checkNewMessages,2000);
 
 }, 2000);
 
-    }
+    
 
   } catch (error) {
 
