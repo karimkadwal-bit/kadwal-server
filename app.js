@@ -2195,24 +2195,18 @@ async function loadCustomerList(){
   const chats = await res.json();
 
   const uniqueCustomers = [...new Set(chats.map(chat => chat.customerName))];
+  
+let newHTML = "";
+  
+  uniqueCustomers.forEach(customer => {
 
-  document.getElementById("customerList").innerHTML = "";
-
-  let newHTML = "";
-
-  uniqueCustomers.forEach(customer=>{
-
-    document.getElementById("customerList").innerHTML += `
-
+  newHTML += `
     <button onclick="openCustomerChat('${customer}')">
-
-    ${customer}
-
+      ${customer}
     </button>
+  `;
 
-    `;
-
-  });
+});
   const currentHTML =
 document.getElementById("customerList").innerHTML;
 
