@@ -2115,6 +2115,8 @@ lastChatCount = filteredChats.length;
 
 filteredChats.forEach(chat=>{
 
+  document.getElementById("sellerMessages").innerHTML += `
+
 <div class="chat-card">
 
 <b>${chat.customerName}</b><br>
