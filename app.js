@@ -2324,12 +2324,3 @@ async function startSellerRecording() {
   }, 10000);
 
 }
-let selectedCustomer = "";
-
-async function openCustomerChat(customer) {
-    selectedCustomer = customer;
-
-    document.getElementById("customerName").innerText = customer;
-
-    loadSellerMessages();
-    }
