@@ -1431,16 +1431,15 @@ setInterval(loadSellerChat, 2000);
 
 setInterval(checkNewMessages,2000);
 
-      // loadCustomerList();
+       loadCustomerList();
 
-      // setInterval(() => {
-//     loadCustomerList();
-//
-//     if(selectedCustomer){
-//         loadSellerMessages();
-//     }
-//
-// }, 2000);
+       setInterval(() => {
+    loadCustomerList();
+
+   if(selectedCustomer){        loadSellerMessages();
+    }
+         
+ }, 2000);
 
         }
 
