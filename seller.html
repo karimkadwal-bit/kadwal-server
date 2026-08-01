@@ -234,9 +234,7 @@ accept="image/*">
 🎤 Record Voice
 </button>
 
-<audio controls preload="none">
-    <source src="${API + chat.voice}" type="audio/webm">
-</audio>
+<audio id="sellerVoicePreview" controls style="display:none;"></audio>
 
 <input
 id="sellerReply"
