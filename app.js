@@ -2098,6 +2098,8 @@ async function loadSellerMessages(){
 
   const chats = await res.json();
 
+  document.getElementById("sellerMessages").innerHTML = "";
+
     const filteredChats = chats.filter(chat =>
     chat.customerName === selectedCustomer
 );
@@ -2106,9 +2108,6 @@ async function loadSellerMessages(){
 }
 
 lastChatCount = filteredChats.length;
-
-  document.getElementById("sellerMessages").innerHTML = "";
-
 
 filteredChats.forEach(chat=>{
 
