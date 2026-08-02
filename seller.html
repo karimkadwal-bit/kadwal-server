@@ -1,9 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-  <h2>Seller Signup</h2>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Seller Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<h2>Seller Signup</h2>
 
 <input id="sellerName" placeholder="Name">
 <br><br>
@@ -25,14 +38,6 @@ Register Seller
 </button>
 
 <hr>
-
-<title>Seller Login</title>
-
-<link rel="stylesheet" href="style.css">
-
-</head>
-
-<body>
 
 <h2>Seller Login</h2>
 
@@ -51,59 +56,7 @@ placeholder="Password">
 <br><br>
 
 <button onclick="sellerLogin()">
-Lo<!DOCTYPE html>
-<html>
-
-<head>
-
-  <h2>Seller Signup</h2>
-
-<input id="sellerName" placeholder="Name">
-<br><br>
-
-<input id="sellerEmailSignup" type="email" placeholder="Email">
-<br><br>
-
-<input id="sellerPasswordSignup" type="password" placeholder="Password">
-<br><br>
-
-<input id="sellerPhone" placeholder="Phone">
-<br><br>
-
-<input id="sellerAddress" placeholder="Address">
-<br><br>
-
-<button onclick="sellerSignup()">
-Register Seller
-</button>
-
-<hr>
-
-<title>Seller Login</title>
-
-<link rel="stylesheet" href="style.css">
-
-</head>
-
-<body>
-
-<h2>Seller Login</h2>
-
-<input
-id="sellerEmail"
-type="email"
-placeholder="Email">
-
-<br><br>
-
-<input
-id="sellerPassword"
-type="password"
-placeholder="Password">
-
-<br><br>
-
-gin
+Login
 </button>
 
 <hr>
@@ -112,7 +65,7 @@ gin
 
 <h2>📊 Seller Dashboard</h2>
 
-<p id="sellerName">
+<p id="sellerNameView">
 Seller: -
 </p>
 
@@ -120,40 +73,41 @@ Seller: -
 Email: -
 </p>
 
-  <button onclick="sellerLogout()">
+<button onclick="sellerLogout()">
 🚪 Logout
-  </button>
-  
+</button>
+
+<h3 id="newMessageNotification">
+No New Messages
+</h3>
+
 <div class="dashboard-cards">
 
-  <div class="dashboard-card">
-    <h3>📦 Products</h3>
-    <h1 id="sellerTotalProducts">0</h1>
-  </div>
+<div class="dashboard-card">
+<h3>📦 Products</h3>
+<h1 id="sellerTotalProducts">0</h1>
+</div>
 
-  <div class="dashboard-card">
-    <h3>🛒 Orders</h3>
-    <h1 id="sellerTotalOrders">0</h1>
-  </div>
+<div class="dashboard-card">
+<h3>🛒 Orders</h3>
+<h1 id="sellerTotalOrders">0</h1>
+</div>
 
-  <div class="dashboard-card">
-    <h3>💰 Revenue</h3>
-    <h1 id="sellerTotalSales">$0</h1>
-  </div>
+<div class="dashboard-card">
+<h3>💰 Revenue</h3>
+<h1 id="sellerTotalSales">$0</h1>
+</div>
 
-  <div class="dashboard-card">
-    <h3>⭐ Rating</h3>
-    <h1 id="sellerAverageRating">0</h1>
-  </div>
-  <h3 id="newMessageNotification">
-No New Messages
-  </h3>
+<div class="dashboard-card">
+<h3>⭐ Rating</h3>
+<h1 id="sellerAverageRating">0</h1>
+</div>
 
 </div>
 
 <hr>
-  
-  <h3>🔔 Notifications</h3>
+
+<h3>🔔 Notifications</h3>
 
 <div id="sellerNotifications">
 
@@ -162,19 +116,20 @@ No New Messages
 </div>
 
 <hr>
+
 <h3>💰 Seller Wallet</h3>
 
 <div class="dashboard-cards">
 
-  <div class="dashboard-card">
-    <h3>Available Balance</h3>
-    <h1 id="sellerWallet">$0</h1>
-  </div>
+<div class="dashboard-card">
+<h3>Available Balance</h3>
+<h1 id="sellerWallet">$0</h1>
+</div>
 
-  <div class="dashboard-card">
-    <h3>Pending Balance</h3>
-    <h1 id="sellerPending">$0</h1>
-  </div>
+<div class="dashboard-card">
+<h3>Pending Balance</h3>
+<h1 id="sellerPending">$0</h1>
+</div>
 
 </div>
 
@@ -183,75 +138,59 @@ No New Messages
 </button>
 
 <hr>
-  <h3>📜 Transaction History</h3>
+
+  <hr>
+
+<h3>📜 Transaction History</h3>
 
 <div id="sellerTransactions">
-
 <p>No Transactions</p>
-
 </div>
 
 <hr>
-  <h3>📈 Sales Analytics</h3>
+
+<h3>📈 Sales Analytics</h3>
 
 <div class="dashboard-cards">
 
-  <div class="dashboard-card">
-    <h3>📅 Today</h3>
-    <h1 id="todaySales">$0</h1>
-  </div>
+<div class="dashboard-card">
+<h3>📅 Today</h3>
+<h1 id="todaySales">$0</h1>
+</div>
 
-  <div class="dashboard-card">
-    <h3>📆 Week</h3>
-    <h1 id="weekSales">$0</h1>
-  </div>
+<div class="dashboard-card">
+<h3>📆 Week</h3>
+<h1 id="weekSales">$0</h1>
+</div>
 
-  <div class="dashboard-card">
-    <h3>🗓 Month</h3>
-    <h1 id="monthSales">$0</h1>
-  </div>
+<div class="dashboard-card">
+<h3>🗓 Month</h3>
+<h1 id="monthSales">$0</h1>
+</div>
 
-  <div class="dashboard-card">
-    <h3>📈 Year</h3>
-    <h1 id="yearSales">$0</h1>
-  </div>
+<div class="dashboard-card">
+<h3>📈 Year</h3>
+<h1 id="yearSales">$0</h1>
+</div>
 
 </div>
 
 <hr>
-  
-  <h3>My Products</h3>
 
-<div id="sellerProducts"></div>
-  <hr>
 <h3>📊 Seller Analytics</h3>
 
-<p id="sellerTotalProducts">
-Products: 0
-</p>
-
-<p id="sellerTotalOrders">
-Orders: 0
-</p>
-
-<p id="sellerTotalSales">
-Sales: $0
-</p>
-
-<p id="sellerAverageRating">
-Rating: ⭐0
-</p>
+<p id="sellerTotalProductsView">Products: 0</p>
+<p id="sellerTotalOrdersView">Orders: 0</p>
+<p id="sellerTotalSalesView">Sales: $0</p>
+<p id="sellerAverageRatingView">Rating: ⭐0</p>
 
 <hr>
+
 <h3>📈 Sales Chart</h3>
 
 <canvas id="sellerSalesChart"></canvas>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<h3>My Orders</h3>
-
-<div id="sellerOrders"></div>
-
+<hr>
 
 <h3>📦 Inventory Alerts</h3>
 
@@ -262,13 +201,26 @@ Rating: ⭐0
 </div>
 
 <hr>
+
+<h3>My Products</h3>
+
+<div id="sellerProducts"></div>
+
+<hr>
+
+<h3>My Orders</h3>
+
+<div id="sellerOrders"></div>
+
+<hr>
+
 <h3>Customers</h3>
 
 <div id="customerList"></div>
 
 <hr>
 
-<h3>💬 Customer Messages</h3>
+  <h3>💬 Customer Messages</h3>
 
 <div id="sellerMessages"></div>
 
@@ -277,11 +229,21 @@ type="file"
 id="sellerChatImage"
 accept="image/*">
 
+<br><br>
+
 <button onclick="startSellerRecording()">
 🎤 Record Voice
 </button>
 
-<audio id="sellerVoicePreview" controls style="display:none;"></audio>
+<br><br>
+
+<audio
+id="sellerVoicePreview"
+controls
+style="display:none;">
+</audio>
+
+<br><br>
 
 <input
 id="sellerReply"
@@ -292,9 +254,10 @@ Send
 </button>
 
 <hr>
+
 </div>
+
 <script src="./app.js"></script>
 
 </body>
-
-</html>
+  </html>
