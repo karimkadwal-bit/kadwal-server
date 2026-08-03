@@ -2090,7 +2090,6 @@ ${new Date(chat.createdAt).toLocaleString()}
       }
 
 let lastChatCount = 0;
-let lastSelectedCustomer = "";
 async function loadSellerMessages(){
 
   const email = localStorage.getItem("sellerEmail");
@@ -2104,15 +2103,9 @@ async function loadSellerMessages(){
     const filteredChats = chats.filter(chat =>
     chat.customerName === selectedCustomer
 );
-  if (
-    filteredChats.length === lastChatCount &&
-    selectedCustomer === lastSelectedCustomer
-)
+  if(filteredChats.length === lastChatCount){
     return;
 }
-
-lastSelectedCustomer = selectedCustomer;
-
 lastChatCount = filteredChats.length;
 
 filteredChats.forEach(chat=>{
