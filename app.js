@@ -2107,12 +2107,11 @@ async function loadSellerMessages(){
   if (
     filteredChats.length === lastChatCount &&
     selectedCustomer === lastSelectedCustomer
-){
+)
     return;
 }
 
 lastSelectedCustomer = selectedCustomer;
-}
 
 lastChatCount = filteredChats.length;
 
