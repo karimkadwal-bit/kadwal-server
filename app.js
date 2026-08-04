@@ -1,5 +1,13 @@
 const API = "https://kadwal-server.onrender.com";
 
+let selectedCustomer = "";
+let lastChatCount = 0;
+
+function openCustomerChat(customer){
+    selectedCustomer = customer;
+    loadSellerMessages();
+}
+
 // Signup
 async function signup() {
 
@@ -1864,7 +1872,7 @@ async function loadSellerChat() {
   const box =
     document.getElementById("sellerChatBox");
 
-  box.innerHTML = "";
+ // box.innerHTML = "";
 
   chats.forEach(chat => {
 
@@ -2089,8 +2097,6 @@ ${new Date(chat.createdAt).toLocaleString()}
 
       }
 
-let lastChatCount = 0;
-let lastSelectedCustomer = "";
 async function loadSellerMessages(){
 
   const email = localStorage.getItem("sellerEmail");
@@ -2107,7 +2113,7 @@ async function loadSellerMessages(){
   if (
     filteredChats.length === lastChatCount &&
     selectedCustomer === lastSelectedCustomer
-)
+){
     return;
 }
 
