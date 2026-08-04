@@ -2105,21 +2105,21 @@ async function loadSellerMessages(){
 
   const chats = await res.json();
 
-  document.getElementById("sellerMessages").innerHTML = "";
-
     const filteredChats = chats.filter(chat =>
     chat.customerName === selectedCustomer
 );
-  if (
-    filteredChats.length === lastChatCount &&
-    selectedCustomer === lastSelectedCustomer
-){
-    return;
-}
+// if (
+  //  filteredChats.length === lastChatCount &&
+   // selectedCustomer === lastSelectedCustomer
+// ){
+  //  return;
+// }
 
 lastSelectedCustomer = selectedCustomer;
 
 lastChatCount = filteredChats.length;
+
+    document.getElementById("sellerMessages").innerHTML = "";
 
 filteredChats.forEach(chat=>{
 
