@@ -89,7 +89,41 @@ async function addProduct() {
   document.getElementById("productStock").value;
   
 const productCategory =
-  document.getElementById("productCategory").value;
+  document.getElementById("prodasync function login() {
+
+  const email =
+    document.getElementById("email").value;
+
+  const password =
+    document.getElementById("password").value;
+
+  const res = await fetch(API + "/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email,
+      password
+    })
+  });
+
+  const data =
+  await res.json();
+
+alert(data.message);
+
+  if(data.message === "Login Successful"){
+
+localStorage.setItem("customerName", email);
+  }
+
+if (data.isAdmin) {
+
+  document.getElementById(
+    "adminPanel"
+  ).style.display = "block";
+٧uctCategory").value;
   
   const imageFile =
   document.getElementById(
@@ -1431,25 +1465,25 @@ loadSellerOrders();
       loadLowStockProducts();
       loadSellerChat();
 
-setInterval(loadSellerChat, 2000);
+// setInterval(loadSellerChat, 2000);
 
-      loadSellerMessages();
+     loadSellerMessages();
 
 // setInterval(loadSellerMessages, 2000);
 
-setInterval(checkNewMessages,2000);
+// setInterval(checkNewMessages,2000);
 
-       loadCustomerList();
+   loadCustomerList();
 
-       setInterval(() => {
-    loadCustomerList();
+  //     setInterval(() => {
+ //   loadCustomerList();
 
-   if(selectedCustomer){        loadSellerMessages();
-    }
+ //  if(selectedCustomer){        loadSellerMessages();
+ //   }
          
- }, 2000);
+// }, 2000);
 
-        }
+      }
 
   } catch (error) {
 
