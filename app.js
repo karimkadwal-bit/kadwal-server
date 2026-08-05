@@ -1906,7 +1906,7 @@ async function loadSellerChat() {
   const box =
     document.getElementById("sellerChatBox");
 
- // box.innerHTML = "";
+ box.innerHTML = "";
 
   chats.forEach(chat => {
 
