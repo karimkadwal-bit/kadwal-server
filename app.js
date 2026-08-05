@@ -1469,19 +1469,19 @@ loadSellerOrders();
 
      loadSellerMessages();
 
-// setInterval(loadSellerMessages, 2000);
+setInterval(loadSellerMessages, 2000);
 
-// setInterval(checkNewMessages,2000);
+setInterval(checkNewMessages,2000);
 
    loadCustomerList();
 
-  //     setInterval(() => {
- //   loadCustomerList();
+     setInterval(() => {
+   loadCustomerList();
 
- //  if(selectedCustomer){        loadSellerMessages();
- //   }
+  if(selectedCustomer){        loadSellerMessages();
+   }
          
-// }, 2000);
+}, 2000);
 
       }
 
