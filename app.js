@@ -2144,12 +2144,11 @@ async function loadSellerMessages(){
     const filteredChats = chats.filter(chat =>
     chat.customerName === selectedCustomer
 );
- if (
-   filteredChats.length === lastChatCount &&
-    selectedCustomer === lastSelectedCustomer
- ){
-   return;
+ if(filteredChats.length === lastChatCount){
+    return;
 }
+
+lastChatCount = filteredChats.length;
 
 lastSelectedCustomer = selectedCustomer;
 
