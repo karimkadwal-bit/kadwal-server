@@ -76,6 +76,7 @@ if (data.isAdmin) {
 }
 
 }
+
 // Add Product
 async function addProduct() {
 
@@ -86,73 +87,40 @@ async function addProduct() {
     document.getElementById("productPrice").value;
 
   const productStock =
-  document.getElementById("productStock").value;
+    document.getElementById("productStock").value;
   
-const productCategory =
-  document.getElementById("prodasync function login() {
-
-  const email =
-    document.getElementById("email").value;
-
-  const password =
-    document.getElementById("password").value;
-
-  const res = await fetch(API + "/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      email,
-      password
-    })
-  });
-
-  const data =
-  await res.json();
-
-alert(data.message);
-
-  if(data.message === "Login Successful"){
-
-localStorage.setItem("customerName", email);
-  }
-
-if (data.isAdmin) {
-
-  document.getElementById(
-    "adminPanel"
-  ).style.display = "block";
-٧uctCategory").value;
+  const productCategory =
+    document.getElementById("productCategory").value;
   
   const imageFile =
-  document.getElementById(
-    "productImage"
-  ).files[0];
+    document.getElementById("productImage").files[0];
   
-const formData =
-  new FormData();
+  const formData =
+    new FormData();
 
-formData.append(
-  "image",
-  imageFile
-);
-alert("Image Upload Started");
+  formData.append(
+    "image",
+    imageFile
+  );
+  
+  alert("Image Upload Started");
   
   const uploadRes =
-  await fetch(
-    API + "/upload-image",
-    {
-      method: "POST",
-      body: formData
-    }
-  );
+    await fetch(
+      API + "/upload-image",
+      {
+        method: "POST",
+        body: formData
+      }
+    );
 
-const uploadData =
-  await uploadRes.json();
+  const uploadData =
+    await uploadRes.json();
+    
   alert("Image Uploaded");
+  
   const productImage =
-  API + uploadData.imageUrl;
+    API + uploadData.imageUrl;
   
   const res = await fetch(
     API + "/add-product",
@@ -169,7 +137,7 @@ const uploadData =
         productImage,
         stock: productStock,
         sellerEmail:
-localStorage.getItem("sellerEmail")
+          localStorage.getItem("sellerEmail")
       })
     }
   );
@@ -182,6 +150,7 @@ localStorage.getItem("sellerEmail")
   loadProducts();
 
 }
+
 
 // Delete Product
 async function deleteProduct(id) {
