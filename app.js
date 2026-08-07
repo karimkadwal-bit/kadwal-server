@@ -2203,7 +2203,13 @@ async function loadCustomerList(){
 
   const chats = await res.json();
 
-  const uniqueCustomers = [...new Set(chats.map(chat => chat.customerName))];
+  const uniqueCustomers = [
+  ...new Set(
+    chats
+      .filter(chat => chat.customerName && chat.customerName !== "Seller")
+      .map(chat => chat.customerName)
+  )
+];
   
 let newHTML = "";
   
