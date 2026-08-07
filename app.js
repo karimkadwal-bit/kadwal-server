@@ -1,7 +1,11 @@
 const API = "https://kadwal-server.onrender.com";
 
 function openCustomerChat(customer){
+
+    alert(customer);
+    
     selectedCustomer = customer;
+    
     loadSellerMessages();
 }
 
