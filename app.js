@@ -1,8 +1,5 @@
 const API = "https://kadwal-server.onrender.com";
 
-let selectedCustomer = "";
-let lastChatCount = 0;
-
 function openCustomerChat(customer){
 
     alert(customer);
