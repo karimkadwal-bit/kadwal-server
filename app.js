@@ -5,6 +5,7 @@ function openCustomerChat(customer){
     alert(customer);
     
     selectedCustomer = customer;
+    lastChatCount = -1;
     
     loadSellerMessages();
 }
