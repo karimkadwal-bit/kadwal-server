@@ -1,5 +1,8 @@
 const API = "https://kadwal-server.onrender.com";
 
+let selectedCustomer = "";
+let lastChatCount = 0;
+
 function openCustomerChat(customer){
 
     alert(customer);
@@ -2118,10 +2121,6 @@ async function loadSellerMessages(){
  if(filteredChats.length === lastChatCount){
     return;
 }
-
-lastChatCount = filteredChats.length;
-
-lastSelectedCustomer = selectedCustomer;
 
 lastChatCount = filteredChats.length;
 
