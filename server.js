@@ -213,6 +213,163 @@ const ChatSchema = new mongoose.Schema({
 });
 
 const Chat = mongoose.model("Chat", ChatSchema);
+
+const ReviewSchema = new mongoose.Schema({
+
+  sellerEmail: {
+    type: String,
+    required: true
+  },
+
+  customerName: {
+    type: String,
+    required: true
+  },
+
+  rating: {
+    type: Number,
+    required: true,
+    min: 1,
+    max: 5
+  },
+
+  comment: {
+    type: String,
+    default: ""
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+
+});
+
+const Review = mongoose.model("Review", ReviewSchema);
+// ===============================
+// CREATE REVIEW
+// ===============================
+
+app.post("/add-review", async (req, res) => {
+
+  try {
+
+    const {
+      sellerEmail,
+      customerName,
+      rating,
+      comment
+    } = req.body;
+
+    if (!sellerEmail || !customerName || !rating) {
+      return res.status(400).send("Missing review information");
+    }
+
+    const review = new Review({
+
+      sellerEmail,
+      customerName,
+      rating: Number(rating),
+      comment: comment || ""
+
+    });
+
+    await review.save();
+
+    res.send("Review Added Successfully");
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send("Failed to add review");
+
+  }
+
+});
+
+
+// ===============================
+// GET SELLER REVIEWS
+// ===============================
+
+app.get("/seller-reviews/:email", async (req, res) => {
+
+  try {
+
+    const reviews = await Review.find({
+
+      sellerEmail: req.params.email
+
+    }).sort({
+      createdAt: -1
+    });
+
+    res.json(reviews);
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
+
+
+// ===============================
+// GET SELLER RATING
+// ===============================
+
+app.get("/seller-rating/:email", async (req, res) => {
+
+  try {
+
+    const reviews = await Review.find({
+
+      sellerEmail: req.params.email
+
+    });
+
+    if (reviews.length === 0) {
+
+      return res.json({
+
+        averageRating: 0,
+        totalReviews: 0
+
+      });
+
+    }
+
+    const total = reviews.reduce(
+      (sum, review) => sum + review.rating,
+      0
+    );
+
+    const averageRating =
+      total / reviews.length;
+
+    res.json({
+
+      averageRating:
+        Number(averageRating.toFixed(1)),
+
+      totalReviews:
+        reviews.length
+
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send("Failed");
+
+  }
+
+});
 // Home
 app.get("/", (req, res) => {
   res.send("Kadwal Marketplace API Running");
