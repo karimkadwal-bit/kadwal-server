@@ -1,13 +1,13 @@
 const API = "https://kadwal-server.onrender.com";
 
-function openCustomerChat(customer){
+function openCustomerChat(customer) {
 
-    alert(customer);
-    
-    selectedCustomer = customer;
-    lastChatCount = -1;
-    
-    loadSellerMessages();
+  selectedCustomer = customer;
+
+  window.lastSellerChatKey = "";
+
+  loadSellerMessages();
+
 }
 
 // Signup
@@ -2110,65 +2110,75 @@ async function loadSellerMessages(){
 
   const chats = await res.json();
 
-    const filteredChats = chats.filter(chat =>
+  const filteredChats = chats.filter(chat =>
     chat.customerName === selectedCustomer
-);
- if(filteredChats.length === lastChatCount){
-    return;
-}
+  );
 
-lastChatCount = filteredChats.length;
-
+  if (!selectedCustomer) {
     document.getElementById("sellerMessages").innerHTML = "";
-
-filteredChats.forEach(chat=>{
-
-  document.getElementById("sellerMessages").innerHTML += `
-
-<div class="chat-card">
-
-<b>${chat.customerName}</b><br>
-
-${chat.message || ""}
-
-${chat.image ? `
-<br>
-<img src="${API + chat.image}"
-style="
-width:150px;
-height:150px;
-object-fit:cover;
-border-radius:10px;
-margin-top:5px;
-">
-` : ""}
-
-${chat.voice ? `
-<br>
-<audio controls>
-<source src="${API + chat.voice}" type="audio/webm">
-</audio>
-` : ""}
-
-<br>
-
-<small>
-
-${new Date(chat.createdAt).toLocaleString()}
-
-${chat.sender === "Seller"
-? (chat.seen ? " ✔✔ Seen" : " ✔ Sent")
-: ""}
-
-</small>
-
-</div>
-
-`;
-
-});
-
+    return;
   }
+
+  const chatKey =
+    selectedCustomer + ":" + filteredChats.length;
+
+  if (chatKey === window.lastSellerChatKey) {
+    return;
+  }
+
+  window.lastSellerChatKey = chatKey;
+
+  const box =
+    document.getElementById("sellerMessages");
+
+  box.innerHTML = "";
+
+  filteredChats.forEach(chat => {
+
+    box.innerHTML += `
+
+      <div class="chat-card">
+
+        <b>${chat.customerName}</b><br>
+
+        ${chat.message || ""}
+
+        ${chat.image ? `
+          <br>
+          <img src="${API + chat.image}"
+          style="
+          width:150px;
+          height:150px;
+          object-fit:cover;
+          border-radius:10px;
+          margin-top:5px;
+          ">
+        ` : ""}
+
+        ${chat.voice ? `
+          <br>
+          <audio controls>
+            <source src="${API + chat.voice}" type="audio/webm">
+          </audio>
+        ` : ""}
+
+        <br>
+
+        <small>
+          ${new Date(chat.createdAt).toLocaleString()}
+
+          ${chat.sender === "Seller"
+            ? (chat.seen ? " ✔✔ Seen" : " ✔ Sent")
+            : ""}
+        </small>
+
+      </div>
+
+    `;
+
+  });
+
+}
 async function checkNewMessages(){
 
   const email = localStorage.getItem("sellerEmail");
