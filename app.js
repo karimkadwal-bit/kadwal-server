@@ -2351,4 +2351,74 @@ async function startSellerRecording() {
   }, 10000);
 
 }
+async function submitSellerReview() {
 
+  const sellerEmail = currentSeller;
+
+  const customerName =
+    localStorage.getItem("customerName");
+
+  const rating =
+    document.getElementById("sellerRating").value;
+
+  const comment =
+    document.getElementById("sellerReview").value.trim();
+
+  if (!sellerEmail) {
+    alert("Seller not selected.");
+    return;
+  }
+
+  if (!customerName) {
+    alert("Please login first.");
+    return;
+  }
+
+  if (!comment) {
+    alert("Please write a review.");
+    return;
+  }
+
+  try {
+
+    const res = await fetch(API + "/add-review", {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+
+        sellerEmail,
+        customerName,
+        rating: Number(rating),
+        comment
+
+      })
+
+    });
+
+    const data = await res.text();
+
+    document.getElementById("reviewMessage").innerText = data;
+
+    if (res.ok) {
+
+      document.getElementById("sellerReview").value = "";
+
+      document.getElementById("sellerRating").value = "5";
+
+    }
+
+  } catch (error) {
+
+    console.log(error);
+
+    document.getElementById("reviewMessage").innerText =
+      "Failed to submit review.";
+
+  }
+
+    }
