@@ -250,6 +250,43 @@ const Review = mongoose.model("Review", ReviewSchema);
 // CREATE REVIEW
 // ===============================
 
+const NotificationSchema = new mongoose.Schema({
+
+  sellerEmail: {
+    type: String,
+    required: true
+  },
+
+  message: {
+    type: String,
+    required: true
+  },
+
+  type: {
+    type: String,
+    default: "Order"
+  },
+
+  orderId: {
+    type: String,
+    default: ""
+  },
+
+  seen: {
+    type: Boolean,
+    default: false
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+
+});
+
+const Notification =
+  mongoose.model("Notification", NotificationSchema);
+
 app.post("/add-review", async (req, res) => {
 
   try {
