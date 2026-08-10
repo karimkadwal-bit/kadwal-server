@@ -1435,6 +1435,7 @@ loadSellerOrders();
       loadSellerAnalytics();
       loadLowStockProducts();
       loadSellerChat();
+      loadSellerReviews();
 
 // setInterval(loadSellerChat, 2000);
 
@@ -2422,3 +2423,98 @@ async function submitSellerReview() {
   }
 
     }
+async function loadSellerReviews() {
+
+  const email =
+    localStorage.getItem("sellerEmail");
+
+  if (!email) return;
+
+  try {
+
+    const res =
+      await fetch(API + "/seller-reviews/" + email);
+
+    const reviews =
+      await res.json();
+
+    const box =
+      document.getElementById("sellerReviews");
+
+    if (!box) return;
+
+    if (!reviews.length) {
+
+      box.innerHTML =
+        "<p>No Reviews Yet</p>";
+
+      document.getElementById(
+        "sellerTotalReviews"
+      ).innerText = "0";
+
+      document.getElementById(
+        "sellerAverageRating"
+      ).innerText = "0";
+
+      return;
+    }
+
+    const total =
+      reviews.reduce(
+        (sum, review) =>
+          sum + Number(review.rating),
+        0
+      );
+
+    const average =
+      (total / reviews.length).toFixed(1);
+
+    document.getElementById(
+      "sellerAverageRating"
+    ).innerText = "⭐ " + average;
+
+    document.getElementById(
+      "sellerTotalReviews"
+    ).innerText =
+      reviews.length;
+
+    box.innerHTML = "";
+
+    reviews.forEach(review => {
+
+      box.innerHTML += `
+
+        <div class="review-card">
+
+          <b>${review.customerName}</b>
+
+          <p>
+            ${"⭐".repeat(Number(review.rating))}
+          </p>
+
+          <p>
+            ${review.comment || ""}
+          </p>
+
+          <small>
+            ${new Date(
+              review.createdAt
+            ).toLocaleString()}
+          </small>
+
+        </div>
+
+      `;
+
+    });
+
+  } catch (error) {
+
+    console.log(
+      "Reviews Error:",
+      error
+    );
+
+  }
+
+      }
