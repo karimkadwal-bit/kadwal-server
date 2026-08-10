@@ -342,6 +342,35 @@ placeholder="Write Message">
 Send
 </button>
 
+  <hr>
+
+<h3>⭐ Rate This Seller</h3>
+
+<select id="sellerRating">
+  <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+  <option value="4">⭐⭐⭐⭐ Very Good</option>
+  <option value="3">⭐⭐⭐ Good</option>
+  <option value="2">⭐⭐ Poor</option>
+  <option value="1">⭐ Very Poor</option>
+</select>
+
+<br><br>
+
+<textarea
+  id="sellerReview"
+  placeholder="Write your review..."
+  rows="4"
+  style="width:100%; max-width:500px;">
+</textarea>
+
+<br><br>
+
+<button onclick="submitSellerReview()">
+  ⭐ Submit Review
+</button>
+
+<div id="reviewMessage"></div>
+
 <script src="app.js"></script>
 
 </body>
