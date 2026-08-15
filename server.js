@@ -846,7 +846,7 @@ console.log("ProductId:", item.productId);
       productName: item.productName,
       productPrice: item.productPrice,
       productImage: item.productImage,
-
+sellerEmail: item.sellerEmail,
       customerName,
     customerPhone,
     customerAddress,
@@ -855,6 +855,22 @@ console.log("ProductId:", item.productId);
     });
 
   await order.save();
+  const notification =
+  new Notification({
+
+    sellerEmail: item.sellerEmail,
+
+    message:
+      "New order received from " +
+      customerName,
+
+    type: "Order",
+
+    orderId: order._id.toString()
+
+  });
+
+await notification.save();
 
 }
 
