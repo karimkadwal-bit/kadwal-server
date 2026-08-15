@@ -231,7 +231,8 @@ async function addToCart(product) {
         productId: product._id,
         productName: product.productName,
         productPrice: product.productPrice,
-        productImage: product.productImage
+        productImage: product.productImage,
+        sellerEmail: product.sellerEmail
       })
     }
   );
