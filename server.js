@@ -95,6 +95,7 @@ const CartSchema = new mongoose.Schema({
   productName: String,
   productPrice: String,
   productImage: String,
+  sellerEmail: String,
   
 quantity: {
     type: Number,
@@ -106,6 +107,7 @@ const OrderSchema = new mongoose.Schema({
 productName: String,
 productPrice: String,
 productImage: String,
+  sellerEmail: String,
 
   customerName: String,
 customerPhone: String,
@@ -711,7 +713,8 @@ app.post("/add-to-cart", async (req, res) => {
       productId,
       productName,
       productPrice,
-      productImage
+      productImage,
+      sellerEmail  
     } = req.body;
 
     const existingCartItem =
@@ -734,7 +737,8 @@ if (existingCartItem) {
       productId,
       productName,
       productPrice,
-      productImage
+      productImage,
+      sellerEmail
     });
 
     await cartItem.save();
