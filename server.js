@@ -1832,19 +1832,10 @@ app.get("/seller-notifications/:email", async (req, res) => {
 
   try {
 
-    const orders = await Order.find({
-      sellerEmail: req.params.email
-    });
-
-    const notifications = [];
-
-    orders.forEach(order => {
-
-      notifications.push(
-        "🛒 New Order: " + order.productName
-      );
-
-    });
+    const notifications =
+      await Notification.find({
+        sellerEmail: req.params.email
+      }).sort({ createdAt: -1 });
 
     res.json(notifications);
 
