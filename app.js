@@ -1740,11 +1740,25 @@ async function loadSellerNotifications() {
 
   notifications.forEach(n => {
 
-    box.innerHTML += `
-      <p>${n}</p>
-    `;
+  box.innerHTML += `
 
-  });
+    <div class="notification-card">
+
+      <p>
+        🔔 ${n.message || ""}
+      </p>
+
+      <small>
+        ${n.createdAt
+          ? new Date(n.createdAt).toLocaleString()
+          : ""}
+      </small>
+
+    </div>
+
+  `;
+
+});
 
 }
 async function loadSellerWallet() {
