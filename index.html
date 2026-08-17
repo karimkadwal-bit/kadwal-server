@@ -283,9 +283,20 @@ placeholder="Address">
 id="customerCity"
 placeholder="City">
 
-<button disabled>
-💳 Coming Soon
+<h3>💳 Payment Method</h3>
+
+<select id="paymentMethod">
+  <option value="cash">💵 Cash on Delivery</option>
+  <option value="online">💳 Online Payment</option>
+</select>
+
+<br><br>
+
+<button onclick="startPayment()">
+  💳 Continue Payment
 </button>
+
+<div id="paymentMessage"></div>
 
 <hr>
 
