@@ -2533,3 +2533,44 @@ async function loadSellerReviews() {
   }
 
       }
+async function startPayment() {
+
+  const method =
+    document.getElementById("paymentMethod").value;
+
+  const customerName =
+    document.getElementById("customerName").value.trim();
+
+  const customerPhone =
+    document.getElementById("customerPhone").value.trim();
+
+  const customerAddress =
+    document.getElementById("customerAddress").value.trim();
+
+  const customerCity =
+    document.getElementById("customerCity").value.trim();
+
+  if (!customerName ||
+      !customerPhone ||
+      !customerAddress ||
+      !customerCity) {
+
+    alert("Please complete all checkout information.");
+    return;
+  }
+
+  if (method === "cash") {
+
+    await checkout();
+
+    return;
+  }
+
+  if (method === "online") {
+
+    await payWithStripe();
+
+    return;
+  }
+
+}
