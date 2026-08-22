@@ -1,3 +1,5 @@
+
+
 *{
 margin:0;
 padding:0;
@@ -301,3 +303,39 @@ margin:8px 0;
 text-align:left;
 max-width:80%;
   }
+body, .container, .card {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+    font-family: system-ui, sans-serif !important;
+}
+
+input, select, textarea {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    border: 1px solid #475569 !important;
+    border-radius: 10px !important;
+    padding: 10px 14px !important;
+    margin-bottom: 12px !important;
+}
+
+button {
+    background: linear-gradient(to bottom, #3b82f6, #2563eb) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    padding: 12px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+button:hover {
+    background: #1d4ed8 !important;
+    transform: scale(1.02) !important;
+}
+
+hr {
+    border-top: 1px solid #334155 !important;
+    margin: 25px 0 !important;
+}
+
